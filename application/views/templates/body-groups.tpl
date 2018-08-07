@@ -44,10 +44,10 @@
 									<td>{$group.name_group}</td>
 									<td>{$group.menbers_quant}</td>
 									<td>
-										<a tabindex="0" class="btn btn-default apopover" ole="button"
+										<a tabindex="0" class="btn btn-default apopover" role="button"
 										data-toggle="popover" data-trigger="focus" data-placement="top"
 										title="{$group.msg_subject}"
-										data-content="Recebido: {$group.datetime} Enviado: {$group.sent_datetime} '{$group.msg_title}'">
+										data-html="true">
 											{$group.status}
 										</a>
 									</td>
