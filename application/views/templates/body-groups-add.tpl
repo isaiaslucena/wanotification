@@ -9,7 +9,7 @@
 					<div class="form-group">
 						<div id="formname" class="input-group">
 							<div class="input-group-addon"><span class="fa fa-group"></span></div>
-							<input class="form-control" type="text" id="name" name="name" placeholder="Nome" autocomplete="off"/>
+							<input class="form-control" type="text" id="name" name="name" placeholder="Nome do grupo" maxlength="25" autocomplete="off"/>
 						</div>
 						<span id="nameerr" class="help-block hidden text-center"></span>
 					</div>
@@ -18,7 +18,7 @@
 							<div class="panel-heading">
 								<div class="input-group">
 									<div class="input-group-addon"><span class="fa fa-user-plus"></span></div>
-									<input class="form-control  search-input" type="text" id="search" name="search" placeholder="&#xf002;" autocomplete="off"/>
+									<input class="form-control  search-input" type="text" id="search" name="search" placeholder="&#xf002; Pesquisar usuário" autocomplete="off"/>
 								</div>
 							</div>
 							<ul class="list-group" style="height: 300px; overflow-y: auto; overflow-x: hidden">
@@ -33,7 +33,10 @@
 					</div>
 					<span id="responsemsg" class="help-block hidden text-center"></span>
 					<div class="form-group">
-						<button id="formbtnsub" disabled class="btn btn-coke btn-block disabled" type="submit"><i class="fa fa-plus-circle"></i> Adicionar</button>
+						<button id="nextbtnsub" disabled class="btn btn-coke btn-block disabled" type="submit"><i class="fa fa-arrow-circle-right"></i> Próximo</button>
+					</div>
+					<div class="form-group">
+						<button id="formbtnsub" disabled class="btn btn-coke btn-block disabled" type="submit" style="display: none"><i class="fa fa-plus-circle"></i> Adicionar</button>
 					</div>
 					<div class="form-group">
 						<a href="/groups" class="btn btn-coke btn-block"><i class="fa fa-arrow-circle-left"></i> Voltar</a>
@@ -68,8 +71,8 @@
 				contacts.splice(contacts.indexOf(selectedid),1);
 			}
 			if (contacts.length >= 1) {
-				$('#formbtnsub').removeAttr('disabled');
-				$('#formbtnsub').removeClass('disabled');
+				$('#nextbtnsub').removeAttr('disabled');
+				$('#nextbtnsub').removeClass('disabled');
 			}
 		});
 
@@ -92,6 +95,10 @@
 				$('#formbtnsub').attr('disabled', false);
 				namesuccess = 1;
 			}
+		});
+
+		$('#nextbtnsub').click(function(event) {
+			console.log('teste');
 		});
 
 		$('#formbtnsub').click(function(evtbtn) {

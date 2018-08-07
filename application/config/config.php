@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 // $config['base_url'] = '';
 
-$allowed_domains = array('wan.intranet.dataclip','wan.dataclip.com.br:8000','172.17.0.10');
+$allowed_domains = array('wan.intranet.dataclip', 'wan.dataclip.com.br:8000');
 $default_domain  = 'wan.intranet.dataclip';
 
 if (in_array($_SERVER['HTTP_HOST'], $allowed_domains, TRUE)) {
@@ -50,7 +50,7 @@ if ( ! empty($_SERVER['HTTPS'])) {
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------

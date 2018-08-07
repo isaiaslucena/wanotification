@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-06-07 11:09:22
+/* Smarty version 3.1.30, created on 2018-08-07 12:16:29
   from "/app/application/views/templates/body-groups-add.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5938091245b0c5_83552664',
+  'unifunc' => 'content_5b69b7cd306ab9_55025517',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4a97dd33e0fb856b41abc5500dd258f7640247f4' => 
     array (
       0 => '/app/application/views/templates/body-groups-add.tpl',
-      1 => 1496844559,
+      1 => 1533654986,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5938091245b0c5_83552664 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b69b7cd306ab9_55025517 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_34041635459380912453fe8_68485228', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_4286276775b69b7cd2fd4f3_89686619', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_34041635459380912453fe8_68485228 extends Smarty_Internal_Block
+class Block_4286276775b69b7cd2fd4f3_89686619 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -49,7 +49,7 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 					<div class="form-group">
 						<div id="formname" class="input-group">
 							<div class="input-group-addon"><span class="fa fa-group"></span></div>
-							<input class="form-control" type="text" id="name" name="name" placeholder="Nome" autocomplete="off"/>
+							<input class="form-control" type="text" id="name" name="name" placeholder="Nome do grupo" maxlength="25" autocomplete="off"/>
 						</div>
 						<span id="nameerr" class="help-block hidden text-center"></span>
 					</div>
@@ -58,7 +58,7 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 							<div class="panel-heading">
 								<div class="input-group">
 									<div class="input-group-addon"><span class="fa fa-user-plus"></span></div>
-									<input class="form-control  search-input" type="text" id="search" name="search" placeholder="&#xf002;" autocomplete="off"/>
+									<input class="form-control  search-input" type="text" id="search" name="search" placeholder="&#xf002; Pesquisar usuário" autocomplete="off"/>
 								</div>
 							</div>
 							<ul class="list-group" style="height: 300px; overflow-y: auto; overflow-x: hidden">
@@ -85,7 +85,10 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 					</div>
 					<span id="responsemsg" class="help-block hidden text-center"></span>
 					<div class="form-group">
-						<button id="formbtnsub" disabled class="btn btn-coke btn-block disabled" type="submit"><i class="fa fa-plus-circle"></i> Adicionar</button>
+						<button id="nextbtnsub" disabled class="btn btn-coke btn-block disabled" type="submit"><i class="fa fa-arrow-circle-right"></i> Próximo</button>
+					</div>
+					<div class="form-group">
+						<button id="formbtnsub" disabled class="btn btn-coke btn-block disabled" type="submit" style="display: none"><i class="fa fa-plus-circle"></i> Adicionar</button>
 					</div>
 					<div class="form-group">
 						<a href="/groups" class="btn btn-coke btn-block"><i class="fa fa-arrow-circle-left"></i> Voltar</a>
@@ -121,8 +124,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 				contacts.splice(contacts.indexOf(selectedid),1);
 			}
 			if (contacts.length >= 1) {
-				$('#formbtnsub').removeAttr('disabled');
-				$('#formbtnsub').removeClass('disabled');
+				$('#nextbtnsub').removeAttr('disabled');
+				$('#nextbtnsub').removeClass('disabled');
 			}
 		});
 
@@ -145,6 +148,10 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 				$('#formbtnsub').attr('disabled', false);
 				namesuccess = 1;
 			}
+		});
+
+		$('#nextbtnsub').click(function(event) {
+			console.log('teste');
 		});
 
 		$('#formbtnsub').click(function(evtbtn) {

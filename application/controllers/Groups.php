@@ -12,7 +12,7 @@ class Groups extends CI_Controller {
 			$this->session->set_userdata($sessiondata);
 			$data['title'] = "Grupos";
 			$this->load->model('groups_model');
-			$data['groups'] = $this->groups_model->groups();
+			$data['groups'] = $this->groups_model->groups_lastmsg();
 			$this->smarty->view('body-groups.tpl',$data);
 		} else {
 			redirect('/login','refresh');

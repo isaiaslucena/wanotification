@@ -18,7 +18,7 @@ class Home extends CI_Controller {
 				$this->smarty->view('foot-home.tpl',$data);
 			// }
 		} else {
-			redirect('/login','refresh');
+			redirect('login','refresh');
 		}
 	}
 }

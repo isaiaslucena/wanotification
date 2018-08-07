@@ -42,6 +42,6 @@ class Login extends CI_Controller {
 		);
 		$this->session->unset_userdata($sessiondata);
 		$this->session->sess_destroy();
-		redirect('/login','refresh');
+		redirect('login','refresh');
 	}
 }

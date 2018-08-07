@@ -13,45 +13,70 @@
 					<a href="/home" id="bthome" class="btn btn-coke pull-left"><i class="fa fa-arrow-circle-left"></i> Voltar</a>
 					<div class="col-xs-4 col-md-8">
 						<div class="form-group">
-							<input class="form-control search-input" type="text" id="search" name="search" placeholder="&#xf002;" autocomplete="off"/>
+							<input class="form-control search-input" type="text" id="search" name="search" placeholder="&#xf002; Digite para pesquisar" autocomplete="off"/>
 						</div>
 					</div>
 					<a href="/groups/add" id="btnadd" class="btn btn-coke pull-right"><i class="fa fa-plus-circle"></i> Adicionar</a>
 				</div>
  			</div>
 			<div class="row">
-				<div class="col-xs-12 col-md-6 col-center" style="height: 400px; overflow-y: auto; overflow-x: hidden">
-					<div id="list" class="list-group">
+				<div class="col-xs-12 col-md-6 col-center" style="max-height: 400px; overflow-y: auto; overflow-x: hidden">
+					{* <div id="list" class="list-group">
 						{foreach from=$groups item=group}
-							<button id="{$group.id_group}" type="button" class="list-group-item">
+							<button id="{$group.id_group}" type="button" class="list-group-item" data-toggle="tooltip" data-placement="top" title="ID: {$group.id_group}">
 								{$group.name}
 							</button>
 						{/foreach}
-					</div>
+					</div> *}
+					<table id="list" class="table table-bordered table-condensed table-hover table-responsive">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Nome</th>
+								<th>Membros</th>
+								<th>Última mensagem</th>
+							</tr>
+						</thead>
+						<tbody>
+							{foreach from=$groups item=group}
+								<tr data-idgroup="{$group.id_group}" data-namegroup="{$group.name_group}" style="cursor: pointer;">
+									<th scope="row">{$group.id_group}</th>
+									<td>{$group.name_group}</td>
+									<td>{$group.menbers_quant}</td>
+									<td>
+										<a tabindex="0" class="btn btn-default apopover" ole="button"
+										data-toggle="popover" data-trigger="focus" data-placement="top"
+										title="{$group.msg_subject}"
+										data-content="Recebido: {$group.datetime} Enviado: {$group.sent_datetime} '{$group.msg_title}'">
+											{$group.status}
+										</a>
+									</td>
+								</tr>
+							{/foreach}
+						</tbody>
+					</table>
 					<div id="contact" class="panel panel-default" style="display: none;">
-					<div class="panel-body">
-					<div class="media">
-						<div class="media-left media-heading">
-							<a>
-								<img id="mediai" class="media-object" style="width: 50px" src="/asset/img/fa-users.png" alt="...">
-							</a>
-						</div>
-						<div class="media-body">
-							<h4 id="mediah" class="media-heading">
-								<input class="form-control-textonly hide" disabled id="idgroup" name="idgroup"></input>
-								<input class="form-control-textonly" disabled id="mname" name="mname"></input>
-							</h4>
-							<div id="listgroup" class="list-group">
+						<div class="panel-body">
+							<div class="media">
+								<div class="media-left media-heading">
+									<a><img id="mediai" class="media-object" style="width: 50px" src="/asset/img/fa-users.png" alt="..."></a>
+								</div>
+								<div class="media-body">
+									<h2 id="mediah" class="media-heading">
+										<input class="form-control-textonly hide" disabled id="idgroup" name="idgroup"></input>
+										<input class="form-control-textonly" disabled id="mname" name="mname" maxlength="25"></input>
+									</h2>
+									<div id="listgroup" class="list-group">
+									</div>
+									<span id="delmsg" class="text-muted help-block" style="display: none">Marque o usuário que deseja excluir do grupo.</span>
+									<button id="btndel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Apagar"><span class="fa fa-trash"></span></button>
+									<button id="btnaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar membro" style="display: none;"><span class="fa fa-plus-circle"></span></button>
+									<button id="btnedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar"><span class="fa fa-pencil"></span></button>
+									<button id="btncheck" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" title="Confirmar alterações" style="display: none;"><span class="fa fa-check-circle"></span></button>
+									<button id="btnback" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Voltar"><span class="fa fa-chevron-circle-left"></span></button>
+								</div>
 							</div>
-							<span id="delmsg" class="text-muted help-block" style="display: none">Marque o usuário que deseja excluir do grupo.</span>
-							<button id="btndel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Apagar"><span class="fa fa-trash"></span></button>
-							<button id="btnaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar membro" style="display: none;"><span class="fa fa-plus-circle"></span></button>
-							<button id="btnedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar"><span class="fa fa-pencil"></span></button>
-							<button id="btncheck" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" title="Confirmar alterações" style="display: none;"><span class="fa fa-check-circle"></span></button>
-							<button id="btnback" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Voltar"><span class="fa fa-chevron-circle-left"></span></button>
 						</div>
-					</div>
-					</div>
 					</div>
 				</div>
 			</div>
@@ -104,13 +129,27 @@
 		var idsex = [];
 		var contactsadd = [];
 
-		$('#search').on('keyup click input', function () {
+		$('[data-toggle="tooltip"]').tooltip({'container': 'body'});
+
+		$('[data-toggle="popover"]').popover({'container': 'body'})
+
+		// $('#search').on('keyup click input', function () {
+		// 	if (this.value.length > 0) {
+		// 		$('#list').children('.list-group-item').hide().filter(function () {
+		// 			return $(this).text().toLowerCase().indexOf($('#search').val().toLowerCase()) != -1;
+		// 		}).show();
+		// 	} else {
+		// 		$('.list-group-item').show();
+		// 	}
+		// });
+
+		$('#search').on('keyup click input', function() {
 			if (this.value.length > 0) {
-				$('#list').children('.list-group-item').hide().filter(function () {
+				$('#list > tbody').children('tr').hide().filter(function () {
 					return $(this).text().toLowerCase().indexOf($('#search').val().toLowerCase()) != -1;
 				}).show();
 			} else {
-				$('.list-group-item').show();
+				$('#list > tbody tr').show();
 			}
 		});
 
@@ -124,24 +163,54 @@
 			}
 		});
 
-		$('#list').children('button').click(function(event) {
+		$('#list__').children('button').click(function(event) {
 			id = event.target.id;
 			txtname = event.target.innerText;
 			$('#idgroup').val(id);
 			$('#mname').val(txtname);
 			mnamew = ((txtname.length + 1) * 8) + 'px';
 			$('#mname').css('width', mnamew);
+
 			$.get('/groups/group_members/'+id,
 			function(data, textStatus, xhr) {
 				for (var i = 0; i < data.length; i++) {
 					$('#listgroup').append('<li id="li'+data[i].id_contact+'" class="list-group-item"><input id="'+data[i].id_contact+'" style="display: none" type="checkbox"/> '+data[i].name+' '+data[i].surname+'</li>');
-					// $('#listgroup').append('<li class="list-group-item"><i  id="'+data[i].id_contact+'" style="display: none" class="fa fa-minus-circle"></i> '+data[i].name+' '+data[i].surname+'</li>');
 				}
 			});
 			idgroup = $('#idgroup').val();
 			$('#list').hide();
 			$('#contact').fadeIn('fast');
 		});
+
+		$('tbody > tr > td:nth-child(1),'+
+			'tbody > tr > td:nth-child(2),'+
+			'tbody > tr > td:nth-child(3)'
+		).click(function(e) {
+			idgroup = $(this).parent().attr('data-idgroup');
+			namegroup = $(this).parent().attr('data-namegroup');
+
+			$('#idgroup').val(idgroup);
+			$('#mname').val(namegroup);
+			mnamew = ((namegroup.length + 1) * 8) + 'px';
+			$('#mname').css('width', mnamew);
+
+			$.get('/groups/group_members/'+idgroup,
+			function(data, textStatus, xhr) {
+				for (var i = 0; i < data.length; i++) {
+					$('#listgroup').append(
+						'<li id="li'+data[i].id_contact+'" class="list-group-item">'+
+							'<input id="'+data[i].id_contact+'" style="display: none" type="checkbox"/> '+
+							data[i].name+' '+data[i].surname+
+						'</li>'
+					);
+				}
+
+				$('#list').fadeOut('fast', function() {
+					$('#contact').fadeIn('fast', function(e) {
+					});
+				});
+			});
+		})
 
 		$('#btndel').click(function() {
 			$('#delmodal').modal('show');
@@ -280,17 +349,19 @@
 		});
 
 		$('#btnback').click(function() {
-			$('#mname').removeClass('form-control-text');
-			$('#msurname').removeClass('form-control-text');
-			$('#mname').attr('disabled', 'true');
-			$('#msurname').attr('disabled', 'true');
-			$('#mname').addClass('form-control-textonly');
-			$('#msurname').addClass('form-control-textonly');
-			$('#iconedit').removeClass('fa-check-circle');
-			$('#iconedit').addClass('fa-pencil');
-			$('#listgroup').html(null);
-			$('#contact').hide();
-			$('#list').fadeIn('fast');
+			$('#contact').fadeOut('fast', function() {
+				$('#list').fadeIn('fast', function() {
+					$('#mname').removeClass('form-control-text');
+					$('#msurname').removeClass('form-control-text');
+					$('#mname').attr('disabled', 'true');
+					$('#msurname').attr('disabled', 'true');
+					$('#mname').addClass('form-control-textonly');
+					$('#msurname').addClass('form-control-textonly');
+					$('#iconedit').removeClass('fa-check-circle');
+					$('#iconedit').addClass('fa-pencil');
+					$('#listgroup').html(null);
+				});
+			});
 		});
 	});
 </script>

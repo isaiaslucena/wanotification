@@ -33,6 +33,18 @@
 						</a>
 					</div>
 					<div class="col-xs-6 col-md-6">
+						<a href="alerts" class="btn btn-coke btn-full">
+							<span class="fa fa-bell-o fa-2x fa-fw btn-home"></span><br>
+							Alertas
+						</a>
+					</div>
+					<div class="col-xs-6 col-md-6">
+						<a href="queue" class="btn btn-coke btn-full">
+							<span class="fa fa-server fa-2x fa-fw btn-home"></span><br>
+							Fila
+						</a>
+					</div>
+					<div class="col-xs-6 col-md-6">
 						<a href="/login/signout" class="btn btn-coke btn-full">
 							<span class="fa fa-sign-out fa-2x fa-fw btn-home"></span><br>
 							Sair
