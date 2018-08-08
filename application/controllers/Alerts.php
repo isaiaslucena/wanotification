@@ -18,4 +18,15 @@ class Alerts extends CI_Controller {
 			redirect('/login','refresh');
 		}
 	}
+
+	public function get_alerts() {
+		if ($this->session->has_userdata('logged_in')) {
+			$this->load->model('alerts_model');
+			$result = $this->alerts_model->alerts();
+			header('Content-Type: application/json');
+			print json_encode($result);
+		} else {
+			redirect('/login','refresh');
+		}
+	}
 }

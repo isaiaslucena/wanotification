@@ -8,16 +8,6 @@ class Alerts_model extends CI_Model {
 		return $this->db->get('alerts_news')->result_array();
 	}
 
-	public function group_alerts($idgroup) {
-		$sqlquery = 'SELECT
-								anews.id_alert, anews.name, agroups.id_group, agroups.id_empresa,
-								agroups.priority
-								FROM alerts_news anews
-								JOIN alerts_groups agroups ON anews.id_alert = agroups.id_alert
-								WHERE agroups.id_group = $idgroup';
-		return $this->db->query($sqlquery)->result_array();
-	}
-
 	public function add($data) {
 		$insertdata = array (
 			'name' => $data['name']
@@ -70,13 +60,6 @@ class Alerts_model extends CI_Model {
 	public function del($id_group) {
 		$this->db->delete('groups', array('id_group' => $id_group));
 		return true;
-	}
-
-	public function groups() {
-		$this->db->select('id_group, name');
-		$this->db->order_by('name', 'ASC');
-		$query = $this->db->get('groups')->result_array();
-		return $query;
 	}
 
 	public function jidgroup($idgroup) {

@@ -22,7 +22,7 @@
 								<input class="phonei" style="border: hidden; position: relative; display: inline; height: 100%; width: 100%;" type="tel" id="phone02" name="phone02" placeholder="Confirmação do Telefone"/>
 							</div>
 						</div>
-							<span id="phoneerr" class="help-block hidden text-center has-error"></span>
+						<span id="phoneerr" class="help-block hidden text-center has-error"></span>
 						<div class="form-group">
 							<label id="labelbtnpubkey" class="btn btn-coke btn-block" data-toggle="tooltip" title="Carregar chave pública">
 								<i class="fa fa-key"></i> Chave
@@ -31,10 +31,14 @@
 							</label>
 						</div>
 						<div class="form-group">
-							<button id="formbtnsub" disabled class="btn btn-coke btn-block disabled" type="submit"><i class="fa fa-plus-circle"></i> Adicionar</button>
+							<button id="formbtnsub" disabled class="btn btn-coke btn-block disabled" type="submit">
+								<i class="fa fa-plus-circle"></i> Adicionar
+							</button>
 						</div>
 						<div class="form-group">
-							<a href="/contacts" class="btn btn-coke btn-block"><i class="fa fa-arrow-circle-left"></i> Voltar</a>
+							<a href="/contacts" class="btn btn-coke btn-block">
+								<i class="fa fa-arrow-circle-left"></i> Voltar
+							</a>
 						</div>
 						<textarea id="pubkeycontent" class="hidden"></textarea>
 						<textarea id="encrypcontent" class="hidden"></textarea>
