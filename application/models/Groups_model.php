@@ -30,8 +30,17 @@ class Groups_model extends CI_Model {
 					JOIN contacts ct ON gm.id_contact=ct.id_contact
 					JOIN groups gp ON gm.id_group=gp.id_group
 					WHERE gm.id_group = '.$data;
-		$result = $this->db->query($sqlquery)->result_array();
-		return $result;
+		return $this->db->query($sqlquery)->result_array();
+	}
+
+	public function group_alerts($idgroup) {
+		$sqlquery = 'SELECT
+								anews.id_alert, anews.name, agroups.id_group, agroups.id_empresa,
+								agroups.priority
+								FROM alerts_news anews
+								JOIN alerts_groups agroups ON anews.id_alert = agroups.id_alert
+								WHERE agroups.id_group = '.$idgroup;
+		return $this->db->query($sqlquery)->result_array();
 	}
 
 	public function verify($data) {

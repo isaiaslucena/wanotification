@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-07 15:15:31
+/* Smarty version 3.1.30, created on 2018-08-07 18:03:53
   from "/app/application/views/templates/body-groups.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b69e1c33e7260_16917943',
+  'unifunc' => 'content_5b6a093916d011_41343789',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '89d4a8f580f606b598ee2308af0c255159e8d092' => 
     array (
       0 => '/app/application/views/templates/body-groups.tpl',
-      1 => 1533665728,
+      1 => 1533675830,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b69e1c33e7260_16917943 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b6a093916d011_41343789 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_2545483335b69e1c33d5980_58995789', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_7526964625b6a093914fb70_72163820', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_2545483335b69e1c33d5980_58995789 extends Smarty_Internal_Block
+class Block_7526964625b6a093914fb70_72163820 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -91,7 +91,10 @@ foreach ($_from as $_smarty_tpl->tpl_vars['group']->value) {
 										data-toggle="popover" data-trigger="focus" data-placement="top"
 										title="<?php echo $_smarty_tpl->tpl_vars['group']->value['msg_subject'];?>
 "
-										data-html="true">
+										data-html="true" data-content="Enviado: <?php echo $_smarty_tpl->tpl_vars['group']->value['datetime'];?>
+ <br> Recebido: <?php echo $_smarty_tpl->tpl_vars['group']->value['sent_datetime'];?>
+ <br><br> <?php echo $_smarty_tpl->tpl_vars['group']->value['msg_title'];?>
+">
 											<?php echo $_smarty_tpl->tpl_vars['group']->value['status'];?>
 
 										</a>
@@ -116,14 +119,57 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 										<input class="form-control-textonly hide" disabled id="idgroup" name="idgroup"></input>
 										<input class="form-control-textonly" disabled id="mname" name="mname" maxlength="25"></input>
 									</h2>
-									<div id="listgroup" class="list-group">
-									</div>
-									<span id="delmsg" class="text-muted help-block" style="display: none">Marque o usuário que deseja excluir do grupo.</span>
-									<button id="btndel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Apagar"><span class="fa fa-trash"></span></button>
-									<button id="btnaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar membro" style="display: none;"><span class="fa fa-plus-circle"></span></button>
-									<button id="btnedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar"><span class="fa fa-pencil"></span></button>
-									<button id="btncheck" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" title="Confirmar alterações" style="display: none;"><span class="fa fa-check-circle"></span></button>
-									<button id="btnback" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Voltar"><span class="fa fa-chevron-circle-left"></span></button>
+
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<h3 class="panel-title">Membros</h3>
+											</div>
+											<div class="panel-body">
+												<div id="listgroup" class="list-group">
+												</div>
+												<span id="delmsg" class="text-muted help-block" style="display: none">Marque o usuário que deseja excluir do grupo.</span>
+												<button id="btndel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Apagar membros">
+													<span class="fa fa-trash"></span>
+												</button>
+												<button id="btnaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar membro" style="display: none;">
+													<span class="fa fa-plus-circle"></span>
+												</button>
+												<button id="btnedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar membros">
+													<span class="fa fa-pencil"></span>
+												</button>
+												<button id="btncheck" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" title="Confirmar alterações" style="display: none;">
+													<span class="fa fa-check-circle"></span>
+												</button>
+												
+											</div>
+										</div>
+
+
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<h3 class="panel-title">Alertas</h3>
+											</div>
+											<div class="panel-body">
+												<div id="listalert" class="list-group">
+												</div>
+												<span id="delamsg" class="text-muted help-block" style="display: none">Marque o alerta que deseja excluir do grupo.</span>
+												<button id="btnadel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Apagar membros">
+													<span class="fa fa-trash"></span>
+												</button>
+												<button id="btanaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar alerta" style="display: none;">
+													<span class="fa fa-plus-circle"></span>
+												</button>
+												<button id="btnaedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar alerta">
+													<span class="fa fa-pencil"></span>
+												</button>
+												<button id="btnacheck" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" title="Confirmar alterações" style="display: none;">
+													<span class="fa fa-check-circle"></span>
+												</button>
+												
+											</div>
+										</div>
+
+
 								</div>
 							</div>
 						</div>
@@ -255,6 +301,18 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 						'</li>'
 					);
 				}
+			});
+
+			$.get('/groups/group_alerts/'+idgroup,
+			function(data, textStatus, xhr) {
+				$.each(data, function(index, el) {
+					$('#listalert').append(
+						'<li id="lia'+el.id_alert+'" class="list-group-item">'+
+							'<input id="a'+el.id_alert+'" style="display: none" type="checkbox"/> '+
+							el.name +
+						'</li>'
+					);
+				});
 
 				$('#list').fadeOut('fast', function() {
 					$('#contact').fadeIn('fast', function(e) {

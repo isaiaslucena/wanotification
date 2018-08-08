@@ -36,6 +36,18 @@ class Groups extends CI_Controller {
 		}
 	}
 
+	public function group_alerts($idgroup) {
+		if ($this->session->has_userdata('logged_in')) {
+			$this->load->model('groups_model');
+
+			$result = $this->groups_model->group_alerts($idgroup);
+			header('Content-Type: application/json');
+			print json_encode($result);
+		} else {
+			redirect('/login','refresh');
+		}
+	}
+
 	public function add() {
 		if ($this->session->has_userdata('logged_in')) {
 			$id_user = $this->session->userdata('id_user');
