@@ -101,15 +101,22 @@
 								<div class="form-group">
 									<div class="input-group">
 										<div class="btn-group">
-										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										Action <span class="caret"></span>
-										</button>
-										<ul class="dropdown-menu">
-										<li><a href="#">Action</a></li>
-										<li><a href="#">Another action</a></li>
-										<li><a href="#">Something else here</a></li>
-										<li role="separator" class="divider"></li>
-										<li><a href="#">Separated link</a></li>
+											<button id="ddownnumber" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												Selecione um número de origem <span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu">
+												{foreach from=$numbers item=number}
+													<li>
+														<a href="#" data-idnumber="{$number.id_number}" data-nnumber="{$number.number}" class="tagnumber">
+															{$number.name} - {$number.number}
+														</a>
+													</li>
+												{/foreach}
+												{* <li><a href="#">Action</a></li>
+												<li><a href="#">Another action</a></li>
+												<li><a href="#">Something else here</a></li>
+												<li role="separator" class="divider"></li>
+												<li><a href="#">Separated link</a></li> *}
 										</ul>
 										</div>
 									</div>
@@ -261,6 +268,21 @@
 					$('#username').focus();
 				});
 			});
+		});
+
+		$('#btnaddalert').click(function(event) {
+			$('#ulalerts').slideUp(400, function(e) {
+				$('#uladdalert').slideDown(400, function(e) {
+					$('#btnadduser').attr('disabled', 'value');
+					$('#username').focus();
+				});
+			});
+		});
+
+		$('.tagnumber').click(function(event) {
+			event.preventDefault();
+			nnumber = $(this).attr('data-nnumber');
+			$('#ddownnumber').text(nnumber);
 		});
 
 		$('#formbtncan').click(function(event) {

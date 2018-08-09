@@ -82,6 +82,7 @@ class Groups extends CI_Controller {
 				$this->load->model('alerts_model');
 				$data['contacts'] = $this->contacts_model->contacts();
 				$data['alerts'] = $this->alerts_model->alerts();
+				$data['numbers'] = $this->alerts_model->alerts_numbers();
 				$this->smarty->view('body-groups-add.tpl',$data);
 			}
 		} else {

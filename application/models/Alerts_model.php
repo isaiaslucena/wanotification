@@ -8,6 +8,12 @@ class Alerts_model extends CI_Model {
 		return $this->db->get('alerts_news')->result_array();
 	}
 
+	public function alerts_numbers() {
+		$this->db->select('*');
+		$this->db->order_by('name', 'ASC');
+		return $this->db->get('alerts_numbers')->result_array();
+	}
+
 	public function add($data) {
 		$insertdata = array (
 			'name' => $data['name']
