@@ -14,6 +14,22 @@ class Alerts_model extends CI_Model {
 		return $this->db->get('alerts_numbers')->result_array();
 	}
 
+	public function get_empresas() {
+		$dbmclipp = $this->load->database('mclipp', TRUE);
+		$sqlquery = 'SELECT Id, Nome FROM Empresa WHERE Status = 1 AND Owner = 2 AND Banner IS NOT NULL ORDER BY Nome ASC';
+		$result = $dbmclipp->query($sqlquery)->result_array();
+		$dbmclipp->close();
+		return $result;
+	}
+
+	public function get_keywords() {
+		$dbmclipp = $this->load->database('mclipp', TRUE);
+		$sqlquery = 'SELECT Id, Nome FROM PalavraChave WHERE Ativo = 1 ORDER BY Nome ASC';
+		$result = $dbmclipp->query($sqlquery)->result_array();
+		$dbmclipp->close();
+		return $result;
+	}
+
 	public function add($data) {
 		$insertdata = array (
 			'name' => $data['name']

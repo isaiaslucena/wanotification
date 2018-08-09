@@ -59,7 +59,7 @@
 								</div>
 								<div class="form-group">
 									<button id="formbtnsub" disabled class="btn btn-coke btn-block disabled" type="submit">
-										<i class="fa fa-plus-circle"></i> Adicionar
+										<i class="fa fa-plus-check"></i> Adicionar
 									</button>
 								</div>
 								<div class="form-group">
@@ -100,26 +100,78 @@
 								</div>
 								<div class="form-group">
 									<div class="input-group">
-										<div class="btn-group">
-											<button id="ddownnumber" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-												Selecione um número de origem <span class="caret"></span>
-											</button>
-											<ul class="dropdown-menu">
-												{foreach from=$numbers item=number}
-													<li>
-														<a href="#" data-idnumber="{$number.id_number}" data-nnumber="{$number.number}" class="tagnumber">
+										<div class="btn-group" role="group" aria-label="...">
+											<button type="button" class="btn btn-default"><i class="fa fa-phone"></i></button>
+											<div class="btn-group" role="group">
+												<button id="ddownnumber" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													Selecione um número <span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu">
+													{foreach from=$numbers item=number}
+														<li><a href="#" data-idnumber="{$number.id_number}" data-nnumber="{$number.number}" class="tagnumber">
 															{$number.name} - {$number.number}
-														</a>
-													</li>
-												{/foreach}
-												{* <li><a href="#">Action</a></li>
-												<li><a href="#">Another action</a></li>
-												<li><a href="#">Something else here</a></li>
-												<li role="separator" class="divider"></li>
-												<li><a href="#">Separated link</a></li> *}
-										</ul>
+														</a></li>
+													{/foreach}
+												</ul>
+											</div>
 										</div>
 									</div>
+								</div>
+								<div class="form-group">
+									<div class="input-group">
+										<div class="btn-group" role="group" aria-label="...">
+											<button type="button" class="btn btn-default" data-toggle="tooltip" title="Prioridade do alerta"><i class="fa fa-exclamation-circle"></i></button>
+
+											<div class="btn-group" role="group">
+												<button id="ddownpriority" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													5 <span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu">
+													<li><a href="#" class="tagpriority">1</a></li>
+													<li><a href="#" class="tagpriority">2</a></li>
+													<li><a href="#" class="tagpriority">3</a></li>
+													<li><a href="#" class="tagpriority">4</a></li>
+													<li><a href="#" class="tagpriority">5</a></li>
+												</ul>
+											</div>
+										</div>
+										<h6 class="text-muted">Quanto menor o número, maior a prioridade.</h6>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-addon"><span class="fa fa-address-card"></span></div>
+										<select class="form-control">
+											<option class="disabled" disabled selected>Selecione uma empresa</option>
+											{foreach from=$clients item=client}
+												<option data-idclient="{$client.Id}" class="tagclient">{$client.Nome}</option>
+											{/foreach}
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-addon"><span class="fa fa-key"></span></div>
+										<select class="form-control">
+											<option class="disabled" disabled selected>Selecione uma palavra-chave</option>
+											{foreach from=$keywords item=keyword}
+												<option data-idclient="{$keywords.Id}" class="tagkeyword">{$keyword.Nome}</option>
+											{/foreach}
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<button id="formbtnsub" disabled class="btn btn-coke btn-block disabled">
+										<i class="fa fa-check-circle"></i> Criar alerta
+									</button>
+								</div>
+								<div class="form-group">
+									<button role="button" class="btn btn-coke btn-block">
+										<i class="fa fa-times-circle"></i> Cancelar
+									</button>
 								</div>
 							</div>
 						</div>
@@ -132,7 +184,7 @@
 					</div>
 					<div class="form-group">
 						<button id="formbtnsub" disabled class="btn btn-coke btn-block disabled" type="submit" style="display: none">
-							<i class="fa fa-plus-circle"></i> Adicionar
+							<i class="fa fa-check-circle"></i> Adicionar
 						</button>
 					</div>
 					<div class="form-group">
@@ -282,7 +334,13 @@
 		$('.tagnumber').click(function(event) {
 			event.preventDefault();
 			nnumber = $(this).attr('data-nnumber');
-			$('#ddownnumber').text(nnumber);
+			$('#ddownnumber').text(nnumber+' ').append('<span class="caret"></span>');
+		});
+
+		$('.tagpriority').click(function(event) {
+			event.preventDefault();
+			prior = $(this).text();
+			$('#ddownpriority').text(prior+' ').append('<span class="caret"></span>');
 		});
 
 		$('#formbtncan').click(function(event) {

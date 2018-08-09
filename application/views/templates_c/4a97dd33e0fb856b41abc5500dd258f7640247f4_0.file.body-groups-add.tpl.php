@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-08 18:19:41
+/* Smarty version 3.1.30, created on 2018-08-09 13:04:22
   from "/app/application/views/templates/body-groups-add.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b6b5e6d6fe071_07860149',
+  'unifunc' => 'content_5b6c66068f23b0_16561239',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4a97dd33e0fb856b41abc5500dd258f7640247f4' => 
     array (
       0 => '/app/application/views/templates/body-groups-add.tpl',
-      1 => 1533756638,
+      1 => 1533830650,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b6b5e6d6fe071_07860149 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b6c66068f23b0_16561239 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_13017986005b6b5e6d6e99c1_65079229', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_6070522805b6c66068d70f8_89000386', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_13017986005b6b5e6d6e99c1_65079229 extends Smarty_Internal_Block
+class Block_6070522805b6c66068d70f8_89000386 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -111,7 +111,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 								</div>
 								<div class="form-group">
 									<button id="formbtnsub" disabled class="btn btn-coke btn-block disabled" type="submit">
-										<i class="fa fa-plus-circle"></i> Adicionar
+										<i class="fa fa-plus-check"></i> Adicionar
 									</button>
 								</div>
 								<div class="form-group">
@@ -163,35 +163,113 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 								</div>
 								<div class="form-group">
 									<div class="input-group">
-										<div class="btn-group">
-											<button id="ddownnumber" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-												Selecione um número de origem <span class="caret"></span>
-											</button>
-											<ul class="dropdown-menu">
-												<?php
+										<div class="btn-group" role="group" aria-label="...">
+											<button type="button" class="btn btn-default"><i class="fa fa-phone"></i></button>
+											<div class="btn-group" role="group">
+												<button id="ddownnumber" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													Selecione um número <span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu">
+													<?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['numbers']->value, 'number');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['number']->value) {
 ?>
-													<li>
-														<a href="#" data-idnumber="<?php echo $_smarty_tpl->tpl_vars['number']->value['id_number'];?>
+														<li><a href="#" data-idnumber="<?php echo $_smarty_tpl->tpl_vars['number']->value['id_number'];?>
 " data-nnumber="<?php echo $_smarty_tpl->tpl_vars['number']->value['number'];?>
 " class="tagnumber">
 															<?php echo $_smarty_tpl->tpl_vars['number']->value['name'];?>
  - <?php echo $_smarty_tpl->tpl_vars['number']->value['number'];?>
 
-														</a>
-													</li>
-												<?php
+														</a></li>
+													<?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 ?>
 
-												
-										</ul>
+												</ul>
+											</div>
 										</div>
 									</div>
+								</div>
+								<div class="form-group">
+									<div class="input-group">
+										<div class="btn-group" role="group" aria-label="...">
+											<button type="button" class="btn btn-default" data-toggle="tooltip" title="Prioridade do alerta"><i class="fa fa-exclamation-circle"></i></button>
+
+											<div class="btn-group" role="group">
+												<button id="ddownpriority" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													5 <span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu">
+													<li><a href="#" class="tagpriority">1</a></li>
+													<li><a href="#" class="tagpriority">2</a></li>
+													<li><a href="#" class="tagpriority">3</a></li>
+													<li><a href="#" class="tagpriority">4</a></li>
+													<li><a href="#" class="tagpriority">5</a></li>
+												</ul>
+											</div>
+										</div>
+										<h6 class="text-muted">Quanto menor o número, maior a prioridade.</h6>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-addon"><span class="fa fa-address-card"></span></div>
+										<select class="form-control">
+											<option class="disabled" disabled selected>Selecione uma empresa</option>
+											<?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['clients']->value, 'client');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['client']->value) {
+?>
+												<option data-idclient="<?php echo $_smarty_tpl->tpl_vars['client']->value['Id'];?>
+" class="tagclient"><?php echo $_smarty_tpl->tpl_vars['client']->value['Nome'];?>
+</option>
+											<?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
+?>
+
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-addon"><span class="fa fa-key"></span></div>
+										<select class="form-control">
+											<option class="disabled" disabled selected>Selecione uma palavra-chave</option>
+											<?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['keywords']->value, 'keyword');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['keyword']->value) {
+?>
+												<option data-idclient="<?php echo $_smarty_tpl->tpl_vars['keywords']->value['Id'];?>
+" class="tagkeyword"><?php echo $_smarty_tpl->tpl_vars['keyword']->value['Nome'];?>
+</option>
+											<?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
+?>
+
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<button id="formbtnsub" disabled class="btn btn-coke btn-block disabled">
+										<i class="fa fa-check-circle"></i> Criar alerta
+									</button>
+								</div>
+								<div class="form-group">
+									<button role="button" class="btn btn-coke btn-block">
+										<i class="fa fa-times-circle"></i> Cancelar
+									</button>
 								</div>
 							</div>
 						</div>
@@ -204,7 +282,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 					</div>
 					<div class="form-group">
 						<button id="formbtnsub" disabled class="btn btn-coke btn-block disabled" type="submit" style="display: none">
-							<i class="fa fa-plus-circle"></i> Adicionar
+							<i class="fa fa-check-circle"></i> Adicionar
 						</button>
 					</div>
 					<div class="form-group">
@@ -355,7 +433,13 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 		$('.tagnumber').click(function(event) {
 			event.preventDefault();
 			nnumber = $(this).attr('data-nnumber');
-			$('#ddownnumber').text(nnumber);
+			$('#ddownnumber').text(nnumber+' ').append('<span class="caret"></span>');
+		});
+
+		$('.tagpriority').click(function(event) {
+			event.preventDefault();
+			prior = $(this).text();
+			$('#ddownpriority').text(prior+' ').append('<span class="caret"></span>');
 		});
 
 		$('#formbtncan').click(function(event) {
