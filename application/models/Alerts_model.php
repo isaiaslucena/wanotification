@@ -32,10 +32,10 @@ class Alerts_model extends CI_Model {
 
 	public function get_empresa_keywords($idempresa) {
 		$dbmclipp = $this->load->database('mclipp', TRUE);
-		$sqlquery = 'SELECT pc.Id as IdPChave, pc.Nome as PChave
+		$sqlquery = 'SELECT pc.Id as Id, ListaVeiculos as Idvlista, pc.Nome as Nome
 								FROM Assunto ast
 								JOIN PalavraChave pc ON ast.Id = pc.idAssunto
-								WHERE ast.idEmpresa = '.$idempresa.' AND pc.Ativo = 1 AND pc.TermoAtivo = 1
+								WHERE ast.idEmpresa = '.$idempresa.' AND pc.Ativo = 1
 								ORDER BY pc.Nome ASC';
 		$result = $dbmclipp->query($sqlquery)->result_array();
 		$dbmclipp->close();
@@ -45,6 +45,14 @@ class Alerts_model extends CI_Model {
 	public function get_listav() {
 		$dbmclipp = $this->load->database('mclipp', TRUE);
 		$sqlquery = 'SELECT lvi_id as Id, lvi_nome as Nome FROM VLista ORDER BY lvi_nome ASC';
+		$result = $dbmclipp->query($sqlquery)->result_array();
+		$dbmclipp->close();
+		return $result;
+	}
+
+	public function get_keyword_vlista($idvlista) {
+		$dbmclipp = $this->load->database('mclipp', TRUE);
+		$sqlquery = 'SELECT lvi_id as Id, lvi_nome as Nome FROM VLista WHERE lvi_id = '.$idvlista.' ORDER BY lvi_nome ASC';
 		$result = $dbmclipp->query($sqlquery)->result_array();
 		$dbmclipp->close();
 		return $result;

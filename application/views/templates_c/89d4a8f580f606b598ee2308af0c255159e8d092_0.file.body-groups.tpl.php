@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-07 18:03:53
+/* Smarty version 3.1.30, created on 2018-08-10 15:37:26
   from "/app/application/views/templates/body-groups.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b6a093916d011_41343789',
+  'unifunc' => 'content_5b6ddb664b29f4_90268665',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '89d4a8f580f606b598ee2308af0c255159e8d092' => 
     array (
       0 => '/app/application/views/templates/body-groups.tpl',
-      1 => 1533675830,
+      1 => 1533924932,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b6a093916d011_41343789 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b6ddb664b29f4_90268665 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_7526964625b6a093914fb70_72163820', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_18309721305b6ddb664a1577_10985167', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_7526964625b6a093914fb70_72163820 extends Smarty_Internal_Block
+class Block_18309721305b6ddb664a1577_10985167 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -153,7 +153,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 												<div id="listalert" class="list-group">
 												</div>
 												<span id="delamsg" class="text-muted help-block" style="display: none">Marque o alerta que deseja excluir do grupo.</span>
-												<button id="btnadel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Apagar membros">
+												<button id="btnadel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Apagar alertas">
 													<span class="fa fa-trash"></span>
 												</button>
 												<button id="btanaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar alerta" style="display: none;">
@@ -352,8 +352,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 				for (var i = 0; i < contactsadd.length; i++) {
 					currid = contactsadd[i];
 					fullname = $('#listgroupadd').children('li').children('#'+currid).html();
-					// $('#listgroup').append('<li class="list-group-item"><input id="'+data[i].id_contact+'" style="display: none" type="checkbox"/> '+data[i].name+' '+data[i].surname+'</li>');
-				}	
+				}
 				$.post('/groups/add_member', {
 					id_group: idgroup,
 					id_contacts: contactsadd

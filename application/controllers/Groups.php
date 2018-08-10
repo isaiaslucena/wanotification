@@ -110,6 +110,7 @@ class Groups extends CI_Controller {
 				}
 			} else {
 				$result = "GET method not authorized!";
+				header('Content-Type: application/json');
 				print json_encode($result);
 			}
 		}
@@ -153,9 +154,11 @@ class Groups extends CI_Controller {
 				$editdata['name'] = $this->input->post("name");
 				$editdata['id_contacts'] = $this->input->post("id_contacs");
 				$result = $this->groups_model->edit($editdata);
-				print json_encode($result); 
+				header('Content-Type: application/json');
+				print json_encode($result);
 			} else {
 				$result = "GET method not authorized!";
+				header('Content-Type: application/json');
 				print json_encode($result);
 			}
 		} else {
@@ -175,9 +178,11 @@ class Groups extends CI_Controller {
 			if ($this->input->method(TRUE) == 'POST') {
 				$id_group = $this->input->post("id_group");
 				$result = $this->groups_model->del($id_group);
-				print json_encode($result); 
+				header('Content-Type: application/json');
+				print json_encode($result);
 			} else {
 				$result = "GET method not authorized!";
+				header('Content-Type: application/json');
 				print json_encode($result);
 			}
 		} else {

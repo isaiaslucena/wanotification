@@ -28,8 +28,11 @@
 							<ul id="ulusers" class="list-group" style="height: 300px; overflow-y: auto; overflow-x: hidden">
 								{foreach from=$contacts item=contact}
 								<li class="list-group-item">
-									<input id="user_{$contact.id_contact}" type="checkbox" class="userckbx" aria-label="...">
-									{$contact.name} {$contact.surname}
+									<div class="checkbox">
+										<label>
+											<input id="user_{$contact.id_contact}" type="checkbox" class="userckbx"> {$contact.name} {$contact.surname}
+										</label>
+									</div>
 								</li>
 								{/foreach}
 							</ul>
@@ -58,7 +61,7 @@
 									</label>
 								</div>
 								<div class="form-group">
-									<button id="formbtnsub" disabled class="btn btn-coke btn-block disabled" type="submit">
+									<button id="btncreateuser" disabled class="btn btn-coke btn-block disabled" type="submit">
 										<i class="fa fa-plus-check"></i> Adicionar
 									</button>
 								</div>
@@ -72,11 +75,11 @@
 							</div>
 						</div>
 
-						<div id="panelalerts" class="panel panel-default">
+						<div id="panelalerts" class="panel panel-default" style="display: none">
 							<div class="panel-heading">
 								<div class="input-group">
 									<div class="input-group-btn">
-										<button type="button" class="btn btn-default" data-toggle="tooltip" title="Criar novo alerta">
+										<button id="btnaddalert" type="button" class="btn btn-default" data-toggle="tooltip" title="Criar novo alerta">
 											<i class="fa fa-plus-circle"></i>
 										</button>
 									</div>
@@ -86,12 +89,18 @@
 							<ul id="ulalerts" class="list-group" style="height: 300px; overflow-y: auto; overflow-x: hidden">
 								{foreach from=$alerts item=alert}
 								<li class="list-group-item">
-									<input id="alert_{$alert.id_alert}" type="checkbox" class="alertckbx" aria-label="...">
-									{$alert.name}
+									{* <input id="alert_{$alert.id_alert}" type="checkbox" class="alertckbx" aria-label="...">
+									{$alert.name} *}
+
+									<div class="checkbox">
+										<label>
+											<input id="alert_{$alert.id_alert}" type="checkbox" class="alertckbx" aria-label="..."> {$alert.name}
+										</label>
+									</div>
 								</li>
 								{/foreach}
 							</ul>
-							<div id="uladdalerts" class="panel-body">
+							<div id="uladdalert" class="panel-body" style="display: none">
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-bell"></span></div>
@@ -142,7 +151,7 @@
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-address-card"></span></div>
-										<select class="form-control">
+										<select id="selempresas" class="form-control">
 											<option id="empselected" class="disabled" disabled selected>Selecione um cliente</option>
 											{foreach from=$clients item=client}
 												<option data-idclient="{$client.Id}" class="tagclient">{$client.Nome}</option>
@@ -155,7 +164,7 @@
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-key"></span></div>
 										<select id="selkeywords" class="form-control disabled" disabled>
-											<option id="keywselected" class="disabled" disabled selected>Selecione primeiro um cliente</option>
+											<option class="disabled" disabled selected>Selecione um cliente</option>
 										</select>
 									</div>
 								</div>
@@ -163,15 +172,14 @@
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-bullseye"></span></div>
-										<select class="form-control disabled" disabled>
-											<option id="listavselected" class="disabled" disabled selected>Selecione uma lista de veículos</option>}
-											<option data-idlistav="{$veiculo.Id}" class="taglistav">{$veiculo.Nome}</option>
+										<select id="selvlistas" class="form-control disabled" disabled>
+											<option class="disabled" disabled selected>Selecione uma palavra-chave</option>
 										</select>
 									</div>
 								</div>
 
 								<div class="form-group">
-									<button id="formbtnsub" disabled class="btn btn-coke btn-block disabled">
+									<button id="btncreatealert" disabled class="btn btn-coke btn-block disabled">
 										<i class="fa fa-check-circle"></i> Criar alerta
 									</button>
 								</div>
@@ -209,6 +217,15 @@
 	$(document).ready( function() {
 		var namesuccess = false;
 		var contacts = [];
+		var createfull = {
+			'idalert': null,
+			'priority': null,
+			'idnumber': null,
+			'idgroup': null,
+			'idempresa': null,
+			'idkeyword': null,
+			'idvlista': null
+		};
 
 		$('[data-toggle="tooltip"]').tooltip({'container': 'body'});
 
@@ -280,21 +297,17 @@
 				phonen02 = phonen02c.dialCode+$('#phone02').cleanVal();
 				if (phonen01 == phonen02) {
 					$('#phoneerr').addClass('hidden');
-					// $('#formphone').removeClass('has-error');
-					// $('#formphone').addClass('has-success');
-					// if (file > 0) {
 					if (typeof file !== 'undefined') {
-						$('#formbtnsub').removeClass('disabled');
-						$('#formbtnsub').attr('disabled', false);
+						$('#btncreateuser').removeClass('disabled');
+						$('#btncreateuser').attr('disabled', false);
 					}
 					phonenum = phonen01;
 					phonesuccess = 1;
 				}else {
 					$('#phoneerr').removeClass('hidden');
-					// $('#formphone').addClass('has-error');
 					$('#phoneerr').text('Os números de telefone não conferem!');
-					$('#formbtnsub').addClass('disabled');
-					$('#formbtnsub').attr('disabled', true);
+					$('#btncreateuser').addClass('disabled');
+					$('#btncreateuser').attr('disabled', true);
 					$('#phone01').focus();
 				}
 			}
@@ -323,6 +336,7 @@
 		$('#btnadduser').click(function(event) {
 			$('#ulusers').slideUp(400, function(e) {
 				$('#uladduser').slideDown(400, function(e) {
+					$('#btnadduser').tooltip('hide');
 					$('#btnadduser').attr('disabled', 'value');
 					$('#username').focus();
 				});
@@ -332,36 +346,75 @@
 		$('#btnaddalert').click(function(event) {
 			$('#ulalerts').slideUp(400, function(e) {
 				$('#uladdalert').slideDown(400, function(e) {
-					$('#btnadduser').attr('disabled', 'value');
-					$('#username').focus();
+					$('#btnaddalert').tooltip('hide');
+					$('#btnaddalert').attr('disabled', 'value');
+					$('#alertname').focus();
 				});
 			});
 		});
 
 		$('.tagnumber').click(function(event) {
 			event.preventDefault();
+			idnumber = parseInt($(this).attr('data-idnumber'));
 			nnumber = $(this).attr('data-nnumber');
+			createfull;idnumber = idnumber;
 			$('#ddownnumber').text(nnumber+' ').append('<span class="caret"></span>');
 		});
 
 		$('.tagpriority').click(function(event) {
 			event.preventDefault();
-			prior = $(this).text();
+			prior = parseInt($(this).text());
+			createfull.priority = prior;
 			$('#ddownpriority').text(prior+' ').append('<span class="caret"></span>');
 		});
 
-		$('.tagclient').click(function(event) {
-			event.preventDefault();
-			idclient = $(this).attr('data-idclient');
+		$('#selempresas').change(function(event) {
+			optionSelected = $('option:selected', this);
+			idclient = parseInt($(optionSelected).attr('data-idclient'));
+			createfull.idempresa = idclient;
 
-			// $('#ddownpriority').text(prior+' ').append('<span class="caret"></span>');
-
+			$('#selkeywords').html('<option class="disabled" disabled selected>Carregando...</option>');
 			$.get('/alerts/get_empresa_keywords/'+idclient, function(data) {
-				console.log(data);
+				$('#selkeywords').html('<option class="disabled" disabled selected>Escolha uma palavra-chave</option>');
 				$.each(data, function(index, val) {
-					$('#selkeywords').append('<option data-idkeyword="'+data.Id+'" class="taglistav">'+data.Nome+'</option>')
+					$('#selkeywords').append('<option data-idkeyword="'+val.Id+'" data-idvlista="'+val.Idvlista+'" class="tagkeyword">'+val.Nome+'</option>');
 				});
+				$('#selkeywords').removeAttr('disabled');
+				$('#selkeywords').removeClass('disabled');
 			});
+		});
+
+		$('#selkeywords').change(function(event) {
+			optionSelected = $('option:selected', this);
+			idvlista = parseInt($(optionSelected).attr('data-idvlista'));
+			createfull.idvlista = idvlista
+
+			$('#selvlistas').html('<option class="disabled" disabled selected>Carregando...</option>');
+			if (idvlista === 0) {
+				$('#selvlistas').html('<option data-idvlista="'+idvlista+'" class="taglistav" selected>Todos os veículos</option>');
+				$('#selvlistas').removeAttr('disabled');
+				$('#selvlistas').removeClass('disabled');
+
+				$('#btncreatealert').removeAttr('disabled');
+				$('#btncreatealert').removeClass('disabled');
+			} else {
+				$('#selvlistas').html('<option class="disabled" disabled selected>Carregando...</option>');
+				$.get('/alerts/get_keyword_vlista/'+idvlista, function(data) {
+					$('#selvlistas').html('<option class="disabled" disabled selected>Escolha uma lista de veículos</option>');
+					$.each(data, function(index, val) {
+						$('#selvlistas').append('<option data-idvlista="'+val.Id+'" class="taglistav">'+val.Nome+'</option>');
+					});
+						$('#selvlistas').removeAttr('disabled');
+						$('#selvlistas').removeClass('disabled');
+				});
+			}
+		});
+
+		$('#selvlistas').change(function(event) {
+			$('#btncreatealert').removeAttr('disabled');
+			$('#btncreatealert').removeClass('disabled');
+
+			console.log(createfull);
 		});
 
 		$('.tagclient__').click(function(event) {
@@ -378,6 +431,8 @@
 		$('#formbtncan').click(function(event) {
 			$('#uladduser').slideUp(400, function(e) {
 				$('#ulusers').slideDown(400, function(e) {
+					$('#btnadduser').removeAttr('disabled');
+					$('#btnadduser').removeClass('disabled');
 					$('#searchusers').focus();
 				});
 			});

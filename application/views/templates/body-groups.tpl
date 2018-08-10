@@ -102,7 +102,7 @@
 												<div id="listalert" class="list-group">
 												</div>
 												<span id="delamsg" class="text-muted help-block" style="display: none">Marque o alerta que deseja excluir do grupo.</span>
-												<button id="btnadel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Apagar membros">
+												<button id="btnadel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Apagar alertas">
 													<span class="fa fa-trash"></span>
 												</button>
 												<button id="btanaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar alerta" style="display: none;">
@@ -302,8 +302,7 @@
 				for (var i = 0; i < contactsadd.length; i++) {
 					currid = contactsadd[i];
 					fullname = $('#listgroupadd').children('li').children('#'+currid).html();
-					// $('#listgroup').append('<li class="list-group-item"><input id="'+data[i].id_contact+'" style="display: none" type="checkbox"/> '+data[i].name+' '+data[i].surname+'</li>');
-				}	
+				}
 				$.post('/groups/add_member', {
 					id_group: idgroup,
 					id_contacts: contactsadd

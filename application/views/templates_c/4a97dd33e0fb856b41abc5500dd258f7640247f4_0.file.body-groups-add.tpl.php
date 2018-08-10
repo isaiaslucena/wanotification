@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-09 19:31:39
+/* Smarty version 3.1.30, created on 2018-08-10 15:49:03
   from "/app/application/views/templates/body-groups-add.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b6cc0cb0dbd13_50400427',
+  'unifunc' => 'content_5b6dde1f2d0675_60325256',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4a97dd33e0fb856b41abc5500dd258f7640247f4' => 
     array (
       0 => '/app/application/views/templates/body-groups-add.tpl',
-      1 => 1533853892,
+      1 => 1533926940,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b6cc0cb0dbd13_50400427 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b6dde1f2d0675_60325256 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_10048477625b6cc0cb0c3c28_83208952', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_14168447075b6dde1f2b3481_66083302', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_10048477625b6cc0cb0c3c28_83208952 extends Smarty_Internal_Block
+class Block_14168447075b6dde1f2b3481_66083302 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -72,11 +72,14 @@ if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['contact']->value) {
 ?>
 								<li class="list-group-item">
-									<input id="user_<?php echo $_smarty_tpl->tpl_vars['contact']->value['id_contact'];?>
-" type="checkbox" class="userckbx" aria-label="...">
-									<?php echo $_smarty_tpl->tpl_vars['contact']->value['name'];?>
+									<div class="checkbox">
+										<label>
+											<input id="user_<?php echo $_smarty_tpl->tpl_vars['contact']->value['id_contact'];?>
+" type="checkbox" class="userckbx"> <?php echo $_smarty_tpl->tpl_vars['contact']->value['name'];?>
  <?php echo $_smarty_tpl->tpl_vars['contact']->value['surname'];?>
 
+										</label>
+									</div>
 								</li>
 								<?php
 }
@@ -110,7 +113,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 									</label>
 								</div>
 								<div class="form-group">
-									<button id="formbtnsub" disabled class="btn btn-coke btn-block disabled" type="submit">
+									<button id="btncreateuser" disabled class="btn btn-coke btn-block disabled" type="submit">
 										<i class="fa fa-plus-check"></i> Adicionar
 									</button>
 								</div>
@@ -124,11 +127,11 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 							</div>
 						</div>
 
-						<div id="panelalerts" class="panel panel-default">
+						<div id="panelalerts" class="panel panel-default" style="display: none">
 							<div class="panel-heading">
 								<div class="input-group">
 									<div class="input-group-btn">
-										<button type="button" class="btn btn-default" data-toggle="tooltip" title="Criar novo alerta">
+										<button id="btnaddalert" type="button" class="btn btn-default" data-toggle="tooltip" title="Criar novo alerta">
 											<i class="fa fa-plus-circle"></i>
 										</button>
 									</div>
@@ -142,10 +145,15 @@ if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['alert']->value) {
 ?>
 								<li class="list-group-item">
-									<input id="alert_<?php echo $_smarty_tpl->tpl_vars['alert']->value['id_alert'];?>
-" type="checkbox" class="alertckbx" aria-label="...">
-									<?php echo $_smarty_tpl->tpl_vars['alert']->value['name'];?>
+									
 
+									<div class="checkbox">
+										<label>
+											<input id="alert_<?php echo $_smarty_tpl->tpl_vars['alert']->value['id_alert'];?>
+" type="checkbox" class="alertckbx" aria-label="..."> <?php echo $_smarty_tpl->tpl_vars['alert']->value['name'];?>
+
+										</label>
+									</div>
 								</li>
 								<?php
 }
@@ -154,7 +162,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 ?>
 
 							</ul>
-							<div id="uladdalerts" class="panel-body">
+							<div id="uladdalert" class="panel-body" style="display: none">
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-bell"></span></div>
@@ -218,7 +226,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-address-card"></span></div>
-										<select class="form-control">
+										<select id="selempresas" class="form-control">
 											<option id="empselected" class="disabled" disabled selected>Selecione um cliente</option>
 											<?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['clients']->value, 'client');
@@ -242,7 +250,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-key"></span></div>
 										<select id="selkeywords" class="form-control disabled" disabled>
-											<option id="keywselected" class="disabled" disabled selected>Selecione primeiro um cliente</option>
+											<option class="disabled" disabled selected>Selecione um cliente</option>
 										</select>
 									</div>
 								</div>
@@ -250,17 +258,14 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-bullseye"></span></div>
-										<select class="form-control disabled" disabled>
-											<option id="listavselected" class="disabled" disabled selected>Selecione uma lista de veículos</option>}
-											<option data-idlistav="<?php echo $_smarty_tpl->tpl_vars['veiculo']->value['Id'];?>
-" class="taglistav"><?php echo $_smarty_tpl->tpl_vars['veiculo']->value['Nome'];?>
-</option>
+										<select id="selvlistas" class="form-control disabled" disabled>
+											<option class="disabled" disabled selected>Selecione uma palavra-chave</option>
 										</select>
 									</div>
 								</div>
 
 								<div class="form-group">
-									<button id="formbtnsub" disabled class="btn btn-coke btn-block disabled">
+									<button id="btncreatealert" disabled class="btn btn-coke btn-block disabled">
 										<i class="fa fa-check-circle"></i> Criar alerta
 									</button>
 								</div>
@@ -299,6 +304,15 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 	$(document).ready( function() {
 		var namesuccess = false;
 		var contacts = [];
+		var createfull = {
+			'idalert': null,
+			'priority': null,
+			'idnumber': null,
+			'idgroup': null,
+			'idempresa': null,
+			'idkeyword': null,
+			'idvlista': null
+		};
 
 		$('[data-toggle="tooltip"]').tooltip({'container': 'body'});
 
@@ -370,21 +384,17 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 				phonen02 = phonen02c.dialCode+$('#phone02').cleanVal();
 				if (phonen01 == phonen02) {
 					$('#phoneerr').addClass('hidden');
-					// $('#formphone').removeClass('has-error');
-					// $('#formphone').addClass('has-success');
-					// if (file > 0) {
 					if (typeof file !== 'undefined') {
-						$('#formbtnsub').removeClass('disabled');
-						$('#formbtnsub').attr('disabled', false);
+						$('#btncreateuser').removeClass('disabled');
+						$('#btncreateuser').attr('disabled', false);
 					}
 					phonenum = phonen01;
 					phonesuccess = 1;
 				}else {
 					$('#phoneerr').removeClass('hidden');
-					// $('#formphone').addClass('has-error');
 					$('#phoneerr').text('Os números de telefone não conferem!');
-					$('#formbtnsub').addClass('disabled');
-					$('#formbtnsub').attr('disabled', true);
+					$('#btncreateuser').addClass('disabled');
+					$('#btncreateuser').attr('disabled', true);
 					$('#phone01').focus();
 				}
 			}
@@ -413,6 +423,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 		$('#btnadduser').click(function(event) {
 			$('#ulusers').slideUp(400, function(e) {
 				$('#uladduser').slideDown(400, function(e) {
+					$('#btnadduser').tooltip('hide');
 					$('#btnadduser').attr('disabled', 'value');
 					$('#username').focus();
 				});
@@ -422,36 +433,75 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 		$('#btnaddalert').click(function(event) {
 			$('#ulalerts').slideUp(400, function(e) {
 				$('#uladdalert').slideDown(400, function(e) {
-					$('#btnadduser').attr('disabled', 'value');
-					$('#username').focus();
+					$('#btnaddalert').tooltip('hide');
+					$('#btnaddalert').attr('disabled', 'value');
+					$('#alertname').focus();
 				});
 			});
 		});
 
 		$('.tagnumber').click(function(event) {
 			event.preventDefault();
+			idnumber = parseInt($(this).attr('data-idnumber'));
 			nnumber = $(this).attr('data-nnumber');
+			createfull;idnumber = idnumber;
 			$('#ddownnumber').text(nnumber+' ').append('<span class="caret"></span>');
 		});
 
 		$('.tagpriority').click(function(event) {
 			event.preventDefault();
-			prior = $(this).text();
+			prior = parseInt($(this).text());
+			createfull.priority = prior;
 			$('#ddownpriority').text(prior+' ').append('<span class="caret"></span>');
 		});
 
-		$('.tagclient').click(function(event) {
-			event.preventDefault();
-			idclient = $(this).attr('data-idclient');
+		$('#selempresas').change(function(event) {
+			optionSelected = $('option:selected', this);
+			idclient = parseInt($(optionSelected).attr('data-idclient'));
+			createfull.idempresa = idclient;
 
-			// $('#ddownpriority').text(prior+' ').append('<span class="caret"></span>');
-
+			$('#selkeywords').html('<option class="disabled" disabled selected>Carregando...</option>');
 			$.get('/alerts/get_empresa_keywords/'+idclient, function(data) {
-				console.log(data);
+				$('#selkeywords').html('<option class="disabled" disabled selected>Escolha uma palavra-chave</option>');
 				$.each(data, function(index, val) {
-					$('#selkeywords').append('<option data-idkeyword="'+data.Id+'" class="taglistav">'+data.Nome+'</option>')
+					$('#selkeywords').append('<option data-idkeyword="'+val.Id+'" data-idvlista="'+val.Idvlista+'" class="tagkeyword">'+val.Nome+'</option>');
 				});
+				$('#selkeywords').removeAttr('disabled');
+				$('#selkeywords').removeClass('disabled');
 			});
+		});
+
+		$('#selkeywords').change(function(event) {
+			optionSelected = $('option:selected', this);
+			idvlista = parseInt($(optionSelected).attr('data-idvlista'));
+			createfull.idvlista = idvlista
+
+			$('#selvlistas').html('<option class="disabled" disabled selected>Carregando...</option>');
+			if (idvlista === 0) {
+				$('#selvlistas').html('<option data-idvlista="'+idvlista+'" class="taglistav" selected>Todos os veículos</option>');
+				$('#selvlistas').removeAttr('disabled');
+				$('#selvlistas').removeClass('disabled');
+
+				$('#btncreatealert').removeAttr('disabled');
+				$('#btncreatealert').removeClass('disabled');
+			} else {
+				$('#selvlistas').html('<option class="disabled" disabled selected>Carregando...</option>');
+				$.get('/alerts/get_keyword_vlista/'+idvlista, function(data) {
+					$('#selvlistas').html('<option class="disabled" disabled selected>Escolha uma lista de veículos</option>');
+					$.each(data, function(index, val) {
+						$('#selvlistas').append('<option data-idvlista="'+val.Id+'" class="taglistav">'+val.Nome+'</option>');
+					});
+						$('#selvlistas').removeAttr('disabled');
+						$('#selvlistas').removeClass('disabled');
+				});
+			}
+		});
+
+		$('#selvlistas').change(function(event) {
+			$('#btncreatealert').removeAttr('disabled');
+			$('#btncreatealert').removeClass('disabled');
+
+			console.log(createfull);
 		});
 
 		$('.tagclient__').click(function(event) {
@@ -468,6 +518,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 		$('#formbtncan').click(function(event) {
 			$('#uladduser').slideUp(400, function(e) {
 				$('#ulusers').slideDown(400, function(e) {
+					$('#btnadduser').removeAttr('disabled');
+					$('#btnadduser').removeClass('disabled');
 					$('#searchusers').focus();
 				});
 			});
