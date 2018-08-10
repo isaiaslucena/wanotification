@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-09 13:04:22
+/* Smarty version 3.1.30, created on 2018-08-09 19:31:39
   from "/app/application/views/templates/body-groups-add.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b6c66068f23b0_16561239',
+  'unifunc' => 'content_5b6cc0cb0dbd13_50400427',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4a97dd33e0fb856b41abc5500dd258f7640247f4' => 
     array (
       0 => '/app/application/views/templates/body-groups-add.tpl',
-      1 => 1533830650,
+      1 => 1533853892,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b6c66068f23b0_16561239 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b6cc0cb0dbd13_50400427 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_6070522805b6c66068d70f8_89000386', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_10048477625b6cc0cb0c3c28_83208952', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_6070522805b6c66068d70f8_89000386 extends Smarty_Internal_Block
+class Block_10048477625b6cc0cb0c3c28_83208952 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -219,7 +219,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-address-card"></span></div>
 										<select class="form-control">
-											<option class="disabled" disabled selected>Selecione uma empresa</option>
+											<option id="empselected" class="disabled" disabled selected>Selecione um cliente</option>
 											<?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['clients']->value, 'client');
 if ($_from !== null) {
@@ -241,22 +241,20 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-key"></span></div>
-										<select class="form-control">
-											<option class="disabled" disabled selected>Selecione uma palavra-chave</option>
-											<?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['keywords']->value, 'keyword');
-if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['keyword']->value) {
-?>
-												<option data-idclient="<?php echo $_smarty_tpl->tpl_vars['keywords']->value['Id'];?>
-" class="tagkeyword"><?php echo $_smarty_tpl->tpl_vars['keyword']->value['Nome'];?>
-</option>
-											<?php
-}
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
-?>
+										<select id="selkeywords" class="form-control disabled" disabled>
+											<option id="keywselected" class="disabled" disabled selected>Selecione primeiro um cliente</option>
+										</select>
+									</div>
+								</div>
 
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-addon"><span class="fa fa-bullseye"></span></div>
+										<select class="form-control disabled" disabled>
+											<option id="listavselected" class="disabled" disabled selected>Selecione uma lista de veículos</option>}
+											<option data-idlistav="<?php echo $_smarty_tpl->tpl_vars['veiculo']->value['Id'];?>
+" class="taglistav"><?php echo $_smarty_tpl->tpl_vars['veiculo']->value['Nome'];?>
+</option>
 										</select>
 									</div>
 								</div>
@@ -440,6 +438,31 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 			event.preventDefault();
 			prior = $(this).text();
 			$('#ddownpriority').text(prior+' ').append('<span class="caret"></span>');
+		});
+
+		$('.tagclient').click(function(event) {
+			event.preventDefault();
+			idclient = $(this).attr('data-idclient');
+
+			// $('#ddownpriority').text(prior+' ').append('<span class="caret"></span>');
+
+			$.get('/alerts/get_empresa_keywords/'+idclient, function(data) {
+				console.log(data);
+				$.each(data, function(index, val) {
+					$('#selkeywords').append('<option data-idkeyword="'+data.Id+'" class="taglistav">'+data.Nome+'</option>')
+				});
+			});
+		});
+
+		$('.tagclient__').click(function(event) {
+			event.preventDefault();
+			idclient = $(this).attr('data-idclient');
+
+			$('#ddownpriority').text(prior+' ').append('<span class="caret"></span>');
+
+			$.get('/alerts/get_empresa_keywords/'+idclient, function(data) {
+				/*optional stuff to do after success */
+			});
 		});
 
 		$('#formbtncan').click(function(event) {

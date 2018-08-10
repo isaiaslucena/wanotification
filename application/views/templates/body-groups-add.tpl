@@ -143,7 +143,7 @@
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-address-card"></span></div>
 										<select class="form-control">
-											<option class="disabled" disabled selected>Selecione uma empresa</option>
+											<option id="empselected" class="disabled" disabled selected>Selecione um cliente</option>
 											{foreach from=$clients item=client}
 												<option data-idclient="{$client.Id}" class="tagclient">{$client.Nome}</option>
 											{/foreach}
@@ -154,11 +154,18 @@
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-key"></span></div>
-										<select class="form-control">
-											<option class="disabled" disabled selected>Selecione uma palavra-chave</option>
-											{foreach from=$keywords item=keyword}
-												<option data-idclient="{$keywords.Id}" class="tagkeyword">{$keyword.Nome}</option>
-											{/foreach}
+										<select id="selkeywords" class="form-control disabled" disabled>
+											<option id="keywselected" class="disabled" disabled selected>Selecione primeiro um cliente</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-addon"><span class="fa fa-bullseye"></span></div>
+										<select class="form-control disabled" disabled>
+											<option id="listavselected" class="disabled" disabled selected>Selecione uma lista de veículos</option>}
+											<option data-idlistav="{$veiculo.Id}" class="taglistav">{$veiculo.Nome}</option>
 										</select>
 									</div>
 								</div>
@@ -341,6 +348,31 @@
 			event.preventDefault();
 			prior = $(this).text();
 			$('#ddownpriority').text(prior+' ').append('<span class="caret"></span>');
+		});
+
+		$('.tagclient').click(function(event) {
+			event.preventDefault();
+			idclient = $(this).attr('data-idclient');
+
+			// $('#ddownpriority').text(prior+' ').append('<span class="caret"></span>');
+
+			$.get('/alerts/get_empresa_keywords/'+idclient, function(data) {
+				console.log(data);
+				$.each(data, function(index, val) {
+					$('#selkeywords').append('<option data-idkeyword="'+data.Id+'" class="taglistav">'+data.Nome+'</option>')
+				});
+			});
+		});
+
+		$('.tagclient__').click(function(event) {
+			event.preventDefault();
+			idclient = $(this).attr('data-idclient');
+
+			$('#ddownpriority').text(prior+' ').append('<span class="caret"></span>');
+
+			$.get('/alerts/get_empresa_keywords/'+idclient, function(data) {
+				/*optional stuff to do after success */
+			});
 		});
 
 		$('#formbtncan').click(function(event) {

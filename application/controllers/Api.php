@@ -29,7 +29,6 @@ class Api extends CI_Controller {
 				$stream_out = ssh2_fetch_stream($stream, SSH2_STREAM_STDIO);
 				var_dump(stream_get_contents($stream_out));
 			}
-			
 			header('Content-Type: application/json');
 			print json_encode("Mensagem enviada!",JSON_PRETTY_PRINT);
 		} else {
