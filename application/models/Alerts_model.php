@@ -60,9 +60,11 @@ class Alerts_model extends CI_Model {
 
 	public function add($data) {
 		$insertdata = array (
-			'name' => $data['name']
+			'name' => $data['name'],
+			'created' => strtotime('now')
 		);
-		$this->db->insert('groups',$insertdata);
+		$this->db->insert('alerts_news',$insertdata);
+		return $this->db->insert_id();
 	}
 
 	public function add_member($data) {

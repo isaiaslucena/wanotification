@@ -76,6 +76,7 @@ class Groups extends CI_Controller {
 					$data['responsedata']['message'] = "Grupo cadastrado com sucesso!";
 				}
 				$data['postdata'] = $postdata;
+				header('Content-Type: application/json');
 				print json_encode($data);
 			} else {
 				$this->load->model('contacts_model');

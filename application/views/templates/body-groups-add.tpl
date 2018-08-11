@@ -86,12 +86,10 @@
 									<input id="searchalerts" type="text" class="form-control search-input" aria-label="..." placeholder="&#xf002; Pesquisar alerta" autocomplete="off">
 								</div>
 							</div>
+							{* ALERTS LISTS *}
 							<ul id="ulalerts" class="list-group" style="height: 300px; overflow-y: auto; overflow-x: hidden">
 								{foreach from=$alerts item=alert}
 								<li class="list-group-item">
-									{* <input id="alert_{$alert.id_alert}" type="checkbox" class="alertckbx" aria-label="...">
-									{$alert.name} *}
-
 									<div class="checkbox">
 										<label>
 											<input id="alert_{$alert.id_alert}" type="checkbox" class="alertckbx" aria-label="..."> {$alert.name}
@@ -100,13 +98,16 @@
 								</li>
 								{/foreach}
 							</ul>
+							{* PANEL ADD ALERT *}
 							<div id="uladdalert" class="panel-body" style="display: none">
+								{* INPUT ALERT NAME *}
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-bell"></span></div>
 										<input class="form-control" type="text" id="alertname" placeholder="Nome do alerta" maxlength="25" autocomplete="off"/>
 									</div>
 								</div>
+								{* SELECT NUMBERS *}
 								<div class="form-group">
 									<div class="input-group">
 										<div class="btn-group" role="group" aria-label="...">
@@ -126,6 +127,7 @@
 										</div>
 									</div>
 								</div>
+								{* SELECT PRIORITY *}
 								<div class="form-group">
 									<div class="input-group">
 										<div class="btn-group" role="group" aria-label="...">
@@ -147,7 +149,7 @@
 										<h6 class="text-muted">Quanto menor o número, maior a prioridade.</h6>
 									</div>
 								</div>
-
+								{* SELECT EMPRESA *}
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-address-card"></span></div>
@@ -159,7 +161,7 @@
 										</select>
 									</div>
 								</div>
-
+								{* SELECT KEYWORDS *}
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-key"></span></div>
@@ -168,7 +170,7 @@
 										</select>
 									</div>
 								</div>
-
+								{* SELECT VLISTA *}
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-bullseye"></span></div>
@@ -178,6 +180,7 @@
 									</div>
 								</div>
 
+								{* BTN CREATE ALERT *}
 								<div class="form-group">
 									<button id="btncreatealert" disabled class="btn btn-coke btn-block disabled">
 										<i class="fa fa-check-circle"></i> Criar alerta
@@ -413,8 +416,6 @@
 		$('#selvlistas').change(function(event) {
 			$('#btncreatealert').removeAttr('disabled');
 			$('#btncreatealert').removeClass('disabled');
-
-			console.log(createfull);
 		});
 
 		$('.tagclient__').click(function(event) {

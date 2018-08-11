@@ -93,7 +93,6 @@
 											</div>
 										</div>
 
-
 										<div class="panel panel-default">
 											<div class="panel-heading">
 												<h3 class="panel-title">Alertas</h3>
@@ -105,7 +104,7 @@
 												<button id="btnadel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Apagar alertas">
 													<span class="fa fa-trash"></span>
 												</button>
-												<button id="btanaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar alerta" style="display: none;">
+												<button id="btnaaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar alerta" style="display: none;">
 													<span class="fa fa-plus-circle"></span>
 												</button>
 												<button id="btnaedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar alerta">
@@ -119,8 +118,6 @@
 												</button> *}
 											</div>
 										</div>
-
-
 								</div>
 							</div>
 						</div>
@@ -353,6 +350,19 @@
 		});
 
 		$('#btnaddsm').click(function() {
+			$('#listgroupadd').html(null);
+			$.get('/contacts/listex', {
+				idsex: idsex
+			},
+			function(data, textStatus, xhr) {
+				for (var i = 0; i < data.length; i++) {
+					$('#listgroupadd').append('<li class="list-group-item"><input id="'+data[i].id_contact+'" type="checkbox"/> '+data[i].name+' '+data[i].surname+'</li>');
+				}
+			});
+			$('#addmodal').modal('show');
+		});
+
+		$('#btnaaddsm').click(function() {
 			$('#listgroupadd').html(null);
 			$.get('/contacts/listex', {
 				idsex: idsex

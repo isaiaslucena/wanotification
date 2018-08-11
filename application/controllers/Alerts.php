@@ -51,4 +51,43 @@ class Alerts extends CI_Controller {
 			redirect('/login','refresh');
 		}
 	}
+
+	public function add() {
+		if ($this->session->has_userdata('logged_in')) {
+			$id_user = $this->session->userdata('id_user');
+			$sessiondata = array(
+				'view' => 'alerts_news_add',
+				'last_page' => base_url()
+			);
+			$this->session->set_userdata($sessiondata);
+			$data['title'] = "Alertas - Adicionar";
+			if ($this->input->method(TRUE) == 'POST') {
+				$postdata['name'] = trim($this->input->post("name"));
+				$this->load->model('alerts_model');
+				$data['responsedata']['exist'] = $this->groups_model->verify($postdata);
+				if ($data['responsedata']['exist']) {
+					$data['responsedata']['status'] = "error";
+					$data['responsedata']['message'] = "Alerta já cadastrado!";
+				} else {
+					$data['responsedata']['id_alert'] = $this->alerts_model->add($postdata);
+					$data['responsedata']['status'] = "success";
+					$data['responsedata']['message'] = "Alerta cadastrado com sucesso!";
+				}
+				$data['postdata'] = $postdata;
+				header('Content-Type: application/json');
+				print json_encode($data);
+			} else {
+				$this->load->model('contacts_model');
+				$this->load->model('alerts_model');
+				$data['contacts'] = $this->contacts_model->contacts();
+				$data['alerts'] = $this->alerts_model->alerts();
+				$data['numbers'] = $this->alerts_model->alerts_numbers();
+				// $data['clients'] = $this->alerts_model->get_empresas();
+				// $data['veiculos'] = $this->alerts_model->get_listav();
+				$this->smarty->view('body-alerts-add.tpl',$data);
+			}
+		} else {
+			redirect('/login','refresh');
+		}
+	}
 }

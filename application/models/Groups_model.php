@@ -7,6 +7,7 @@ class Groups_model extends CI_Model {
 			'name' => $data['name']
 		);
 		$this->db->insert('groups',$insertdata);
+		return $this->db->insert_id();
 	}
 
 	public function add_member($data) {
@@ -90,8 +91,6 @@ class Groups_model extends CI_Model {
 								ORDER BY msg1.id_to ASC';
 		return $this->db->query($sqlquery)->result_array();
 	}
-
-
 
 	public function jidgroup($idgroup) {
 		$sqlquery = 'SELECT jid_group FROM groups	WHERE id_group = '.$idgroup;
