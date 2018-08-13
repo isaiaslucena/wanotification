@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-10 15:37:26
+/* Smarty version 3.1.30, created on 2018-08-13 15:40:26
   from "/app/application/views/templates/body-groups.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b6ddb664b29f4_90268665',
+  'unifunc' => 'content_5b71d09a0515f6_89153467',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '89d4a8f580f606b598ee2308af0c255159e8d092' => 
     array (
       0 => '/app/application/views/templates/body-groups.tpl',
-      1 => 1533924932,
+      1 => 1533933570,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b6ddb664b29f4_90268665 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b71d09a0515f6_89153467 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_18309721305b6ddb664a1577_10985167', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_17823053115b71d09a0300b4_99840834', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_18309721305b6ddb664a1577_10985167 extends Smarty_Internal_Block
+class Block_17823053115b71d09a0300b4_99840834 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -144,7 +144,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 											</div>
 										</div>
 
-
 										<div class="panel panel-default">
 											<div class="panel-heading">
 												<h3 class="panel-title">Alertas</h3>
@@ -156,7 +155,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 												<button id="btnadel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Apagar alertas">
 													<span class="fa fa-trash"></span>
 												</button>
-												<button id="btanaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar alerta" style="display: none;">
+												<button id="btnaaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar alerta" style="display: none;">
 													<span class="fa fa-plus-circle"></span>
 												</button>
 												<button id="btnaedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar alerta">
@@ -168,8 +167,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 												
 											</div>
 										</div>
-
-
 								</div>
 							</div>
 						</div>
@@ -403,6 +400,19 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 		});
 
 		$('#btnaddsm').click(function() {
+			$('#listgroupadd').html(null);
+			$.get('/contacts/listex', {
+				idsex: idsex
+			},
+			function(data, textStatus, xhr) {
+				for (var i = 0; i < data.length; i++) {
+					$('#listgroupadd').append('<li class="list-group-item"><input id="'+data[i].id_contact+'" type="checkbox"/> '+data[i].name+' '+data[i].surname+'</li>');
+				}
+			});
+			$('#addmodal').modal('show');
+		});
+
+		$('#btnaaddsm').click(function() {
 			$('#listgroupadd').html(null);
 			$.get('/contacts/listex', {
 				idsex: idsex

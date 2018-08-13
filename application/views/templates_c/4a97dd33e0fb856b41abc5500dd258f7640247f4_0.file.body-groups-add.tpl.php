@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-10 15:49:03
+/* Smarty version 3.1.30, created on 2018-08-13 15:40:43
   from "/app/application/views/templates/body-groups-add.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b6dde1f2d0675_60325256',
+  'unifunc' => 'content_5b71d0ab899256_05451245',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4a97dd33e0fb856b41abc5500dd258f7640247f4' => 
     array (
       0 => '/app/application/views/templates/body-groups-add.tpl',
-      1 => 1533926940,
+      1 => 1533933570,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b6dde1f2d0675_60325256 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b71d0ab899256_05451245 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_14168447075b6dde1f2b3481_66083302', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_3133106565b71d0ab8695f7_75518771', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_14168447075b6dde1f2b3481_66083302 extends Smarty_Internal_Block
+class Block_3133106565b71d0ab8695f7_75518771 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -138,6 +138,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 									<input id="searchalerts" type="text" class="form-control search-input" aria-label="..." placeholder="&#xf002; Pesquisar alerta" autocomplete="off">
 								</div>
 							</div>
+							
 							<ul id="ulalerts" class="list-group" style="height: 300px; overflow-y: auto; overflow-x: hidden">
 								<?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['alerts']->value, 'alert');
@@ -145,8 +146,6 @@ if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['alert']->value) {
 ?>
 								<li class="list-group-item">
-									
-
 									<div class="checkbox">
 										<label>
 											<input id="alert_<?php echo $_smarty_tpl->tpl_vars['alert']->value['id_alert'];?>
@@ -162,13 +161,16 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 ?>
 
 							</ul>
+							
 							<div id="uladdalert" class="panel-body" style="display: none">
+								
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-bell"></span></div>
 										<input class="form-control" type="text" id="alertname" placeholder="Nome do alerta" maxlength="25" autocomplete="off"/>
 									</div>
 								</div>
+								
 								<div class="form-group">
 									<div class="input-group">
 										<div class="btn-group" role="group" aria-label="...">
@@ -201,6 +203,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 										</div>
 									</div>
 								</div>
+								
 								<div class="form-group">
 									<div class="input-group">
 										<div class="btn-group" role="group" aria-label="...">
@@ -222,7 +225,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 										<h6 class="text-muted">Quanto menor o número, maior a prioridade.</h6>
 									</div>
 								</div>
-
+								
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-address-card"></span></div>
@@ -245,7 +248,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 										</select>
 									</div>
 								</div>
-
+								
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-key"></span></div>
@@ -254,7 +257,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 										</select>
 									</div>
 								</div>
-
+								
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><span class="fa fa-bullseye"></span></div>
@@ -264,6 +267,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 									</div>
 								</div>
 
+								
 								<div class="form-group">
 									<button id="btncreatealert" disabled class="btn btn-coke btn-block disabled">
 										<i class="fa fa-check-circle"></i> Criar alerta
@@ -500,8 +504,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 		$('#selvlistas').change(function(event) {
 			$('#btncreatealert').removeAttr('disabled');
 			$('#btncreatealert').removeClass('disabled');
-
-			console.log(createfull);
 		});
 
 		$('.tagclient__').click(function(event) {
