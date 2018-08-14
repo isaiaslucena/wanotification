@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-13 15:40:26
+/* Smarty version 3.1.30, created on 2018-08-13 17:51:48
   from "/app/application/views/templates/body-groups.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b71d09a0515f6_89153467',
+  'unifunc' => 'content_5b71ef648473e5_66347647',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '89d4a8f580f606b598ee2308af0c255159e8d092' => 
     array (
       0 => '/app/application/views/templates/body-groups.tpl',
-      1 => 1533933570,
+      1 => 1534193506,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b71d09a0515f6_89153467 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b71ef648473e5_66347647 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_17823053115b71d09a0300b4_99840834', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_18043041095b71ef64821057_28929052', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_17823053115b71d09a0300b4_99840834 extends Smarty_Internal_Block
+class Block_18043041095b71ef64821057_28929052 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -108,6 +108,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 
 						</tbody>
 					</table>
+
 					<div id="contact" class="panel panel-default" style="display: none;">
 						<div class="panel-body">
 							<div class="media">
@@ -140,7 +141,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 												<button id="btncheck" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" title="Confirmar alterações" style="display: none;">
 													<span class="fa fa-check-circle"></span>
 												</button>
-												
 											</div>
 										</div>
 
@@ -158,15 +158,18 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 												<button id="btnaaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar alerta" style="display: none;">
 													<span class="fa fa-plus-circle"></span>
 												</button>
-												<button id="btnaedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar alerta">
+												<button id="btnaedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar alertas">
 													<span class="fa fa-pencil"></span>
 												</button>
 												<button id="btnacheck" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" title="Confirmar alterações" style="display: none;">
 													<span class="fa fa-check-circle"></span>
 												</button>
-												
 											</div>
 										</div>
+
+										<button id="btnback" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Voltar">
+											<span class="fa fa-chevron-circle-left"></span>
+										</button>
 								</div>
 							</div>
 						</div>
@@ -288,6 +291,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 			mnamew = ((namegroup.length + 1) * 8) + 'px';
 			$('#mname').css('width', mnamew);
 
+			$('#listgroup').html(null);
 			$.get('/groups/group_members/'+idgroup,
 			function(data, textStatus, xhr) {
 				for (var i = 0; i < data.length; i++) {
@@ -300,6 +304,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 				}
 			});
 
+			$('#listalert').html(null);
 			$.get('/groups/group_alerts/'+idgroup,
 			function(data, textStatus, xhr) {
 				$.each(data, function(index, el) {

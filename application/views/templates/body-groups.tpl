@@ -55,6 +55,7 @@
 							{/foreach}
 						</tbody>
 					</table>
+
 					<div id="contact" class="panel panel-default" style="display: none;">
 						<div class="panel-body">
 							<div class="media">
@@ -87,9 +88,6 @@
 												<button id="btncheck" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" title="Confirmar alterações" style="display: none;">
 													<span class="fa fa-check-circle"></span>
 												</button>
-												{* <button id="btnback" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Voltar">
-													<span class="fa fa-chevron-circle-left"></span>
-												</button> *}
 											</div>
 										</div>
 
@@ -107,17 +105,18 @@
 												<button id="btnaaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar alerta" style="display: none;">
 													<span class="fa fa-plus-circle"></span>
 												</button>
-												<button id="btnaedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar alerta">
+												<button id="btnaedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar alertas">
 													<span class="fa fa-pencil"></span>
 												</button>
 												<button id="btnacheck" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" title="Confirmar alterações" style="display: none;">
 													<span class="fa fa-check-circle"></span>
 												</button>
-												{* <button id="btnback" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Voltar">
-													<span class="fa fa-chevron-circle-left"></span>
-												</button> *}
 											</div>
 										</div>
+
+										<button id="btnback" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Voltar">
+											<span class="fa fa-chevron-circle-left"></span>
+										</button>
 								</div>
 							</div>
 						</div>
@@ -238,6 +237,7 @@
 			mnamew = ((namegroup.length + 1) * 8) + 'px';
 			$('#mname').css('width', mnamew);
 
+			$('#listgroup').html(null);
 			$.get('/groups/group_members/'+idgroup,
 			function(data, textStatus, xhr) {
 				for (var i = 0; i < data.length; i++) {
@@ -250,6 +250,7 @@
 				}
 			});
 
+			$('#listalert').html(null);
 			$.get('/groups/group_alerts/'+idgroup,
 			function(data, textStatus, xhr) {
 				$.each(data, function(index, el) {
