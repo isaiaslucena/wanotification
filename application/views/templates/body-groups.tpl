@@ -76,7 +76,7 @@
 												<div id="listgroup" class="list-group">
 												</div>
 												<span id="delmsg" class="text-muted help-block" style="display: none">Marque o usuário que deseja excluir do grupo.</span>
-												<button id="btndel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Apagar membros">
+												<button id="btndel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Remover todos os membros">
 													<span class="fa fa-trash"></span>
 												</button>
 												<button id="btnaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar membro" style="display: none;">
@@ -84,6 +84,9 @@
 												</button>
 												<button id="btnedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar membros">
 													<span class="fa fa-pencil"></span>
+												</button>
+												<button id="btncancel" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="bottom" title="Cancelar">
+													<span class="fa fa-check-circle"></span>
 												</button>
 												<button id="btncheck" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" title="Confirmar alterações" style="display: none;">
 													<span class="fa fa-check-circle"></span>
@@ -105,7 +108,7 @@
 												<button id="btnaaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar alerta" style="display: none;">
 													<span class="fa fa-plus-circle"></span>
 												</button>
-												<button id="btnaedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar alertas">
+												<button id="btnaedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar alertas" style="display: none;">
 													<span class="fa fa-pencil"></span>
 												</button>
 												<button id="btnacheck" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" title="Confirmar alterações" style="display: none;">
@@ -376,6 +379,10 @@
 			$('#addmodal').modal('show');
 		});
 
+		$('#btncancel').click(function(event) {
+			/* Act on the event */
+		});
+
 		$("#btncheck").click(function() {
 			idval = $('#idgroup').val();
 			nameval = $('#mname').val();
@@ -399,15 +406,13 @@
 					console.log(data);
 					for (var i = 0; i < idscontacs.length; i++) {
 						idc = idscontacs[i];
-						// $('#listgroup').children('#li'+idc).slideUp('fast');
-						$('#listgroup').children('#li'+idc).remove();
 						// console.log(idc);
+						$('#listgroup').children('#li'+idc).remove();
 					}
 				});
 			}
-			// $('#listgroup').children('li').children('input').remove();	
+
 			$('#listgroup').children('li').children('input').fadeOut(100);
-			// $('#listgroup').children('li').children('i').fadeOut(100);
 			$('#delmsg').fadeOut(100);
 			$('#'+idval).text(nameval);
 			$('#iconedit').addClass('fa-pencil');

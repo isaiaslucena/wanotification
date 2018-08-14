@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-13 17:51:48
+/* Smarty version 3.1.30, created on 2018-08-14 15:59:22
   from "/app/application/views/templates/body-groups.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b71ef648473e5_66347647',
+  'unifunc' => 'content_5b73268a6dda13_55751037',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '89d4a8f580f606b598ee2308af0c255159e8d092' => 
     array (
       0 => '/app/application/views/templates/body-groups.tpl',
-      1 => 1534193506,
+      1 => 1534273159,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b71ef648473e5_66347647 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b73268a6dda13_55751037 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_18043041095b71ef64821057_28929052', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_16878504855b73268a6cb9d3_35903904', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_18043041095b71ef64821057_28929052 extends Smarty_Internal_Block
+class Block_16878504855b73268a6cb9d3_35903904 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -129,7 +129,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 												<div id="listgroup" class="list-group">
 												</div>
 												<span id="delmsg" class="text-muted help-block" style="display: none">Marque o usuário que deseja excluir do grupo.</span>
-												<button id="btndel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Apagar membros">
+												<button id="btndel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Remover todos os membros">
 													<span class="fa fa-trash"></span>
 												</button>
 												<button id="btnaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar membro" style="display: none;">
@@ -137,6 +137,9 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 												</button>
 												<button id="btnedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar membros">
 													<span class="fa fa-pencil"></span>
+												</button>
+												<button id="btncancel" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="bottom" title="Cancelar">
+													<span class="fa fa-check-circle"></span>
 												</button>
 												<button id="btncheck" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" title="Confirmar alterações" style="display: none;">
 													<span class="fa fa-check-circle"></span>
@@ -430,6 +433,10 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 			$('#addmodal').modal('show');
 		});
 
+		$('#btncancel').click(function(event) {
+			/* Act on the event */
+		});
+
 		$("#btncheck").click(function() {
 			idval = $('#idgroup').val();
 			nameval = $('#mname').val();
@@ -453,15 +460,13 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 					console.log(data);
 					for (var i = 0; i < idscontacs.length; i++) {
 						idc = idscontacs[i];
-						// $('#listgroup').children('#li'+idc).slideUp('fast');
-						$('#listgroup').children('#li'+idc).remove();
 						// console.log(idc);
+						$('#listgroup').children('#li'+idc).remove();
 					}
 				});
 			}
-			// $('#listgroup').children('li').children('input').remove();	
+
 			$('#listgroup').children('li').children('input').fadeOut(100);
-			// $('#listgroup').children('li').children('i').fadeOut(100);
 			$('#delmsg').fadeOut(100);
 			$('#'+idval).text(nameval);
 			$('#iconedit').addClass('fa-pencil');
