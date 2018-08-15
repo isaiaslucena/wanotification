@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-14 15:59:22
+/* Smarty version 3.1.30, created on 2018-08-14 17:02:25
   from "/app/application/views/templates/body-groups.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b73268a6dda13_55751037',
+  'unifunc' => 'content_5b733551ee38e3_50399710',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '89d4a8f580f606b598ee2308af0c255159e8d092' => 
     array (
       0 => '/app/application/views/templates/body-groups.tpl',
-      1 => 1534273159,
+      1 => 1534276938,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b73268a6dda13_55751037 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b733551ee38e3_50399710 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_16878504855b73268a6cb9d3_35903904', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_13656156865b733551ecd614_96783235', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_16878504855b73268a6cb9d3_35903904 extends Smarty_Internal_Block
+class Block_13656156865b733551ecd614_96783235 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -128,21 +128,21 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 											<div class="panel-body">
 												<div id="listgroup" class="list-group">
 												</div>
-												<span id="delmsg" class="text-muted help-block" style="display: none">Marque o usuário que deseja excluir do grupo.</span>
+												<h6 id="delmsg" class="text-muted help-block" style="display: none">Para remover, marque o(s) usuário(s) desejado(s).</h6>
 												<button id="btndel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Remover todos os membros">
-													<span class="fa fa-trash"></span>
+													<i class="fa fa-trash"></i>
 												</button>
 												<button id="btnaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar membro" style="display: none;">
-													<span class="fa fa-plus-circle"></span>
+													<i class="fa fa-plus-circle"></i>
 												</button>
 												<button id="btnedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar membros">
-													<span class="fa fa-pencil"></span>
+													<i class="fa fa-pencil"></i>
 												</button>
-												<button id="btncancel" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="bottom" title="Cancelar">
-													<span class="fa fa-check-circle"></span>
+												<button id="btncancel" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar" style="display: none;">
+													<i class="fa fa-times-circle"></i>
 												</button>
 												<button id="btncheck" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" title="Confirmar alterações" style="display: none;">
-													<span class="fa fa-check-circle"></span>
+													<i class="fa fa-check-circle"></i>
 												</button>
 											</div>
 										</div>
@@ -154,18 +154,21 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 											<div class="panel-body">
 												<div id="listalert" class="list-group">
 												</div>
-												<span id="delamsg" class="text-muted help-block" style="display: none">Marque o alerta que deseja excluir do grupo.</span>
+												<h6 id="delamsg" class="text-muted help-block" style="display: none">Para remover, marque o(s) alerta(s) desejado(s).</h6>
 												<button id="btnadel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Apagar alertas">
-													<span class="fa fa-trash"></span>
+													<i class="fa fa-trash"></i>
 												</button>
 												<button id="btnaaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar alerta" style="display: none;">
-													<span class="fa fa-plus-circle"></span>
+													<i class="fa fa-plus-circle"></i>
+												</button>
+												<button id="btnacancel" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar" style="display: none;">
+													<i class="fa fa-times-circle"></i>
 												</button>
 												<button id="btnaedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar alertas">
-													<span class="fa fa-pencil"></span>
+													<i class="fa fa-pencil"></i>
 												</button>
 												<button id="btnacheck" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" title="Confirmar alterações" style="display: none;">
-													<span class="fa fa-check-circle"></span>
+													<i class="fa fa-check-circle"></i>
 												</button>
 											</div>
 										</div>
@@ -381,6 +384,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 			for (var i = 0; i < totalids; i++) {
 				idsex.push(idsgroup[i].id);
 			}
+
 			$("input[type='checkbox']").click(function(event) {
 				idc = event.target.id;
 				cbchecked = event.currentTarget.attributes[1].ownerElement.checked;
@@ -394,17 +398,18 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 					$('#listgroup').children('li').children('#'+idc).prop('checked', false);
 				}
 			});
+
 			$('#mname').removeClass('form-control-textonly');
 			$('#mname').removeAttr('disabled');
 			$('#mname').addClass('form-control-text');
-			$('#listgroup').children('li').children('input').fadeIn('fast');
-			$('#delmsg').fadeIn('fast');
-			// $('#listgroup').children('li').children('i').fadeIn('fast');
-			$('#btndel').hide();
-			$('#btnedit').hide();
-			$('#btnaddsm').fadeIn('fast');
-			$('#btncheck').fadeIn('fast');
-			$('#mname').focus();
+
+			$('#btndel, #btnedit').fadeOut('fast',function() {
+				$('#listgroup').children('li').children('input').fadeIn('fast');
+				$('#delmsg, #btnaddsm, #btncheck, #btncancel').fadeIn('fast', function() {
+					$('[data-toggle="tooltip"]').tooltip('hide');
+					$('#mname').focus();
+				});
+			});
 		});
 
 		$('#btnaddsm').click(function() {
@@ -434,7 +439,15 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 		});
 
 		$('#btncancel').click(function(event) {
-			/* Act on the event */
+			$('#mname').addClass('form-control-textonly');
+			$('#mname').attr('disabled', true);
+			$('#mname').removeClass('form-control-text');
+
+			$('#delmsg, #btnaddsm, #btncheck, #btncancel').fadeOut('fast', function() {
+				$('#listgroup').children('li').children('input').fadeOut('fast');
+				$('#btndel, #btnedit').fadeIn('fast');
+				$('[data-toggle="tooltip"]').tooltip('hide');
+			});
 		});
 
 		$("#btncheck").click(function() {

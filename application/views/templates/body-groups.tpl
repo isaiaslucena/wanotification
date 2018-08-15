@@ -75,21 +75,21 @@
 											<div class="panel-body">
 												<div id="listgroup" class="list-group">
 												</div>
-												<span id="delmsg" class="text-muted help-block" style="display: none">Marque o usuário que deseja excluir do grupo.</span>
+												<h6 id="delmsg" class="text-muted help-block" style="display: none">Para remover, marque o(s) usuário(s) desejado(s).</h6>
 												<button id="btndel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Remover todos os membros">
-													<span class="fa fa-trash"></span>
+													<i class="fa fa-trash"></i>
 												</button>
 												<button id="btnaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar membro" style="display: none;">
-													<span class="fa fa-plus-circle"></span>
+													<i class="fa fa-plus-circle"></i>
 												</button>
 												<button id="btnedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar membros">
-													<span class="fa fa-pencil"></span>
+													<i class="fa fa-pencil"></i>
 												</button>
-												<button id="btncancel" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="bottom" title="Cancelar">
-													<span class="fa fa-check-circle"></span>
+												<button id="btncancel" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar" style="display: none;">
+													<i class="fa fa-times-circle"></i>
 												</button>
 												<button id="btncheck" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" title="Confirmar alterações" style="display: none;">
-													<span class="fa fa-check-circle"></span>
+													<i class="fa fa-check-circle"></i>
 												</button>
 											</div>
 										</div>
@@ -101,18 +101,21 @@
 											<div class="panel-body">
 												<div id="listalert" class="list-group">
 												</div>
-												<span id="delamsg" class="text-muted help-block" style="display: none">Marque o alerta que deseja excluir do grupo.</span>
+												<h6 id="delamsg" class="text-muted help-block" style="display: none">Para remover, marque o(s) alerta(s) desejado(s).</h6>
 												<button id="btnadel" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Apagar alertas">
-													<span class="fa fa-trash"></span>
+													<i class="fa fa-trash"></i>
 												</button>
 												<button id="btnaaddsm" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Adicionar alerta" style="display: none;">
-													<span class="fa fa-plus-circle"></span>
+													<i class="fa fa-plus-circle"></i>
 												</button>
-												<button id="btnaedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar alertas" style="display: none;">
-													<span class="fa fa-pencil"></span>
+												<button id="btnacancel" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar" style="display: none;">
+													<i class="fa fa-times-circle"></i>
+												</button>
+												<button id="btnaedit" class="btn btn-sm btn-coke" data-toggle="tooltip" data-placement="bottom" title="Editar alertas">
+													<i class="fa fa-pencil"></i>
 												</button>
 												<button id="btnacheck" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" title="Confirmar alterações" style="display: none;">
-													<span class="fa fa-check-circle"></span>
+													<i class="fa fa-check-circle"></i>
 												</button>
 											</div>
 										</div>
@@ -327,6 +330,7 @@
 			for (var i = 0; i < totalids; i++) {
 				idsex.push(idsgroup[i].id);
 			}
+
 			$("input[type='checkbox']").click(function(event) {
 				idc = event.target.id;
 				cbchecked = event.currentTarget.attributes[1].ownerElement.checked;
@@ -340,17 +344,18 @@
 					$('#listgroup').children('li').children('#'+idc).prop('checked', false);
 				}
 			});
+
 			$('#mname').removeClass('form-control-textonly');
 			$('#mname').removeAttr('disabled');
 			$('#mname').addClass('form-control-text');
-			$('#listgroup').children('li').children('input').fadeIn('fast');
-			$('#delmsg').fadeIn('fast');
-			// $('#listgroup').children('li').children('i').fadeIn('fast');
-			$('#btndel').hide();
-			$('#btnedit').hide();
-			$('#btnaddsm').fadeIn('fast');
-			$('#btncheck').fadeIn('fast');
-			$('#mname').focus();
+
+			$('#btndel, #btnedit').fadeOut('fast',function() {
+				$('#listgroup').children('li').children('input').fadeIn('fast');
+				$('#delmsg, #btnaddsm, #btncheck, #btncancel').fadeIn('fast', function() {
+					$('[data-toggle="tooltip"]').tooltip('hide');
+					$('#mname').focus();
+				});
+			});
 		});
 
 		$('#btnaddsm').click(function() {
@@ -380,7 +385,15 @@
 		});
 
 		$('#btncancel').click(function(event) {
-			/* Act on the event */
+			$('#mname').addClass('form-control-textonly');
+			$('#mname').attr('disabled', true);
+			$('#mname').removeClass('form-control-text');
+
+			$('#delmsg, #btnaddsm, #btncheck, #btncancel').fadeOut('fast', function() {
+				$('#listgroup').children('li').children('input').fadeOut('fast');
+				$('#btndel, #btnedit').fadeIn('fast');
+				$('[data-toggle="tooltip"]').tooltip('hide');
+			});
 		});
 
 		$("#btncheck").click(function() {
