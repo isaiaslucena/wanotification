@@ -219,7 +219,7 @@
 <script type="text/javascript">
 	$(document).ready( function() {
 		var namesuccess = false;
-		var contacts = [];
+		var contacts = [], alerts = [];
 		var createfull = {
 			'idalert': null,
 			'priority': null,
@@ -478,13 +478,13 @@
 			selectedid = selectedid.replace('alert_', '');
 			cbchecked = event.currentTarget.attributes[1].ownerElement.checked;
 			if (cbchecked) {
-				contacts.push(selectedid);
+				alerts.push(selectedid);
 			} else {
-				contacts.splice(contacts.indexOf(selectedid),1);
+				alerts.splice(alerts.indexOf(selectedid),1);
 			}
-			if (contacts.length >= 1 || namesuccess) {
-				$('#nextbtnsub').removeAttr('disabled');
-				$('#nextbtnsub').removeClass('disabled');
+			if (alerts.length >= 1 || namesuccess) {
+				$('#formbtnsub').removeAttr('disabled');
+				$('#formbtnsub').removeClass('disabled');
 			}
 		});
 
@@ -506,22 +506,23 @@
 					id_contacts: contacts
 				},
 				function(data, textStatus, xhr) {
-					jdata = $.parseJSON(data);
-					if (jdata.responsedata.exist) {
-						$('#responsemsg').removeClass('hidden');
-						$('#responsemsg').text(jdata.responsedata.message);
-						$('#formbtnsub').addClass('disabled');
-						$('#formbtnsub').attr('disabled', true);
-						$('#name').focus();
-					} else {
-						$('#responsemsg').removeClass('hidden');
-						$('#responsemsg').text(jdata.responsedata.message);
-						$('#name').val(null);
-						$('#search').val(null);
-						$("input[type='checkbox']").prop('checked',false);
-						$('#formbtnsub').addClass('disabled');
-						$('#formbtnsub').attr('disabled', true);
-						$('#name').focus();
+					console.log(data);
+					// jdata = $.parseJSON(data);
+					// if (jdata.responsedata.exist) {
+					// 	$('#responsemsg').removeClass('hidden');
+					// 	$('#responsemsg').text(jdata.responsedata.message);
+					// 	$('#formbtnsub').addClass('disabled');
+					// 	$('#formbtnsub').attr('disabled', true);
+					// 	$('#name').focus();
+					// } else {
+					// 	$('#responsemsg').removeClass('hidden');
+					// 	$('#responsemsg').text(jdata.responsedata.message);
+					// 	$('#name').val(null);
+					// 	$('#search').val(null);
+					// 	$("input[type='checkbox']").prop('checked',false);
+					// 	$('#formbtnsub').addClass('disabled');
+					// 	$('#formbtnsub').attr('disabled', true);
+					// 	$('#name').focus();
 					}
 				});
 			},150);

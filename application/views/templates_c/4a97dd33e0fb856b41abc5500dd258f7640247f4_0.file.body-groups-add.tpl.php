@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-13 15:40:43
+/* Smarty version 3.1.30, created on 2018-08-16 11:14:10
   from "/app/application/views/templates/body-groups-add.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b71d0ab899256_05451245',
+  'unifunc' => 'content_5b7586b2c2e3d8_49147604',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4a97dd33e0fb856b41abc5500dd258f7640247f4' => 
     array (
       0 => '/app/application/views/templates/body-groups-add.tpl',
-      1 => 1533933570,
+      1 => 1534427977,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b71d0ab899256_05451245 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b7586b2c2e3d8_49147604 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_3133106565b71d0ab8695f7_75518771', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_19179503625b7586b2c123d7_47120967', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_3133106565b71d0ab8695f7_75518771 extends Smarty_Internal_Block
+class Block_19179503625b7586b2c123d7_47120967 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -307,7 +307,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
  type="text/javascript">
 	$(document).ready( function() {
 		var namesuccess = false;
-		var contacts = [];
+		var contacts = [], alerts = [];
 		var createfull = {
 			'idalert': null,
 			'priority': null,
@@ -566,13 +566,13 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 			selectedid = selectedid.replace('alert_', '');
 			cbchecked = event.currentTarget.attributes[1].ownerElement.checked;
 			if (cbchecked) {
-				contacts.push(selectedid);
+				alerts.push(selectedid);
 			} else {
-				contacts.splice(contacts.indexOf(selectedid),1);
+				alerts.splice(alerts.indexOf(selectedid),1);
 			}
-			if (contacts.length >= 1 || namesuccess) {
-				$('#nextbtnsub').removeAttr('disabled');
-				$('#nextbtnsub').removeClass('disabled');
+			if (alerts.length >= 1 || namesuccess) {
+				$('#formbtnsub').removeAttr('disabled');
+				$('#formbtnsub').removeClass('disabled');
 			}
 		});
 
@@ -594,7 +594,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 					id_contacts: contacts
 				},
 				function(data, textStatus, xhr) {
-					jdata = $.parseJSON(data);
+					// jdata = $.parseJSON(data);
 					if (jdata.responsedata.exist) {
 						$('#responsemsg').removeClass('hidden');
 						$('#responsemsg').text(jdata.responsedata.message);
