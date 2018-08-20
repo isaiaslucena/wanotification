@@ -25,17 +25,20 @@
 									<input id="searchusers" type="text" class="form-control search-input" aria-label="..." placeholder="&#xf002; Pesquisar usuário" autocomplete="off">
 								</div>
 							</div>
+							{* USERS LISTS *}
 							<ul id="ulusers" class="list-group" style="height: 300px; overflow-y: auto; overflow-x: hidden">
 								{foreach from=$contacts item=contact}
 								<li class="list-group-item">
 									<div class="checkbox">
 										<label>
-											<input id="user_{$contact.id_contact}" type="checkbox" class="userckbx"> {$contact.name} {$contact.surname}
+											<input data-userid="{$contact.id_contact}" type="checkbox" class="userckbx">
+											 {$contact.name} {$contact.surname}
 										</label>
 									</div>
 								</li>
 								{/foreach}
 							</ul>
+							{* PANEL ADD USER *}
 							<div id="uladduser" class="panel-body" style="display: none">
 								<div class="form-group">
 									<div id="formname" class="input-group">
@@ -92,7 +95,7 @@
 								<li class="list-group-item">
 									<div class="checkbox">
 										<label>
-											<input id="alert_{$alert.id_alert}" type="checkbox" class="alertckbx" aria-label="..."> {$alert.name}
+											<input data-alertid="{$alert.id_alert}" class="alertckbx" type="checkbox" aria-label="..."> {$alert.name}
 										</label>
 									</div>
 								</li>
@@ -458,20 +461,64 @@
 			}
 		});
 
-		$(".userckbx").click(function(event) {
-			selectedid = event.target.id;
-			selectedid = selectedid.replace('user_', '');
-			cbchecked = event.currentTarget.attributes[1].ownerElement.checked;
-			if (cbchecked) {
-				contacts.push(selectedid);
-			} else {
-				contacts.splice(contacts.indexOf(selectedid),1);
-			}
-			if (contacts.length >= 1 || namesuccess) {
-				$('#nextbtnsub').removeAttr('disabled');
-				$('#nextbtnsub').removeClass('disabled');
+		$('input[type=checkbox]').click(function(event) {
+			if ($(this).hasClass('userckbx')) {
+				console.log('usuario');
+
+				selectedid = $(this).attr('data-userid');
+				if ($(this).is(':checked')) {
+					contacts.push(selectedid);
+				} else {
+					contacts.splice(contacts.indexOf(selectedid),1);
+				}
+
+				if (contacts.length >= 1 || namesuccess) {
+					$('#nextbtnsub').removeAttr('disabled');
+					$('#nextbtnsub').removeClass('disabled');
+				} else {
+					$('#nextbtnsub').attr('disabled', true);
+					$('#nextbtnsub').addClass('disabled');
+				}
+
+				console.log(contacts);
+			} else if ($(this).hasClass('alertckbx')) {
+				console.log('alerta');
+				selectedid = $(this).attr('data-alertid');
+				if ($(this).is(':checked')) {
+					alerts.push(selectedid);
+				} else {
+					alerts.splice(alerts.indexOf(selectedid),1);
+				}
+
+				if (alerts.length >= 1 || namesuccess) {
+					$('#formbtnsub').removeAttr('disabled');
+					$('#formbtnsub').removeClass('disabled');
+				} else {
+					$('#formbtnsub').attr('disabled', true);
+					$('#formbtnsub').addClass('disabled');
+				}
+
+				console.log(alerts);
 			}
 		});
+
+		// $(".userckbx").click(function(event) {
+		// 	// console.log(event);
+		// 	selectedid = event.target.id;
+		// 	selectedid = selectedid.replace('user_', '');
+		// 	console.log($(this).children('input').is(':checked'));
+		// 	cbchecked = event.currentTarget.attributes[1].ownerElement.checked;
+		// 	if (cbchecked) {
+		// 		contacts.push(selectedid);
+		// 	} else {
+		// 		contacts.splice(contacts.indexOf(selectedid),1);
+		// 	}
+
+		// 	if (contacts.length >= 1 || namesuccess) {
+		// 		$('#nextbtnsub').removeAttr('disabled');
+		// 		$('#nextbtnsub').removeClass('disabled');
+		// 	}
+		// });
 
 		$(".alertckbx").click(function(event) {
 			selectedid = event.target.id;
@@ -523,7 +570,7 @@
 					// 	$('#formbtnsub').addClass('disabled');
 					// 	$('#formbtnsub').attr('disabled', true);
 					// 	$('#name').focus();
-					}
+					// }
 				});
 			},150);
 		});

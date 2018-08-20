@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-16 19:25:01
+/* Smarty version 3.1.30, created on 2018-08-20 15:40:28
   from "/app/application/views/templates/body-groups-add.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b75f9bdc9b980_72091432',
+  'unifunc' => 'content_5b7b0b1c65bd88_96353292',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4a97dd33e0fb856b41abc5500dd258f7640247f4' => 
     array (
       0 => '/app/application/views/templates/body-groups-add.tpl',
-      1 => 1534429879,
+      1 => 1534790425,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b75f9bdc9b980_72091432 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b7b0b1c65bd88_96353292 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_6189060185b75f9bdc88f07_80156771', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_18675435165b7b0b1c63c959_62928717', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_6189060185b75f9bdc88f07_80156771 extends Smarty_Internal_Block
+class Block_18675435165b7b0b1c63c959_62928717 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -65,6 +65,7 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 									<input id="searchusers" type="text" class="form-control search-input" aria-label="..." placeholder="&#xf002; Pesquisar usuário" autocomplete="off">
 								</div>
 							</div>
+							
 							<ul id="ulusers" class="list-group" style="height: 300px; overflow-y: auto; overflow-x: hidden">
 								<?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['contacts']->value, 'contact');
@@ -74,8 +75,9 @@ foreach ($_from as $_smarty_tpl->tpl_vars['contact']->value) {
 								<li class="list-group-item">
 									<div class="checkbox">
 										<label>
-											<input id="user_<?php echo $_smarty_tpl->tpl_vars['contact']->value['id_contact'];?>
-" type="checkbox" class="userckbx"> <?php echo $_smarty_tpl->tpl_vars['contact']->value['name'];?>
+											<input data-userid="<?php echo $_smarty_tpl->tpl_vars['contact']->value['id_contact'];?>
+" type="checkbox" class="userckbx">
+											 <?php echo $_smarty_tpl->tpl_vars['contact']->value['name'];?>
  <?php echo $_smarty_tpl->tpl_vars['contact']->value['surname'];?>
 
 										</label>
@@ -88,6 +90,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 ?>
 
 							</ul>
+							
 							<div id="uladduser" class="panel-body" style="display: none">
 								<div class="form-group">
 									<div id="formname" class="input-group">
@@ -148,8 +151,8 @@ foreach ($_from as $_smarty_tpl->tpl_vars['alert']->value) {
 								<li class="list-group-item">
 									<div class="checkbox">
 										<label>
-											<input id="alert_<?php echo $_smarty_tpl->tpl_vars['alert']->value['id_alert'];?>
-" type="checkbox" class="alertckbx" aria-label="..."> <?php echo $_smarty_tpl->tpl_vars['alert']->value['name'];?>
+											<input data-alertid="<?php echo $_smarty_tpl->tpl_vars['alert']->value['id_alert'];?>
+" class="alertckbx" type="checkbox" aria-label="..."> <?php echo $_smarty_tpl->tpl_vars['alert']->value['name'];?>
 
 										</label>
 									</div>
@@ -546,20 +549,64 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 			}
 		});
 
-		$(".userckbx").click(function(event) {
-			selectedid = event.target.id;
-			selectedid = selectedid.replace('user_', '');
-			cbchecked = event.currentTarget.attributes[1].ownerElement.checked;
-			if (cbchecked) {
-				contacts.push(selectedid);
-			} else {
-				contacts.splice(contacts.indexOf(selectedid),1);
-			}
-			if (contacts.length >= 1 || namesuccess) {
-				$('#nextbtnsub').removeAttr('disabled');
-				$('#nextbtnsub').removeClass('disabled');
+		$('input[type=checkbox]').click(function(event) {
+			if ($(this).hasClass('userckbx')) {
+				console.log('usuario');
+
+				selectedid = $(this).attr('data-userid');
+				if ($(this).is(':checked')) {
+					contacts.push(selectedid);
+				} else {
+					contacts.splice(contacts.indexOf(selectedid),1);
+				}
+
+				if (contacts.length >= 1 || namesuccess) {
+					$('#nextbtnsub').removeAttr('disabled');
+					$('#nextbtnsub').removeClass('disabled');
+				} else {
+					$('#nextbtnsub').attr('disabled', true);
+					$('#nextbtnsub').addClass('disabled');
+				}
+
+				console.log(contacts);
+			} else if ($(this).hasClass('alertckbx')) {
+				console.log('alerta');
+				selectedid = $(this).attr('data-alertid');
+				if ($(this).is(':checked')) {
+					alerts.push(selectedid);
+				} else {
+					alerts.splice(alerts.indexOf(selectedid),1);
+				}
+
+				if (alerts.length >= 1 || namesuccess) {
+					$('#formbtnsub').removeAttr('disabled');
+					$('#formbtnsub').removeClass('disabled');
+				} else {
+					$('#formbtnsub').attr('disabled', true);
+					$('#formbtnsub').addClass('disabled');
+				}
+
+				console.log(alerts);
 			}
 		});
+
+		// $(".userckbx").click(function(event) {
+		// 	// console.log(event);
+		// 	selectedid = event.target.id;
+		// 	selectedid = selectedid.replace('user_', '');
+		// 	console.log($(this).children('input').is(':checked'));
+		// 	cbchecked = event.currentTarget.attributes[1].ownerElement.checked;
+		// 	if (cbchecked) {
+		// 		contacts.push(selectedid);
+		// 	} else {
+		// 		contacts.splice(contacts.indexOf(selectedid),1);
+		// 	}
+
+		// 	if (contacts.length >= 1 || namesuccess) {
+		// 		$('#nextbtnsub').removeAttr('disabled');
+		// 		$('#nextbtnsub').removeClass('disabled');
+		// 	}
+		// });
 
 		$(".alertckbx").click(function(event) {
 			selectedid = event.target.id;
@@ -611,7 +658,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 					// 	$('#formbtnsub').addClass('disabled');
 					// 	$('#formbtnsub').attr('disabled', true);
 					// 	$('#name').focus();
-					}
+					// }
 				});
 			},150);
 		});
