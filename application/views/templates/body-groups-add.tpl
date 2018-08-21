@@ -9,7 +9,7 @@
 					<div class="form-group">
 						<div id="formname" class="input-group">
 							<div class="input-group-addon"><span class="fa fa-group"></span></div>
-							<input class="form-control" type="text" id="name" name="name" placeholder="Nome do grupo" maxlength="25" autocomplete="off"/>
+							<input class="form-control" type="text" id="groupname" placeholder="Nome do grupo" maxlength="25" autocomplete="off"/>
 						</div>
 						<span id="nameerr" class="help-block hidden text-center"></span>
 					</div>
@@ -183,6 +183,8 @@
 									</div>
 								</div>
 
+								<span id="alertresponsemsg" class="help-block hidden text-center has-error"></span>
+
 								{* BTN CREATE ALERT *}
 								<div class="form-group">
 									<button id="btncreatealert" disabled class="btn btn-coke btn-block disabled">
@@ -223,14 +225,16 @@
 	$(document).ready( function() {
 		var namesuccess = false;
 		var contacts = [], alerts = [];
-		var createfull = {
+		var creategroupalert = {
+			'idgroup': null,
 			'idalert': null,
 			'priority': null,
 			'idnumber': null,
-			'idgroup': null,
 			'idempresa': null,
 			'idkeyword': null,
-			'idvlista': null
+			'idvlista': null,
+			// 'idtipoveiculo': null,
+			// 'tier': null
 		};
 
 		$('[data-toggle="tooltip"]').tooltip({'container': 'body'});
@@ -352,8 +356,11 @@
 		$('#btnaddalert').click(function(event) {
 			$('#ulalerts').slideUp(400, function(e) {
 				$('#uladdalert').slideDown(400, function(e) {
+					$('#btnaddalert').attr('disabled', true);
+					$('#btnaddalert').addClass('disabled');
+					$('#searchalerts').attr('disabled', true);
+					$('#searchalerts').addClass('disabled');
 					$('#btnaddalert').tooltip('hide');
-					$('#btnaddalert').attr('disabled', 'value');
 					$('#alertname').focus();
 				});
 			});
@@ -363,27 +370,32 @@
 			event.preventDefault();
 			idnumber = parseInt($(this).attr('data-idnumber'));
 			nnumber = $(this).attr('data-nnumber');
-			createfull;idnumber = idnumber;
+			creategroupalert.idnumber = idnumber;
 			$('#ddownnumber').text(nnumber+' ').append('<span class="caret"></span>');
 		});
 
 		$('.tagpriority').click(function(event) {
 			event.preventDefault();
 			prior = parseInt($(this).text());
-			createfull.priority = prior;
+			creategroupalert.priority = prior;
 			$('#ddownpriority').text(prior+' ').append('<span class="caret"></span>');
 		});
 
 		$('#selempresas').change(function(event) {
 			optionSelected = $('option:selected', this);
 			idclient = parseInt($(optionSelected).attr('data-idclient'));
-			createfull.idempresa = idclient;
+			creategroupalert.idempresa = idclient;
 
 			$('#selkeywords').html('<option class="disabled" disabled selected>Carregando...</option>');
 			$.get('/alerts/get_empresa_keywords/'+idclient, function(data) {
 				$('#selkeywords').html('<option class="disabled" disabled selected>Escolha uma palavra-chave</option>');
 				$.each(data, function(index, val) {
-					$('#selkeywords').append('<option data-idkeyword="'+val.Id+'" data-idvlista="'+val.Idvlista+'" class="tagkeyword">'+val.Nome+'</option>');
+					$('#selkeywords').append(
+						'<option data-idkeyword="'+val.Id+
+						'" data-idvlista="'+val.Idvlista+
+						'" class="tagkeyword">'+val.Nome+
+						'</option>'
+					);
 				});
 				$('#selkeywords').removeAttr('disabled');
 				$('#selkeywords').removeClass('disabled');
@@ -393,7 +405,7 @@
 		$('#selkeywords').change(function(event) {
 			optionSelected = $('option:selected', this);
 			idvlista = parseInt($(optionSelected).attr('data-idvlista'));
-			createfull.idvlista = idvlista
+			creategroupalert.idvlista = idvlista
 
 			$('#selvlistas').html('<option class="disabled" disabled selected>Carregando...</option>');
 			if (idvlista === 0) {
@@ -419,6 +431,49 @@
 		$('#selvlistas').change(function(event) {
 			$('#btncreatealert').removeAttr('disabled');
 			$('#btncreatealert').removeClass('disabled');
+		});
+
+		$('#btncreatealert').click(function(event) {
+			curralertname = $('#alertname').val();
+			$.post('/alerts/add',
+				{'alertname': curralertname},
+				function(data, textStatus, xhr) {
+					creategroupalert.idalert = data.responsedata.idalert;
+
+					if (data.responsedata.exist) {
+						$('#alertresponsemsg').removeClass('hidden');
+						$('#alertresponsemsg').text(data.responsedata.message);
+						$('#btncreatealert').addClass('disabled');
+						$('#btncreatealert').attr('disabled', true);
+						$('#alertname').focus();
+					} else {
+						$('#alertresponsemsg').removeClass('hidden');
+						$('#alertresponsemsg').text(data.responsedata.message);
+						$('#alertname').val(null);
+						$('#searchalerts').val(null);
+
+						$.get('/alerts/get_alerts', function(data) {
+							$('#uladdalert').slideUp(400, function() {
+								$('#ulalerts').slideDown(400, function() {
+									$('#searchalerts').focus();
+
+									$('#ulalerts').html(null);
+									$.each(data, function(index, val) {
+										$('#ulalerts').html(
+											'<li class="list-group-item">'+
+												'<div class="checkbox">'+
+													'<label>'+
+														'<input data-alertid="'+data.id_alert+'" class="alertckbx" type="checkbox" aria-label="..."> '+data.name+
+													'</label>'+
+												'</div>'+
+											'</li>'
+										);
+									});
+								});
+							});
+						});
+					}
+			});
 		});
 
 		$('.tagclient__').click(function(event) {
@@ -514,13 +569,11 @@
 		});
 
 		$('#formbtnsub').click(function(evtbtn) {
-			groupname = $('#name').val();
+			groupname = $('#groupname').val();
 			$.post('add', {
 				groupname: groupname,
 				id_contacts: contacts,
-				id_alerts: alerts,
-				id_empresa: id_empresa,
-				id_
+				id_alerts: alerts
 			},
 			function(data, textStatus, xhr) {
 				console.log(data);

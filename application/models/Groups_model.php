@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Groups_model extends CI_Model {
 	public function add($data) {
 		$insertdata = array (
-			'name' => $data['name']
+			'name' => $data['groupname']
 		);
 		$this->db->insert('groups',$insertdata);
 		return $this->db->insert_id();
@@ -44,8 +44,19 @@ class Groups_model extends CI_Model {
 		return $this->db->query($sqlquery)->result_array();
 	}
 
+	public function add_alerts_group($idgroup) {
+		$insertdata = array (
+			'id_alert' => $data['id_alert'],
+			'id_group' => $data['id_group'],
+			'id_empresa' => $data['id_empresa'],
+			'id_number' => $data['id_number']
+		);
+		$this->db->insert('alerts_groups',$insertdata);
+		return $this->db->insert_id();
+	}
+
 	public function verify($data) {
-		$exists = $this->db->get_where('groups',array('name' => $data['name']))->result_array();
+		$exists = $this->db->get_where('groups',array('name' => $data['groupname']))->result_array();
 		if (empty($exists)) {
 			$result = false;
 		} else {

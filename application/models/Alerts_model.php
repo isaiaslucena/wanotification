@@ -60,7 +60,7 @@ class Alerts_model extends CI_Model {
 
 	public function add($data) {
 		$insertdata = array (
-			'name' => $data['name'],
+			'name' => $data['alertname'],
 			'created' => strtotime('now')
 		);
 		$this->db->insert('alerts_news',$insertdata);
@@ -93,7 +93,7 @@ class Alerts_model extends CI_Model {
 	}
 
 	public function verify($data) {
-		$exists = $this->db->get_where('groups',array('name' => $data['name']))->result_array();
+		$exists = $this->db->get_where('alerts_news',array('name' => $data['alertname']))->result_array();
 		if (empty($exists)) {
 			$result = false;
 		} else {

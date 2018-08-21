@@ -57,21 +57,31 @@ class Groups extends CI_Controller {
 			);
 			$this->session->set_userdata($sessiondata);
 			$data['title'] = "Grupos - Adicionar";
+
 			if ($this->input->method(TRUE) == 'POST') {
-				$postdata['name'] = $this->input->post("name");
+				$postdata['groupname'] = $this->input->post("groupname");
 				$postdata['id_contacts'] = $this->input->post("id_contacts");
+				$postdata['id_alerts'] = $this->input->post("id_alerts");
+
 				$this->load->model('groups_model');
 				$data['responsedata']['exist'] = $this->groups_model->verify($postdata);
 				if ($data['responsedata']['exist']) {
 					$data['responsedata']['status'] = "error";
 					$data['responsedata']['message'] = "Grupo já cadastrado!";
 				} else {
-					$this->groups_model->add($postdata);
-					$datamember['id_group'] = $this->db->insert_id();
+					$datamember['id_group'] = $this->groups_model->add($postdata);
+
 					foreach ($postdata['id_contacts'] as $idcontact) {
 						$datamember['id_contact'] = $idcontact;
 						$this->groups_model->add_member($datamember);
 					}
+
+					foreach ($postdata['id_alerts'] as $idalert) {
+						$datagalert['id_alert'] = $idalert;
+						$datagalert['id_group'] = $datamember['id_group'];
+						$this->groups_model->add_alerts_group($idalert);
+					}
+
 					$data['responsedata']['status'] = "success";
 					$data['responsedata']['message'] = "Grupo cadastrado com sucesso!";
 				}

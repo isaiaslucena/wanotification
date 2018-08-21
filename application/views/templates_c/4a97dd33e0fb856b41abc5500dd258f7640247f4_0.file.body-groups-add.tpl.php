@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-20 17:32:28
+/* Smarty version 3.1.30, created on 2018-08-21 15:54:03
   from "/app/application/views/templates/body-groups-add.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b7b255c898359_29667750',
+  'unifunc' => 'content_5b7c5fcb365f44_15165271',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4a97dd33e0fb856b41abc5500dd258f7640247f4' => 
     array (
       0 => '/app/application/views/templates/body-groups-add.tpl',
-      1 => 1534791687,
+      1 => 1534877638,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b7b255c898359_29667750 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b7c5fcb365f44_15165271 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_17701410125b7b255c877740_29425766', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_2628893795b7c5fcb34f8d7_57911773', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_17701410125b7b255c877740_29425766 extends Smarty_Internal_Block
+class Block_2628893795b7c5fcb34f8d7_57911773 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -49,7 +49,7 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 					<div class="form-group">
 						<div id="formname" class="input-group">
 							<div class="input-group-addon"><span class="fa fa-group"></span></div>
-							<input class="form-control" type="text" id="name" name="name" placeholder="Nome do grupo" maxlength="25" autocomplete="off"/>
+							<input class="form-control" type="text" id="groupname" placeholder="Nome do grupo" maxlength="25" autocomplete="off"/>
 						</div>
 						<span id="nameerr" class="help-block hidden text-center"></span>
 					</div>
@@ -270,6 +270,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 									</div>
 								</div>
 
+								<span id="alertresponsemsg" class="help-block hidden text-center has-error"></span>
+
 								
 								<div class="form-group">
 									<button id="btncreatealert" disabled class="btn btn-coke btn-block disabled">
@@ -311,14 +313,16 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 	$(document).ready( function() {
 		var namesuccess = false;
 		var contacts = [], alerts = [];
-		var createfull = {
+		var creategroupalert = {
+			'idgroup': null,
 			'idalert': null,
 			'priority': null,
 			'idnumber': null,
-			'idgroup': null,
 			'idempresa': null,
 			'idkeyword': null,
-			'idvlista': null
+			'idvlista': null,
+			// 'idtipoveiculo': null,
+			// 'tier': null
 		};
 
 		$('[data-toggle="tooltip"]').tooltip({'container': 'body'});
@@ -440,8 +444,11 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 		$('#btnaddalert').click(function(event) {
 			$('#ulalerts').slideUp(400, function(e) {
 				$('#uladdalert').slideDown(400, function(e) {
+					$('#btnaddalert').attr('disabled', true);
+					$('#btnaddalert').addClass('disabled');
+					$('#searchalerts').attr('disabled', true);
+					$('#searchalerts').addClass('disabled');
 					$('#btnaddalert').tooltip('hide');
-					$('#btnaddalert').attr('disabled', 'value');
 					$('#alertname').focus();
 				});
 			});
@@ -451,27 +458,32 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 			event.preventDefault();
 			idnumber = parseInt($(this).attr('data-idnumber'));
 			nnumber = $(this).attr('data-nnumber');
-			createfull;idnumber = idnumber;
+			creategroupalert.idnumber = idnumber;
 			$('#ddownnumber').text(nnumber+' ').append('<span class="caret"></span>');
 		});
 
 		$('.tagpriority').click(function(event) {
 			event.preventDefault();
 			prior = parseInt($(this).text());
-			createfull.priority = prior;
+			creategroupalert.priority = prior;
 			$('#ddownpriority').text(prior+' ').append('<span class="caret"></span>');
 		});
 
 		$('#selempresas').change(function(event) {
 			optionSelected = $('option:selected', this);
 			idclient = parseInt($(optionSelected).attr('data-idclient'));
-			createfull.idempresa = idclient;
+			creategroupalert.idempresa = idclient;
 
 			$('#selkeywords').html('<option class="disabled" disabled selected>Carregando...</option>');
 			$.get('/alerts/get_empresa_keywords/'+idclient, function(data) {
 				$('#selkeywords').html('<option class="disabled" disabled selected>Escolha uma palavra-chave</option>');
 				$.each(data, function(index, val) {
-					$('#selkeywords').append('<option data-idkeyword="'+val.Id+'" data-idvlista="'+val.Idvlista+'" class="tagkeyword">'+val.Nome+'</option>');
+					$('#selkeywords').append(
+						'<option data-idkeyword="'+val.Id+
+						'" data-idvlista="'+val.Idvlista+
+						'" class="tagkeyword">'+val.Nome+
+						'</option>'
+					);
 				});
 				$('#selkeywords').removeAttr('disabled');
 				$('#selkeywords').removeClass('disabled');
@@ -481,7 +493,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 		$('#selkeywords').change(function(event) {
 			optionSelected = $('option:selected', this);
 			idvlista = parseInt($(optionSelected).attr('data-idvlista'));
-			createfull.idvlista = idvlista
+			creategroupalert.idvlista = idvlista
 
 			$('#selvlistas').html('<option class="disabled" disabled selected>Carregando...</option>');
 			if (idvlista === 0) {
@@ -507,6 +519,49 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 		$('#selvlistas').change(function(event) {
 			$('#btncreatealert').removeAttr('disabled');
 			$('#btncreatealert').removeClass('disabled');
+		});
+
+		$('#btncreatealert').click(function(event) {
+			curralertname = $('#alertname').val();
+			$.post('/alerts/add',
+				{'alertname': curralertname},
+				function(data, textStatus, xhr) {
+					creategroupalert.idalert = data.responsedata.idalert;
+
+					if (data.responsedata.exist) {
+						$('#alertresponsemsg').removeClass('hidden');
+						$('#alertresponsemsg').text(data.responsedata.message);
+						$('#btncreatealert').addClass('disabled');
+						$('#btncreatealert').attr('disabled', true);
+						$('#alertname').focus();
+					} else {
+						$('#alertresponsemsg').removeClass('hidden');
+						$('#alertresponsemsg').text(data.responsedata.message);
+						$('#alertname').val(null);
+						$('#searchalerts').val(null);
+
+						$.get('/alerts/get_alerts', function(data) {
+							$('#uladdalert').slideUp(400, function() {
+								$('#ulalerts').slideDown(400, function() {
+									$('#searchalerts').focus();
+
+									$('#ulalerts').html(null);
+									$.each(data, function(index, val) {
+										$('#ulalerts').html(
+											'<li class="list-group-item">'+
+												'<div class="checkbox">'+
+													'<label>'+
+														'<input data-alertid="'+data.id_alert+'" class="alertckbx" type="checkbox" aria-label="..."> '+data.name+
+													'</label>'+
+												'</div>'+
+											'</li>'
+										);
+									});
+								});
+							});
+						});
+					}
+			});
 		});
 
 		$('.tagclient__').click(function(event) {
@@ -602,13 +657,11 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 		});
 
 		$('#formbtnsub').click(function(evtbtn) {
-			groupname = $('#name').val();
+			groupname = $('#groupname').val();
 			$.post('add', {
 				groupname: groupname,
 				id_contacts: contacts,
-				id_alerts: alerts,
-				id_empresa: id_empresa,
-				id_
+				id_alerts: alerts
 			},
 			function(data, textStatus, xhr) {
 				console.log(data);

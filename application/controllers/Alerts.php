@@ -62,14 +62,14 @@ class Alerts extends CI_Controller {
 			$this->session->set_userdata($sessiondata);
 			$data['title'] = "Alertas - Adicionar";
 			if ($this->input->method(TRUE) == 'POST') {
-				$postdata['name'] = trim($this->input->post("name"));
+				$postdata['alertname'] = trim($this->input->post("alertname"));
 				$this->load->model('alerts_model');
-				$data['responsedata']['exist'] = $this->groups_model->verify($postdata);
+				$data['responsedata']['exist'] = $this->alerts_model->verify($postdata);
 				if ($data['responsedata']['exist']) {
 					$data['responsedata']['status'] = "error";
 					$data['responsedata']['message'] = "Alerta já cadastrado!";
 				} else {
-					$data['responsedata']['id_alert'] = $this->alerts_model->add($postdata);
+					$data['responsedata']['idalert'] = $this->alerts_model->add($postdata);
 					$data['responsedata']['status'] = "success";
 					$data['responsedata']['message'] = "Alerta cadastrado com sucesso!";
 				}
