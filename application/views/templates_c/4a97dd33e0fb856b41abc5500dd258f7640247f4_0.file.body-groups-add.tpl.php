@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-20 15:40:28
+/* Smarty version 3.1.30, created on 2018-08-20 17:32:28
   from "/app/application/views/templates/body-groups-add.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b7b0b1c65bd88_96353292',
+  'unifunc' => 'content_5b7b255c898359_29667750',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4a97dd33e0fb856b41abc5500dd258f7640247f4' => 
     array (
       0 => '/app/application/views/templates/body-groups-add.tpl',
-      1 => 1534790425,
+      1 => 1534791687,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b7b0b1c65bd88_96353292 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b7b255c898359_29667750 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_18675435165b7b0b1c63c959_62928717', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_17701410125b7b255c877740_29425766', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_18675435165b7b0b1c63c959_62928717 extends Smarty_Internal_Block
+class Block_17701410125b7b255c877740_29425766 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -551,7 +551,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 
 		$('input[type=checkbox]').click(function(event) {
 			if ($(this).hasClass('userckbx')) {
-				console.log('usuario');
+				// console.log('usuario');
 
 				selectedid = $(this).attr('data-userid');
 				if ($(this).is(':checked')) {
@@ -570,7 +570,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 
 				console.log(contacts);
 			} else if ($(this).hasClass('alertckbx')) {
-				console.log('alerta');
+				// console.log('alerta');
+
 				selectedid = $(this).attr('data-alertid');
 				if ($(this).is(':checked')) {
 					alerts.push(selectedid);
@@ -590,39 +591,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 			}
 		});
 
-		// $(".userckbx").click(function(event) {
-		// 	// console.log(event);
-		// 	selectedid = event.target.id;
-		// 	selectedid = selectedid.replace('user_', '');
-		// 	console.log($(this).children('input').is(':checked'));
-		// 	cbchecked = event.currentTarget.attributes[1].ownerElement.checked;
-		// 	if (cbchecked) {
-		// 		contacts.push(selectedid);
-		// 	} else {
-		// 		contacts.splice(contacts.indexOf(selectedid),1);
-		// 	}
-
-		// 	if (contacts.length >= 1 || namesuccess) {
-		// 		$('#nextbtnsub').removeAttr('disabled');
-		// 		$('#nextbtnsub').removeClass('disabled');
-		// 	}
-		// });
-
-		$(".alertckbx").click(function(event) {
-			selectedid = event.target.id;
-			selectedid = selectedid.replace('alert_', '');
-			cbchecked = event.currentTarget.attributes[1].ownerElement.checked;
-			if (cbchecked) {
-				alerts.push(selectedid);
-			} else {
-				alerts.splice(alerts.indexOf(selectedid),1);
-			}
-			if (alerts.length >= 1 || namesuccess) {
-				$('#formbtnsub').removeAttr('disabled');
-				$('#formbtnsub').removeClass('disabled');
-			}
-		});
-
 		$('#nextbtnsub').click(function(event) {
 			$('#panelusers').slideUp(400, function(e){
 				$('#panelalerts').slideDown(400, function() {
@@ -634,33 +602,34 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 		});
 
 		$('#formbtnsub').click(function(evtbtn) {
-			setTimeout(function(){
-				name = $('#name').val();
-				$.post('add', {
-					name: name,
-					id_contacts: contacts
-				},
-				function(data, textStatus, xhr) {
-					console.log(data);
-					// jdata = $.parseJSON(data);
-					// if (jdata.responsedata.exist) {
-					// 	$('#responsemsg').removeClass('hidden');
-					// 	$('#responsemsg').text(jdata.responsedata.message);
-					// 	$('#formbtnsub').addClass('disabled');
-					// 	$('#formbtnsub').attr('disabled', true);
-					// 	$('#name').focus();
-					// } else {
-					// 	$('#responsemsg').removeClass('hidden');
-					// 	$('#responsemsg').text(jdata.responsedata.message);
-					// 	$('#name').val(null);
-					// 	$('#search').val(null);
-					// 	$("input[type='checkbox']").prop('checked',false);
-					// 	$('#formbtnsub').addClass('disabled');
-					// 	$('#formbtnsub').attr('disabled', true);
-					// 	$('#name').focus();
-					// }
-				});
-			},150);
+			groupname = $('#name').val();
+			$.post('add', {
+				groupname: groupname,
+				id_contacts: contacts,
+				id_alerts: alerts,
+				id_empresa: id_empresa,
+				id_
+			},
+			function(data, textStatus, xhr) {
+				console.log(data);
+				// jdata = $.parseJSON(data);
+				// if (jdata.responsedata.exist) {
+				// 	$('#responsemsg').removeClass('hidden');
+				// 	$('#responsemsg').text(jdata.responsedata.message);
+				// 	$('#formbtnsub').addClass('disabled');
+				// 	$('#formbtnsub').attr('disabled', true);
+				// 	$('#name').focus();
+				// } else {
+				// 	$('#responsemsg').removeClass('hidden');
+				// 	$('#responsemsg').text(jdata.responsedata.message);
+				// 	$('#name').val(null);
+				// 	$('#search').val(null);
+				// 	$("input[type='checkbox']").prop('checked',false);
+				// 	$('#formbtnsub').addClass('disabled');
+				// 	$('#formbtnsub').attr('disabled', true);
+				// 	$('#name').focus();
+				// }
+			});
 		});
 	});
 <?php echo '</script'; ?>

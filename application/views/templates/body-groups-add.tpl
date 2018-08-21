@@ -463,7 +463,7 @@
 
 		$('input[type=checkbox]').click(function(event) {
 			if ($(this).hasClass('userckbx')) {
-				console.log('usuario');
+				// console.log('usuario');
 
 				selectedid = $(this).attr('data-userid');
 				if ($(this).is(':checked')) {
@@ -482,7 +482,8 @@
 
 				console.log(contacts);
 			} else if ($(this).hasClass('alertckbx')) {
-				console.log('alerta');
+				// console.log('alerta');
+
 				selectedid = $(this).attr('data-alertid');
 				if ($(this).is(':checked')) {
 					alerts.push(selectedid);
@@ -502,39 +503,6 @@
 			}
 		});
 
-		// $(".userckbx").click(function(event) {
-		// 	// console.log(event);
-		// 	selectedid = event.target.id;
-		// 	selectedid = selectedid.replace('user_', '');
-		// 	console.log($(this).children('input').is(':checked'));
-		// 	cbchecked = event.currentTarget.attributes[1].ownerElement.checked;
-		// 	if (cbchecked) {
-		// 		contacts.push(selectedid);
-		// 	} else {
-		// 		contacts.splice(contacts.indexOf(selectedid),1);
-		// 	}
-
-		// 	if (contacts.length >= 1 || namesuccess) {
-		// 		$('#nextbtnsub').removeAttr('disabled');
-		// 		$('#nextbtnsub').removeClass('disabled');
-		// 	}
-		// });
-
-		$(".alertckbx").click(function(event) {
-			selectedid = event.target.id;
-			selectedid = selectedid.replace('alert_', '');
-			cbchecked = event.currentTarget.attributes[1].ownerElement.checked;
-			if (cbchecked) {
-				alerts.push(selectedid);
-			} else {
-				alerts.splice(alerts.indexOf(selectedid),1);
-			}
-			if (alerts.length >= 1 || namesuccess) {
-				$('#formbtnsub').removeAttr('disabled');
-				$('#formbtnsub').removeClass('disabled');
-			}
-		});
-
 		$('#nextbtnsub').click(function(event) {
 			$('#panelusers').slideUp(400, function(e){
 				$('#panelalerts').slideDown(400, function() {
@@ -546,33 +514,34 @@
 		});
 
 		$('#formbtnsub').click(function(evtbtn) {
-			setTimeout(function(){
-				name = $('#name').val();
-				$.post('add', {
-					name: name,
-					id_contacts: contacts
-				},
-				function(data, textStatus, xhr) {
-					console.log(data);
-					// jdata = $.parseJSON(data);
-					// if (jdata.responsedata.exist) {
-					// 	$('#responsemsg').removeClass('hidden');
-					// 	$('#responsemsg').text(jdata.responsedata.message);
-					// 	$('#formbtnsub').addClass('disabled');
-					// 	$('#formbtnsub').attr('disabled', true);
-					// 	$('#name').focus();
-					// } else {
-					// 	$('#responsemsg').removeClass('hidden');
-					// 	$('#responsemsg').text(jdata.responsedata.message);
-					// 	$('#name').val(null);
-					// 	$('#search').val(null);
-					// 	$("input[type='checkbox']").prop('checked',false);
-					// 	$('#formbtnsub').addClass('disabled');
-					// 	$('#formbtnsub').attr('disabled', true);
-					// 	$('#name').focus();
-					// }
-				});
-			},150);
+			groupname = $('#name').val();
+			$.post('add', {
+				groupname: groupname,
+				id_contacts: contacts,
+				id_alerts: alerts,
+				id_empresa: id_empresa,
+				id_
+			},
+			function(data, textStatus, xhr) {
+				console.log(data);
+				// jdata = $.parseJSON(data);
+				// if (jdata.responsedata.exist) {
+				// 	$('#responsemsg').removeClass('hidden');
+				// 	$('#responsemsg').text(jdata.responsedata.message);
+				// 	$('#formbtnsub').addClass('disabled');
+				// 	$('#formbtnsub').attr('disabled', true);
+				// 	$('#name').focus();
+				// } else {
+				// 	$('#responsemsg').removeClass('hidden');
+				// 	$('#responsemsg').text(jdata.responsedata.message);
+				// 	$('#name').val(null);
+				// 	$('#search').val(null);
+				// 	$("input[type='checkbox']").prop('checked',false);
+				// 	$('#formbtnsub').addClass('disabled');
+				// 	$('#formbtnsub').attr('disabled', true);
+				// 	$('#name').focus();
+				// }
+			});
 		});
 	});
 </script>
