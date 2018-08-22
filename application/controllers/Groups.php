@@ -64,6 +64,7 @@ class Groups extends CI_Controller {
 				$postdata['id_alerts'] = $this->input->post("id_alerts");
 
 				$this->load->model('groups_model');
+				$this->load->model('alerts_model');
 				$data['responsedata']['exist'] = $this->groups_model->verify($postdata);
 				if ($data['responsedata']['exist']) {
 					$data['responsedata']['status'] = "error";
@@ -80,12 +81,14 @@ class Groups extends CI_Controller {
 						$datagalert['id_alert'] = $idalert;
 						$datagalert['id_group'] = $datamember['id_group'];
 						$datagalert['id_empresa'] = $this->input->post("id_empresa");
+						$datagalert['id_palavrachave'] = $this->input->post("id_palavrachave");
 						$datagalert['priority'] = $this->input->post("priority");
 						$datagalert['id_number'] = $this->input->post("id_number");
-						$this->groups_model->add_alerts_group($datagalert);
-					}
+						$datagalert['id_listaveiculo'] = $this->input->post("id_listaveiculo");
 
-					$this->alerts_model->add_alerts_keywords();
+						$this->groups_model->add_alerts_group($datagalert);
+						$this->alerts_model->add_alerts_keywords($datagalert);
+					}
 
 					$data['responsedata']['status'] = "success";
 					$data['responsedata']['message'] = "Grupo cadastrado com sucesso!";

@@ -95,10 +95,10 @@ class Groups_model extends CI_Model {
 								WHEN msg1.sent = 2 THEN "Cancelado"
 								END AS status
 								FROM messages_sent msg1
-								INNER JOIN (SELECT MAX(id_message) AS id_message FROM messages_sent GROUP BY id_to) msg2 ON msg1.id_message = msg2.id_message
-								INNER JOIN `groups` gpo ON msg1.id_to = gpo.id_group
-								INNER JOIN (SELECT gpm.id_group, gp.name, COUNT(gpm.id_group) AS menbers_quant FROM group_members gpm
-								INNER JOIN `groups` gp ON gpm.id_group = gp.id_group
+								JOIN (SELECT MAX(id_message) AS id_message FROM messages_sent GROUP BY id_to) msg2 ON msg1.id_message = msg2.id_message
+								JOIN `groups` gpo ON msg1.id_to = gpo.id_group
+								JOIN (SELECT gpm.id_group, gp.name, COUNT(gpm.id_group) AS menbers_quant FROM group_members gpm
+								JOIN `groups` gp ON gpm.id_group = gp.id_group
 								GROUP BY gpm.id_group) gpq ON msg1.id_to = gpq.id_group
 								ORDER BY msg1.id_to ASC';
 		return $this->db->query($sqlquery)->result_array();

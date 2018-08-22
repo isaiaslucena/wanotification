@@ -249,18 +249,18 @@
 		};
 
 		function enable_el(idelement) {
-			$(idelement).fadeOut(150, function() {
+			$(idelement).fadeOut(100, function() {
 				$(this).removeAttr('disabled');
 				$(this).removeClass('disabled');
-				$(this).fadeIn(150);
+				$(this).fadeIn(100);
 			});
 		}
 
 		function disable_el(idelement) {
-			$(idelement).fadeOut(150, function() {
+			$(idelement).fadeOut(100, function() {
 				$(this).attr('disabled', true);
 				$(this).addClass('disabled');
-				$(this).fadeIn(150);
+				$(this).fadeIn(100);
 			});
 		}
 
@@ -433,6 +433,8 @@
 			optionSelected = $('option:selected', this);
 			idvlista = parseInt($(optionSelected).attr('data-idvlista'));
 			creategroupalert.idvlista = idvlista
+			idkeyword = parseInt($(optionSelected).attr('data-idkeyword'));
+			creategroupalert.idkeyword = idkeyword
 
 			$('#selvlistas').html('<option class="disabled" disabled selected>Carregando...</option>');
 			if (idvlista === 0) {
@@ -599,29 +601,32 @@
 		$('#formbtnsub').click(function(evtbtn) {
 			groupname = $('#groupname').val();
 			$.post('add', {
-				groupname: groupname,
-				id_contacts: contacts,
-				id_alerts: alerts
+				'groupname': groupname,
+				'id_contacts': contacts,
+				'id_alerts': alerts,
+				'id_empresa': creategroupalert.idempresa,
+				'id_palavrachave': creategroupalert.idkeyword,
+				'id_number': creategroupalert.idnumber,
+				'priority': creategroupalert.priority,
+				'id_listaveiculo': creategroupalert.idvlista
 			},
 			function(data, textStatus, xhr) {
 				console.log(data);
-				// jdata = $.parseJSON(data);
-				// if (jdata.responsedata.exist) {
-				// 	$('#responsemsg').removeClass('hidden');
-				// 	$('#responsemsg').text(jdata.responsedata.message);
-				// 	$('#formbtnsub').addClass('disabled');
-				// 	$('#formbtnsub').attr('disabled', true);
-				// 	$('#name').focus();
-				// } else {
-				// 	$('#responsemsg').removeClass('hidden');
-				// 	$('#responsemsg').text(jdata.responsedata.message);
-				// 	$('#name').val(null);
-				// 	$('#search').val(null);
-				// 	$("input[type='checkbox']").prop('checked',false);
-				// 	$('#formbtnsub').addClass('disabled');
-				// 	$('#formbtnsub').attr('disabled', true);
-				// 	$('#name').focus();
-				// }
+
+				if (jdata.responsedata.exist) {
+					$('#responsemsg').removeClass('hidden');
+					$('#responsemsg').text(jdata.responsedata.message);
+					$('#formbtnsub').addClass('disabled');
+					$('#formbtnsub').attr('disabled', true);
+				} else {
+					$('#responsemsg').removeClass('hidden');
+					$('#responsemsg').text(jdata.responsedata.message);
+					$('#name').val(null);
+					$('#search').val(null);
+					$("input[type='checkbox']").prop('checked',false);
+					$('#formbtnsub').addClass('disabled');
+					$('#formbtnsub').attr('disabled', true);
+				}
 			});
 		});
 	});

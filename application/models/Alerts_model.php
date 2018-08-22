@@ -59,7 +59,7 @@ class Alerts_model extends CI_Model {
 	}
 
 	public function add($data) {
-		$insertdata = array (
+		$insertdata = array(
 			'name' => $data['alertname'],
 			'created' => strtotime('now')
 		);
@@ -67,29 +67,14 @@ class Alerts_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
-	public function add_member($data) {
-		$insertdata = array (
-			'id_group' => $data['id_group'],
-			'id_contact' => $data['id_contact']
+	public function add_alerts_keywords($data) {
+		$insertdata = array(
+			'id_alert' => $data['id_alert'],
+			'id_palavrachave' => $data['id_palavrachave'],
+			'id_listaveiculo' => $data['id_listaveiculo']
 		);
-		$this->db->insert('group_members',$insertdata);
-	}
-
-	public function del_member($data) {
-		$insertdata = array (
-			'id_group' => $data['id_group'],
-			'id_contact' => $data['id_contact']
-		);
-		$this->db->delete('group_members',$insertdata);
-	}
-
-	public function group_members($data) {
-		$sqlquery = 'SELECT ct.id_contact, ct.name, ct.surname FROM group_members gm
-					JOIN contacts ct ON gm.id_contact=ct.id_contact
-					JOIN groups gp ON gm.id_group=gp.id_group
-					WHERE gm.id_group = '.$data;
-		$result = $this->db->query($sqlquery)->result_array();
-		return $result;
+		$this->db->insert('alerts_keywords', $insertdata);
+		return $this->db->insert_id();
 	}
 
 	public function verify($data) {
@@ -112,12 +97,6 @@ class Alerts_model extends CI_Model {
 	public function del($id_group) {
 		$this->db->delete('groups', array('id_group' => $id_group));
 		return true;
-	}
-
-	public function jidgroup($idgroup) {
-		$sqlquery = 'SELECT jid_group FROM groups	WHERE id_group = '.$idgroup;
-		$result = $this->db->query($sqlquery)->result_array();
-		return $result;
 	}
 }
 ?>

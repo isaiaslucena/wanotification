@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-21 17:55:10
+/* Smarty version 3.1.30, created on 2018-08-22 15:52:29
   from "/app/application/views/templates/body-groups-add.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b7c7c2e13f748_08084577',
+  'unifunc' => 'content_5b7db0edc2fe18_62242646',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4a97dd33e0fb856b41abc5500dd258f7640247f4' => 
     array (
       0 => '/app/application/views/templates/body-groups-add.tpl',
-      1 => 1534882882,
+      1 => 1534961967,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b7c7c2e13f748_08084577 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b7db0edc2fe18_62242646 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_8364168485b7c7c2e12a397_25225798', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_9245921415b7db0edc13af0_03774752', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_8364168485b7c7c2e12a397_25225798 extends Smarty_Internal_Block
+class Block_9245921415b7db0edc13af0_03774752 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -337,18 +337,18 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 		};
 
 		function enable_el(idelement) {
-			$(idelement).fadeOut(150, function() {
+			$(idelement).fadeOut(100, function() {
 				$(this).removeAttr('disabled');
 				$(this).removeClass('disabled');
-				$(this).fadeIn(150);
+				$(this).fadeIn(100);
 			});
 		}
 
 		function disable_el(idelement) {
-			$(idelement).fadeOut(150, function() {
+			$(idelement).fadeOut(100, function() {
 				$(this).attr('disabled', true);
 				$(this).addClass('disabled');
-				$(this).fadeIn(150);
+				$(this).fadeIn(100);
 			});
 		}
 
@@ -521,6 +521,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 			optionSelected = $('option:selected', this);
 			idvlista = parseInt($(optionSelected).attr('data-idvlista'));
 			creategroupalert.idvlista = idvlista
+			idkeyword = parseInt($(optionSelected).attr('data-idkeyword'));
+			creategroupalert.idkeyword = idkeyword
 
 			$('#selvlistas').html('<option class="disabled" disabled selected>Carregando...</option>');
 			if (idvlista === 0) {
@@ -687,29 +689,32 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 		$('#formbtnsub').click(function(evtbtn) {
 			groupname = $('#groupname').val();
 			$.post('add', {
-				groupname: groupname,
-				id_contacts: contacts,
-				id_alerts: alerts
+				'groupname': groupname,
+				'id_contacts': contacts,
+				'id_alerts': alerts,
+				'id_empresa': creategroupalert.idempresa,
+				'id_palavrachave': creategroupalert.idkeyword,
+				'id_number': creategroupalert.idnumber,
+				'priority': creategroupalert.priority,
+				'id_listaveiculo': creategroupalert.idvlista
 			},
 			function(data, textStatus, xhr) {
 				console.log(data);
-				// jdata = $.parseJSON(data);
-				// if (jdata.responsedata.exist) {
-				// 	$('#responsemsg').removeClass('hidden');
-				// 	$('#responsemsg').text(jdata.responsedata.message);
-				// 	$('#formbtnsub').addClass('disabled');
-				// 	$('#formbtnsub').attr('disabled', true);
-				// 	$('#name').focus();
-				// } else {
-				// 	$('#responsemsg').removeClass('hidden');
-				// 	$('#responsemsg').text(jdata.responsedata.message);
-				// 	$('#name').val(null);
-				// 	$('#search').val(null);
-				// 	$("input[type='checkbox']").prop('checked',false);
-				// 	$('#formbtnsub').addClass('disabled');
-				// 	$('#formbtnsub').attr('disabled', true);
-				// 	$('#name').focus();
-				// }
+
+				if (jdata.responsedata.exist) {
+					$('#responsemsg').removeClass('hidden');
+					$('#responsemsg').text(jdata.responsedata.message);
+					$('#formbtnsub').addClass('disabled');
+					$('#formbtnsub').attr('disabled', true);
+				} else {
+					$('#responsemsg').removeClass('hidden');
+					$('#responsemsg').text(jdata.responsedata.message);
+					$('#name').val(null);
+					$('#search').val(null);
+					$("input[type='checkbox']").prop('checked',false);
+					$('#formbtnsub').addClass('disabled');
+					$('#formbtnsub').attr('disabled', true);
+				}
 			});
 		});
 	});
