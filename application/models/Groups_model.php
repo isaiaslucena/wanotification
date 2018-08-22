@@ -44,11 +44,12 @@ class Groups_model extends CI_Model {
 		return $this->db->query($sqlquery)->result_array();
 	}
 
-	public function add_alerts_group($idgroup) {
+	public function add_alerts_group($data) {
 		$insertdata = array (
 			'id_alert' => $data['id_alert'],
 			'id_group' => $data['id_group'],
 			'id_empresa' => $data['id_empresa'],
+			'priority' => $data['priority'],
 			'id_number' => $data['id_number']
 		);
 		$this->db->insert('alerts_groups',$insertdata);

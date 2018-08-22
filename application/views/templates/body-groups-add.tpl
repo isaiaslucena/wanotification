@@ -14,6 +14,7 @@
 						<span id="nameerr" class="help-block hidden text-center"></span>
 					</div>
 					<div class="form-group">
+						{* PANEL USERS *}
 						<div id="panelusers" class="panel panel-default">
 							<div class="panel-heading">
 								<div class="input-group">
@@ -78,6 +79,7 @@
 							</div>
 						</div>
 
+						{* PANEL ALERTS *}
 						<div id="panelalerts" class="panel panel-default" style="display: none">
 							<div class="panel-heading">
 								<div class="input-group">
@@ -110,6 +112,29 @@
 										<input class="form-control" type="text" id="alertname" placeholder="Nome do alerta" maxlength="25" autocomplete="off"/>
 									</div>
 								</div>
+
+								<span id="alertresponsemsg" class="help-block hidden text-center has-error"></span>
+
+								{* BTN CREATE ALERT *}
+								<div class="form-group">
+									<button id="btncreatealert" disabled class="btn btn-coke btn-block disabled">
+										<i class="fa fa-check-circle"></i> Criar alerta
+									</button>
+								</div>
+								<div class="form-group">
+									<button role="button" class="btn btn-coke btn-block">
+										<i class="fa fa-times-circle"></i> Cancelar
+									</button>
+								</div>
+							</div>
+						</div>
+
+						{* PANEL GROUP CONFS *}
+						<div id="panelgroupconf" class="panel panel-default" style="display: none">
+							<div class="panel-heading">
+								Configurações
+							</div>
+							<div id="panelgroupconfs" class="panel-body">
 								{* SELECT NUMBERS *}
 								<div class="form-group">
 									<div class="input-group">
@@ -182,31 +207,17 @@
 										</select>
 									</div>
 								</div>
-
-								<span id="alertresponsemsg" class="help-block hidden text-center has-error"></span>
-
-								{* BTN CREATE ALERT *}
-								<div class="form-group">
-									<button id="btncreatealert" disabled class="btn btn-coke btn-block disabled">
-										<i class="fa fa-check-circle"></i> Criar alerta
-									</button>
-								</div>
-								<div class="form-group">
-									<button role="button" class="btn btn-coke btn-block">
-										<i class="fa fa-times-circle"></i> Cancelar
-									</button>
-								</div>
 							</div>
 						</div>
 					</div>
 					<span id="responsemsg" class="help-block hidden text-center"></span>
 					<div class="form-group">
-						<button id="nextbtnsub" disabled class="btn btn-coke btn-block disabled" type="submit">
+						<button id="nextbtnsub" disabled class="btn btn-coke btn-block disabled" data-step="user" type="button">
 							<i class="fa fa-arrow-circle-right"></i> Próximo
 						</button>
 					</div>
 					<div class="form-group">
-						<button id="formbtnsub" disabled class="btn btn-coke btn-block disabled" type="submit" style="display: none">
+						<button id="formbtnsub" disabled class="btn btn-coke btn-block disabled" type="button" style="display: none">
 							<i class="fa fa-check-circle"></i> Adicionar
 						</button>
 					</div>
@@ -228,7 +239,7 @@
 		var creategroupalert = {
 			'idgroup': null,
 			'idalert': null,
-			'priority': null,
+			'priority': 5,
 			'idnumber': null,
 			'idempresa': null,
 			'idkeyword': null,
@@ -236,6 +247,22 @@
 			// 'idtipoveiculo': null,
 			// 'tier': null
 		};
+
+		function enable_el(idelement) {
+			$(idelement).fadeOut(150, function() {
+				$(this).removeAttr('disabled');
+				$(this).removeClass('disabled');
+				$(this).fadeIn(150);
+			});
+		}
+
+		function disable_el(idelement) {
+			$(idelement).fadeOut(150, function() {
+				$(this).attr('disabled', true);
+				$(this).addClass('disabled');
+				$(this).fadeIn(150);
+			});
+		}
 
 		$('[data-toggle="tooltip"]').tooltip({'container': 'body'});
 
@@ -258,41 +285,41 @@
 
 		$('.phonei').mask(maskBehavior, options);
 
-		$('#name').on('blur', function() {
-			namei = $('#name').val();
+		$('#username').on('blur', function() {
+			namei = $('#username').val();
 			if (namei.length > 0 && namei.length < 3) {
 				$('#nameerr').html('O nome não pode ser muito curto!');
 				$('#nameerr').removeClass('hidden');
-				$('#name').addClass('has-error');
-				$('#name').focus();
+				$('#username').addClass('has-error');
+				$('#username').focus();
 			} else if (namei.length == 0) {
 				$('#nameerr').html('O nome não pode está em branco!');
 				$('#nameerr').removeClass('hidden');
-				$('#name').addClass('has-error');
-				$('#name').focus();
+				$('#username').addClass('has-error');
+				$('#username').focus();
 			} else {
 				$('#nameerr').addClass('hidden');
-				$('#name').addClass('has-success');
+				$('#username').addClass('has-success');
 				namesuccess = 1;
 			}
 		});
 
-		$('#surname').on('blur', function(){
-			surnamei = $('#surname').val();
+		$('#usersurname').on('blur', function(){
+			surnamei = $('#usersurname').val();
 			if (surnamei.length > 0 && surnamei.length < 4) {
-				$('#surname').addClass('has-error');
-				$('#nameerr').html('O sobrenome não pode ser muito curto!');
-				$('#nameerr').removeClass('hidden');
+				$('#usersurname').addClass('has-error');
+				$('#usersurnameerr').html('O sobrenome não pode ser muito curto!');
+				$('#usersurnameerr').removeClass('hidden');
 				$('#formname').removeClass('has-error');
-				$('#surname').focus();
+				$('#usersurname').focus();
 			} else if (surnamei.length = 0) {
-				$('#nameerr').html('O sobrenome não pode está em branco!');
-				$('#nameerr').removeClass('hidden');
+				$('#usersurnameerr').html('O sobrenome não pode está em branco!');
+				$('#usersurnameerr').removeClass('hidden');
 				$('#name').addClass('has-success');
-				$('#surname').focus();
+				$('#usersurname').focus();
 			} else {
-				$('#nameerr').addClass('hidden');
-				$('#surnname').addClass('has-success');
+				$('#usersurnameerr').addClass('hidden');
+				$('#usersurnname').addClass('has-success');
 				surnamesuccess = 1;
 			}
 		});
@@ -410,11 +437,8 @@
 			$('#selvlistas').html('<option class="disabled" disabled selected>Carregando...</option>');
 			if (idvlista === 0) {
 				$('#selvlistas').html('<option data-idvlista="'+idvlista+'" class="taglistav" selected>Todos os veículos</option>');
-				$('#selvlistas').removeAttr('disabled');
-				$('#selvlistas').removeClass('disabled');
-
-				$('#btncreatealert').removeAttr('disabled');
-				$('#btncreatealert').removeClass('disabled');
+				enable_el('#selvlistas');
+				enable_el('#formbtnsub');
 			} else {
 				$('#selvlistas').html('<option class="disabled" disabled selected>Carregando...</option>');
 				$.get('/alerts/get_keyword_vlista/'+idvlista, function(data) {
@@ -422,15 +446,13 @@
 					$.each(data, function(index, val) {
 						$('#selvlistas').append('<option data-idvlista="'+val.Id+'" class="taglistav">'+val.Nome+'</option>');
 					});
-						$('#selvlistas').removeAttr('disabled');
-						$('#selvlistas').removeClass('disabled');
+						enable_el('#selvlistas');
 				});
 			}
 		});
 
 		$('#selvlistas').change(function(event) {
-			$('#btncreatealert').removeAttr('disabled');
-			$('#btncreatealert').removeClass('disabled');
+			enable_el('#formbtnsub');
 		});
 
 		$('#btncreatealert').click(function(event) {
@@ -439,6 +461,8 @@
 				{'alertname': curralertname},
 				function(data, textStatus, xhr) {
 					creategroupalert.idalert = data.responsedata.idalert;
+					alerts = [];
+					alerts.push(data.responsedata.idalert);
 
 					if (data.responsedata.exist) {
 						$('#alertresponsemsg').removeClass('hidden');
@@ -476,17 +500,6 @@
 			});
 		});
 
-		$('.tagclient__').click(function(event) {
-			event.preventDefault();
-			idclient = $(this).attr('data-idclient');
-
-			$('#ddownpriority').text(prior+' ').append('<span class="caret"></span>');
-
-			$.get('/alerts/get_empresa_keywords/'+idclient, function(data) {
-				/*optional stuff to do after success */
-			});
-		});
-
 		$('#formbtncan').click(function(event) {
 			$('#uladduser').slideUp(400, function(e) {
 				$('#ulusers').slideDown(400, function(e) {
@@ -497,29 +510,27 @@
 			});
 		});
 
-		$('#name').on('blur', function() {
-			namei = $('#name').val();
-			if (namei.length > 0 && namei.length < 3) {
+		$('#groupname').on('blur', function() {
+			namei = $('#groupname').val();
+			if (namei.length > 0 && namei.length < 4) {
 				$('#nameerr').html('O nome não pode ser muito curto!');
 				$('#nameerr').removeClass('hidden');
-				$('#name').addClass('has-error');
-				$('#name').focus();
+				$('#groupname').addClass('has-error');
+				$('#groupname').focus();
 			} else if (namei.length == 0) {
 				$('#nameerr').html('O nome não pode ficar em branco!');
 				$('#nameerr').removeClass('hidden');
-				$('#name').addClass('has-error');
-				$('#name').focus();
+				$('#groupname').addClass('has-error');
+				$('#groupname').focus();
 			} else {
 				$('#nameerr').addClass('hidden');
-				$('#name').addClass('has-success');
+				$('#groupname').addClass('has-success');
 				namesuccess = true;
 			}
 		});
 
 		$('input[type=checkbox]').click(function(event) {
 			if ($(this).hasClass('userckbx')) {
-				// console.log('usuario');
-
 				selectedid = $(this).attr('data-userid');
 				if ($(this).is(':checked')) {
 					contacts.push(selectedid);
@@ -528,17 +539,14 @@
 				}
 
 				if (contacts.length >= 1 || namesuccess) {
-					$('#nextbtnsub').removeAttr('disabled');
-					$('#nextbtnsub').removeClass('disabled');
+					enable_el('#nextbtnsub');
 				} else {
-					$('#nextbtnsub').attr('disabled', true);
-					$('#nextbtnsub').addClass('disabled');
+					disable_el('#nextbtnsub');
 				}
-
+				console.log('contacts:');
 				console.log(contacts);
+				console.log('');
 			} else if ($(this).hasClass('alertckbx')) {
-				// console.log('alerta');
-
 				selectedid = $(this).attr('data-alertid');
 				if ($(this).is(':checked')) {
 					alerts.push(selectedid);
@@ -547,25 +555,45 @@
 				}
 
 				if (alerts.length >= 1 || namesuccess) {
-					$('#formbtnsub').removeAttr('disabled');
-					$('#formbtnsub').removeClass('disabled');
+					enable_el('#nextbtnsub');
 				} else {
-					$('#formbtnsub').attr('disabled', true);
-					$('#formbtnsub').addClass('disabled');
+					disable_el('#nextbtnsub');
 				}
-
+				console.log('alerts:')
 				console.log(alerts);
+				console.log('');
 			}
 		});
 
 		$('#nextbtnsub').click(function(event) {
-			$('#panelusers').slideUp(400, function(e){
-				$('#panelalerts').slideDown(400, function() {
-					$('#nextbtnsub').fadeOut('fast', function() {
-						$('#formbtnsub').fadeIn('fast');
+			nstep = $(this).attr('data-step');
+			if (nstep == 'user') {
+				$('#panelusers').slideUp(400, function(e) {
+					$('#panelalerts').slideDown(400, function() {
+					$('#nextbtnsub').fadeOut(150, function() {
+						$(this).attr({
+							'disabled': true,
+							'data-step': 'alert'
+						});
+						$(this).addClass('disabled');
+						$(this).fadeIn(150);
+						$('#groupname').fadeOut(150, function() {
+							$(this).attr('disabled', true);
+							$(this).addClass('disabled');
+							$(this).fadeIn(150);
+						});
+					});
 					});
 				});
-			});
+			} else if (nstep == 'alert') {
+				$('#panelalerts').slideUp(400, function(e) {
+					$('#panelgroupconf').slideDown(400, function() {
+						$('#nextbtnsub').fadeOut(150, function() {
+							$('#formbtnsub').fadeIn(150);
+						});
+					});
+				});
+			}
 		});
 
 		$('#formbtnsub').click(function(evtbtn) {

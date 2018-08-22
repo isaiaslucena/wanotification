@@ -79,8 +79,13 @@ class Groups extends CI_Controller {
 					foreach ($postdata['id_alerts'] as $idalert) {
 						$datagalert['id_alert'] = $idalert;
 						$datagalert['id_group'] = $datamember['id_group'];
-						$this->groups_model->add_alerts_group($idalert);
+						$datagalert['id_empresa'] = $this->input->post("id_empresa");
+						$datagalert['priority'] = $this->input->post("priority");
+						$datagalert['id_number'] = $this->input->post("id_number");
+						$this->groups_model->add_alerts_group($datagalert);
 					}
+
+					$this->alerts_model->add_alerts_keywords();
 
 					$data['responsedata']['status'] = "success";
 					$data['responsedata']['message'] = "Grupo cadastrado com sucesso!";
