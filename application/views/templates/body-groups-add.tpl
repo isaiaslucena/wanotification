@@ -11,7 +11,7 @@
 							<div class="input-group-addon"><span class="fa fa-group"></span></div>
 							<input class="form-control" type="text" id="groupname" placeholder="Nome do grupo" maxlength="25" autocomplete="off"/>
 						</div>
-						<span id="nameerr" class="help-block hidden text-center"></span>
+						<span id="groupnameerr" class="help-block hidden text-center"></span>
 					</div>
 					<div class="form-group">
 						{* PANEL USERS *}
@@ -111,9 +111,10 @@
 										<div class="input-group-addon"><span class="fa fa-bell"></span></div>
 										<input class="form-control" type="text" id="alertname" placeholder="Nome do alerta" maxlength="25" autocomplete="off"/>
 									</div>
+									<span id="alertnameerr" class="help-block text-center has-error" style="display: none"></span>
 								</div>
 
-								<span id="alertresponsemsg" class="help-block hidden text-center has-error"></span>
+								<span id="alertresponsemsg" class="help-block text-center has-error" style="display: none"></span>
 
 								{* BTN CREATE ALERT *}
 								<div class="form-group">
@@ -254,7 +255,7 @@
 				$(this).removeClass('disabled');
 				$(this).fadeIn(100);
 			});
-		}
+		};
 
 		function disable_el(idelement) {
 			$(idelement).fadeOut(100, function() {
@@ -262,7 +263,15 @@
 				$(this).addClass('disabled');
 				$(this).fadeIn(100);
 			});
-		}
+		};
+
+		function hide_el(idelement) {
+			$(idelement).fadeOut(100);
+		};
+
+		function show_el(idelement) {
+			$(idelement).fadeIn(100);
+		};
 
 		$('[data-toggle="tooltip"]').tooltip({'container': 'body'});
 
@@ -380,6 +389,29 @@
 			});
 		});
 
+		$('#alertname').keyup(function(event) {
+			namei = $('#alertname').val();
+			if (namei.length > 0 && namei.length < 5) {
+				$('#alertname').removeClass('has-success');
+				$('#alertname').addClass('has-error');
+				$('#alertnameerr').html('O nome não pode ser muito curto!');
+				$('#alertnameerr').fadeIn(100);
+				disable_el('#btncreatealert');
+			} else if (namei.length == 0) {
+				$('#alertname').removeClass('has-success');
+				$('#alertname').addClass('has-error');
+				$('#alertnameerr').html('O nome não pode está em branco!');
+				$('#alertnameerr').fadeIn(100);
+				disable_el('#btncreatealert');
+			} else {
+				$('#alertname').removeClass('has-error');
+				$('#alertname').addClass('has-success');
+				$('#alertnameerr').fadeOut(100);
+				enable_el('#btncreatealert');
+				alertnamesuccess = 1;
+			}
+		});
+
 		$('#btnaddalert').click(function(event) {
 			$('#ulalerts').slideUp(400, function(e) {
 				$('#uladdalert').slideDown(400, function(e) {
@@ -485,11 +517,11 @@
 
 									$('#ulalerts').html(null);
 									$.each(data, function(index, val) {
-										$('#ulalerts').html(
+										$('#ulalerts').append(
 											'<li class="list-group-item">'+
 												'<div class="checkbox">'+
 													'<label>'+
-														'<input data-alertid="'+data.id_alert+'" class="alertckbx" type="checkbox" aria-label="..."> '+data.name+
+														'<input data-alertid="'+val.id_alert+'" class="alertckbx" type="checkbox" aria-label="..."> '+val.name+
 													'</label>'+
 												'</div>'+
 											'</li>'
@@ -512,26 +544,26 @@
 			});
 		});
 
-		$('#groupname').on('blur', function() {
+		$('#groupname').keyup(function(event) {
 			namei = $('#groupname').val();
 			if (namei.length > 0 && namei.length < 4) {
-				$('#nameerr').html('O nome não pode ser muito curto!');
-				$('#nameerr').removeClass('hidden');
+				$('#groupnameerr').html('O nome não pode ser muito curto!');
+				$('#groupnameerr').removeClass('hidden');
 				$('#groupname').addClass('has-error');
 				$('#groupname').focus();
 			} else if (namei.length == 0) {
-				$('#nameerr').html('O nome não pode ficar em branco!');
-				$('#nameerr').removeClass('hidden');
+				$('#groupnameerr').html('O nome não pode ficar em branco!');
+				$('#groupnameerr').removeClass('hidden');
 				$('#groupname').addClass('has-error');
 				$('#groupname').focus();
 			} else {
-				$('#nameerr').addClass('hidden');
+				$('#groupnameerr').addClass('hidden');
 				$('#groupname').addClass('has-success');
 				namesuccess = true;
 			}
 		});
 
-		$('input[type=checkbox]').click(function(event) {
+		$(document).on('click', 'input[type=checkbox]', function(event) {
 			if ($(this).hasClass('userckbx')) {
 				selectedid = $(this).attr('data-userid');
 				if ($(this).is(':checked')) {

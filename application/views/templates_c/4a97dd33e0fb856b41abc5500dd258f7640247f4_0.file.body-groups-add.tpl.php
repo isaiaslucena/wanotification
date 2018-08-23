@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-22 15:52:29
+/* Smarty version 3.1.30, created on 2018-08-23 14:17:48
   from "/app/application/views/templates/body-groups-add.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b7db0edc2fe18_62242646',
+  'unifunc' => 'content_5b7eec3c85e548_23355320',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4a97dd33e0fb856b41abc5500dd258f7640247f4' => 
     array (
       0 => '/app/application/views/templates/body-groups-add.tpl',
-      1 => 1534961967,
+      1 => 1535044665,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b7db0edc2fe18_62242646 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b7eec3c85e548_23355320 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_9245921415b7db0edc13af0_03774752', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_14757015045b7eec3c8498e6_56792619', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_9245921415b7db0edc13af0_03774752 extends Smarty_Internal_Block
+class Block_14757015045b7eec3c8498e6_56792619 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -51,7 +51,7 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 							<div class="input-group-addon"><span class="fa fa-group"></span></div>
 							<input class="form-control" type="text" id="groupname" placeholder="Nome do grupo" maxlength="25" autocomplete="off"/>
 						</div>
-						<span id="nameerr" class="help-block hidden text-center"></span>
+						<span id="groupnameerr" class="help-block hidden text-center"></span>
 					</div>
 					<div class="form-group">
 						
@@ -174,9 +174,10 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 										<div class="input-group-addon"><span class="fa fa-bell"></span></div>
 										<input class="form-control" type="text" id="alertname" placeholder="Nome do alerta" maxlength="25" autocomplete="off"/>
 									</div>
+									<span id="alertnameerr" class="help-block text-center has-error" style="display: none"></span>
 								</div>
 
-								<span id="alertresponsemsg" class="help-block hidden text-center has-error"></span>
+								<span id="alertresponsemsg" class="help-block text-center has-error" style="display: none"></span>
 
 								
 								<div class="form-group">
@@ -342,7 +343,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 				$(this).removeClass('disabled');
 				$(this).fadeIn(100);
 			});
-		}
+		};
 
 		function disable_el(idelement) {
 			$(idelement).fadeOut(100, function() {
@@ -350,7 +351,15 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 				$(this).addClass('disabled');
 				$(this).fadeIn(100);
 			});
-		}
+		};
+
+		function hide_el(idelement) {
+			$(idelement).fadeOut(100);
+		};
+
+		function show_el(idelement) {
+			$(idelement).fadeIn(100);
+		};
 
 		$('[data-toggle="tooltip"]').tooltip({'container': 'body'});
 
@@ -468,6 +477,29 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 			});
 		});
 
+		$('#alertname').keyup(function(event) {
+			namei = $('#alertname').val();
+			if (namei.length > 0 && namei.length < 5) {
+				$('#alertname').removeClass('has-success');
+				$('#alertname').addClass('has-error');
+				$('#alertnameerr').html('O nome não pode ser muito curto!');
+				$('#alertnameerr').fadeIn(100);
+				disable_el('#btncreatealert');
+			} else if (namei.length == 0) {
+				$('#alertname').removeClass('has-success');
+				$('#alertname').addClass('has-error');
+				$('#alertnameerr').html('O nome não pode está em branco!');
+				$('#alertnameerr').fadeIn(100);
+				disable_el('#btncreatealert');
+			} else {
+				$('#alertname').removeClass('has-error');
+				$('#alertname').addClass('has-success');
+				$('#alertnameerr').fadeOut(100);
+				enable_el('#btncreatealert');
+				alertnamesuccess = 1;
+			}
+		});
+
 		$('#btnaddalert').click(function(event) {
 			$('#ulalerts').slideUp(400, function(e) {
 				$('#uladdalert').slideDown(400, function(e) {
@@ -573,11 +605,11 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 
 									$('#ulalerts').html(null);
 									$.each(data, function(index, val) {
-										$('#ulalerts').html(
+										$('#ulalerts').append(
 											'<li class="list-group-item">'+
 												'<div class="checkbox">'+
 													'<label>'+
-														'<input data-alertid="'+data.id_alert+'" class="alertckbx" type="checkbox" aria-label="..."> '+data.name+
+														'<input data-alertid="'+val.id_alert+'" class="alertckbx" type="checkbox" aria-label="..."> '+val.name+
 													'</label>'+
 												'</div>'+
 											'</li>'
@@ -600,26 +632,26 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 			});
 		});
 
-		$('#groupname').on('blur', function() {
+		$('#groupname').keyup(function(event) {
 			namei = $('#groupname').val();
 			if (namei.length > 0 && namei.length < 4) {
-				$('#nameerr').html('O nome não pode ser muito curto!');
-				$('#nameerr').removeClass('hidden');
+				$('#groupnameerr').html('O nome não pode ser muito curto!');
+				$('#groupnameerr').removeClass('hidden');
 				$('#groupname').addClass('has-error');
 				$('#groupname').focus();
 			} else if (namei.length == 0) {
-				$('#nameerr').html('O nome não pode ficar em branco!');
-				$('#nameerr').removeClass('hidden');
+				$('#groupnameerr').html('O nome não pode ficar em branco!');
+				$('#groupnameerr').removeClass('hidden');
 				$('#groupname').addClass('has-error');
 				$('#groupname').focus();
 			} else {
-				$('#nameerr').addClass('hidden');
+				$('#groupnameerr').addClass('hidden');
 				$('#groupname').addClass('has-success');
 				namesuccess = true;
 			}
 		});
 
-		$('input[type=checkbox]').click(function(event) {
+		$(document).on('click', 'input[type=checkbox]', function(event) {
 			if ($(this).hasClass('userckbx')) {
 				selectedid = $(this).attr('data-userid');
 				if ($(this).is(':checked')) {
