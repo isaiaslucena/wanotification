@@ -494,9 +494,9 @@
 			$.post('/alerts/add',
 				{'alertname': curralertname},
 				function(data, textStatus, xhr) {
-					creategroupalert.idalert = data.responsedata.idalert;
-					alerts = [];
-					alerts.push(data.responsedata.idalert);
+					// alerts = [];
+					alertadded = data.responsedata.idalert;
+					alerts.push(parseString(alertadded));
 
 					if (data.responsedata.exist) {
 						$('#alertresponsemsg').removeClass('hidden');
@@ -517,15 +517,27 @@
 
 									$('#ulalerts').html(null);
 									$.each(data, function(index, val) {
-										$('#ulalerts').append(
-											'<li class="list-group-item">'+
-												'<div class="checkbox">'+
-													'<label>'+
-														'<input data-alertid="'+val.id_alert+'" class="alertckbx" type="checkbox" aria-label="..."> '+val.name+
-													'</label>'+
-												'</div>'+
-											'</li>'
-										);
+										if (alertadded == val.idalert) {
+											$('#ulalerts').append(
+												'<li class="list-group-item">'+
+													'<div class="checkbox">'+
+														'<label>'+
+															'<input data-alertid="'+val.id_alert+'" class="alertckbx" type="checkbox" aria-label="..." checked> '+val.name+
+														'</label>'+
+													'</div>'+
+												'</li>'
+											);
+										} else {
+											$('#ulalerts').append(
+												'<li class="list-group-item">'+
+													'<div class="checkbox">'+
+														'<label>'+
+															'<input data-alertid="'+val.id_alert+'" class="alertckbx" type="checkbox" aria-label="..."> '+val.name+
+														'</label>'+
+													'</div>'+
+												'</li>'
+											);
+										}
 									});
 								});
 							});
