@@ -85,22 +85,25 @@ class Groups_model extends CI_Model {
 	}
 
 	public function groups_lastmsg() {
-		$sqlquery = 'SELECT gpo.id_group, gpo.name AS name_group, gpq.menbers_quant,
+		$sqlquery = 'SELECT gpo.id_group, gpo.name AS name_group,
+								CASE WHEN gpq.members_quant IS NULL THEN 0 ELSE gpq.members_quant END AS members_quant,
 								msg1.id_message AS id_message, FROM_UNIXTIME(msg1.timestamp) AS datetime,
 								FROM_UNIXTIME(msg1.sent_timestamp) AS sent_datetime,
 								msg1.msg_subject, msg1.msg_title, msg1.msg_link,
 								CASE
-								WHEN msg1.sent = 0 THEN "Não Enviado"
-								WHEN msg1.sent = 1 THEN "Enviado"
-								WHEN msg1.sent = 2 THEN "Cancelado"
+									WHEN msg1.sent = 0 THEN "Não Enviado"
+									WHEN msg1.sent = 1 THEN "Enviado"
+									WHEN msg1.sent = 2 THEN "Cancelado"
+									WHEN msg1.sent IS NULL THEN "Nenhum"
 								END AS status
 								FROM messages_sent msg1
 								JOIN (SELECT MAX(id_message) AS id_message FROM messages_sent GROUP BY id_to) msg2 ON msg1.id_message = msg2.id_message
-								JOIN `groups` gpo ON msg1.id_to = gpo.id_group
-								JOIN (SELECT gpm.id_group, gp.name, COUNT(gpm.id_group) AS menbers_quant FROM group_members gpm
-								JOIN `groups` gp ON gpm.id_group = gp.id_group
-								GROUP BY gpm.id_group) gpq ON msg1.id_to = gpq.id_group
-								ORDER BY msg1.id_to ASC';
+								RIGHT JOIN `groups` gpo ON msg1.id_to = gpo.id_group
+								LEFT JOIN
+									(SELECT gpm.id_group, gp.name, COUNT(gpm.id_group) AS members_quant FROM group_members gpm
+									INNER JOIN `groups` gp ON gpm.id_group = gp.id_group
+									GROUP BY gpm.id_group) gpq ON msg1.id_to = gpq.id_group
+								ORDER BY msg1.id_to DESC';
 		return $this->db->query($sqlquery)->result_array();
 	}
 

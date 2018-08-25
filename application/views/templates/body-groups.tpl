@@ -42,9 +42,9 @@
 								<tr data-idgroup="{$group.id_group}" data-namegroup="{$group.name_group}" style="cursor: pointer;">
 									<th scope="row">{$group.id_group}</th>
 									<td>{$group.name_group}</td>
-									<td>{$group.menbers_quant}</td>
+									<td>{$group.members_quant}</td>
 									<td>
-										<a tabindex="0" class="btn btn-default apopover" role="button"
+										<a tabindex="0" class="btn btn-default btn-sm apopover" role="button"
 										data-toggle="popover" data-trigger="focus" data-placement="top"
 										title="{$group.msg_subject}"
 										data-html="true" data-content="Enviado: {$group.datetime} <br> Recebido: {$group.sent_datetime} <br><br> {$group.msg_title}">

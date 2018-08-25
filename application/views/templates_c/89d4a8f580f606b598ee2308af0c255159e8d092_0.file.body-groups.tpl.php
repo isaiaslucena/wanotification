@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-14 17:02:25
+/* Smarty version 3.1.30, created on 2018-08-24 17:16:00
   from "/app/application/views/templates/body-groups.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b733551ee38e3_50399710',
+  'unifunc' => 'content_5b8067805c8122_58932522',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '89d4a8f580f606b598ee2308af0c255159e8d092' => 
     array (
       0 => '/app/application/views/templates/body-groups.tpl',
-      1 => 1534276938,
+      1 => 1535141464,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b733551ee38e3_50399710 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b8067805c8122_58932522 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_13656156865b733551ecd614_96783235', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_20122633835b8067805ad155_57255124', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_13656156865b733551ecd614_96783235 extends Smarty_Internal_Block
+class Block_20122633835b8067805ad155_57255124 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -84,10 +84,10 @@ foreach ($_from as $_smarty_tpl->tpl_vars['group']->value) {
 </th>
 									<td><?php echo $_smarty_tpl->tpl_vars['group']->value['name_group'];?>
 </td>
-									<td><?php echo $_smarty_tpl->tpl_vars['group']->value['menbers_quant'];?>
+									<td><?php echo $_smarty_tpl->tpl_vars['group']->value['members_quant'];?>
 </td>
 									<td>
-										<a tabindex="0" class="btn btn-default apopover" role="button"
+										<a tabindex="0" class="btn btn-default btn-sm apopover" role="button"
 										data-toggle="popover" data-trigger="focus" data-placement="top"
 										title="<?php echo $_smarty_tpl->tpl_vars['group']->value['msg_subject'];?>
 "
