@@ -28,13 +28,13 @@ class Groups_model extends CI_Model {
 
 	public function group_members($data) {
 		$sqlquery = 'SELECT ct.id_contact, ct.name, ct.surname FROM group_members gm
-					JOIN contacts ct ON gm.id_contact=ct.id_contact
-					JOIN groups gp ON gm.id_group=gp.id_group
-					WHERE gm.id_group = '.$data;
+								JOIN contacts ct ON gm.id_contact=ct.id_contact
+								JOIN groups gp ON gm.id_group=gp.id_group
+								WHERE gm.id_group = '.$data;
 		return $this->db->query($sqlquery)->result_array();
 	}
 
-	public function group _alerts($idgroup) {
+	public function group_alerts($idgroup) {
 		$sqlquery = 'SELECT
 								anews.id_alert, anews.name, agroups.id_group, agroups.id_empresa,
 								agroups.priority

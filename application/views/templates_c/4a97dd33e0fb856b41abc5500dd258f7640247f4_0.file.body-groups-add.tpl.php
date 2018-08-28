@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-24 18:00:21
+/* Smarty version 3.1.30, created on 2018-08-28 14:31:14
   from "/app/application/views/templates/body-groups-add.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b8071e558cd94_51634804',
+  'unifunc' => 'content_5b8586e2a6a1e4_97820942',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4a97dd33e0fb856b41abc5500dd258f7640247f4' => 
     array (
       0 => '/app/application/views/templates/body-groups-add.tpl',
-      1 => 1535141464,
+      1 => 1535477471,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b8071e558cd94_51634804 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b8586e2a6a1e4_97820942 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_7563007265b8071e5568125_72080291', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_679261545b8586e2a52eb8_28364390', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_7563007265b8071e5568125_72080291 extends Smarty_Internal_Block
+class Block_679261545b8586e2a52eb8_28364390 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -176,6 +176,44 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 									</div>
 									<span id="alertnameerr" class="help-block text-center has-error" style="display: none"></span>
 								</div>
+								
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-addon"><span class="fa fa-key"></span></div>
+										<select id="selkeywords" class="form-control disabled" disabled>
+											<option class="disabled" disabled selected>Selecione um cliente</option>
+										</select>
+									</div>
+								</div>
+
+								
+								<div class="form-group">
+									<div class="input-group">
+										<div class="btn-group center-block" role="group" aria-label="...">
+											<button id="btntgvlista" type="button" class="btn btn-default btntgl">Lista de veículo</button>
+											<button id="btntgtveicu" type="button" class="btn btn-default btntgl">Tipo de Veículo</button>
+										</div>
+									</div>
+								</div>
+
+								
+								<div id="divfrmgvlista" class="form-group" style="display: none">
+									<div class="input-group">
+										<div class="input-group-addon"><span class="fa fa-list-ul"></span></div>
+										<select id="selvlistas" class="form-control disabled" disabled>
+											<option class="disabled" disabled selected>Selecione uma palavra-chave</option>
+										</select>
+									</div>
+								</div>
+								
+								<div id="divfrmgtveicu" class="form-group" style="display: none">
+									<div class="input-group">
+										<div class="input-group-addon"><span class="fa fa-bullseye"></span></div>
+										<select id="selkeywords" class="form-control disabled" disabled multiple>
+											<option class="disabled" disabled selected>Selecione um tipo de veículo</option>
+										</select>
+									</div>
+								</div>
 
 								<span id="alertresponsemsg" class="help-block text-center has-error" style="display: none"></span>
 
@@ -185,6 +223,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 										<i class="fa fa-check-circle"></i> Criar alerta
 									</button>
 								</div>
+								
 								<div class="form-group">
 									<button role="button" class="btn btn-coke btn-block">
 										<i class="fa fa-times-circle"></i> Cancelar
@@ -274,24 +313,6 @@ foreach ($_from as $_smarty_tpl->tpl_vars['client']->value) {
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 ?>
 
-										</select>
-									</div>
-								</div>
-								
-								<div class="form-group">
-									<div class="input-group">
-										<div class="input-group-addon"><span class="fa fa-key"></span></div>
-										<select id="selkeywords" class="form-control disabled" disabled>
-											<option class="disabled" disabled selected>Selecione um cliente</option>
-										</select>
-									</div>
-								</div>
-								
-								<div class="form-group">
-									<div class="input-group">
-										<div class="input-group-addon"><span class="fa fa-bullseye"></span></div>
-										<select id="selvlistas" class="form-control disabled" disabled>
-											<option class="disabled" disabled selected>Selecione uma palavra-chave</option>
 										</select>
 									</div>
 								</div>
@@ -500,6 +521,26 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 			}
 		});
 
+		$('.btntgl').click(function(event) {
+			// console.log($(this));
+			cid = $(this).attr('id');
+			if (cid == 'btntgvlista') {
+				$('.btntgl').removeClass('active');
+				$('#'+cid).addClass('active');
+				$('#divfrmgtveicu').slideUp('fast');
+				$('#divfrmgvlista').slideDown('slow', function() {
+					console.log('shown lista veiculo');
+				});
+			} else {
+				$('.btntgl').removeClass('active');
+				$('#'+cid).addClass('active');
+				$('#divfrmgvlista').slideUp('fast');
+				$('#divfrmgtveicu').slideDown('slow', function() {
+					console.log('shown tipo veiculo');
+				});
+			}
+		});
+
 		$('#btnaddalert').click(function(event) {
 			$('#ulalerts').slideUp(400, function(e) {
 				$('#uladdalert').slideDown(400, function(e) {
@@ -557,7 +598,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 			creategroupalert.idkeyword = idkeyword
 
 			$('#selvlistas').html('<option class="disabled" disabled selected>Carregando...</option>');
-			if (idvlista === 0) {
+			if (idvlista == null) {
 				$('#selvlistas').html('<option data-idvlista="'+idvlista+'" class="taglistav" selected>Todos os veículos</option>');
 				enable_el('#selvlistas');
 				enable_el('#formbtnsub');

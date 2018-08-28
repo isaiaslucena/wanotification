@@ -50,6 +50,15 @@ class Alerts_model extends CI_Model {
 		return $result;
 	}
 
+	public function get_tipoveiculo() {
+		$dbmclipp = $this->load->database('mclipp', TRUE);
+		// $sqlquery = 'SELECT Id, Nome FROM TipoVeiculo ORDER BY Nome ASC';
+		$result = $this->dbmclipp->get('TipoVeiculo')->result_array();
+		// $result = $dbmclipp->query($sqlquery)->result_array();
+		$dbmclipp->close();
+		return $result;
+	}
+
 	public function get_keyword_vlista($idvlista) {
 		$dbmclipp = $this->load->database('mclipp', TRUE);
 		$sqlquery = 'SELECT lvi_id as Id, lvi_nome as Nome FROM VLista WHERE lvi_id = '.$idvlista.' ORDER BY lvi_nome ASC';

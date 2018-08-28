@@ -113,6 +113,44 @@
 									</div>
 									<span id="alertnameerr" class="help-block text-center has-error" style="display: none"></span>
 								</div>
+								{* SELECT KEYWORDS *}
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-addon"><span class="fa fa-key"></span></div>
+										<select id="selkeywords" class="form-control disabled" disabled>
+											<option class="disabled" disabled selected>Selecione um cliente</option>
+										</select>
+									</div>
+								</div>
+
+								{* TYPE *}
+								<div class="form-group">
+									<div class="input-group">
+										<div class="btn-group center-block" role="group" aria-label="...">
+											<button id="btntgvlista" type="button" class="btn btn-default btntgl">Lista de veículo</button>
+											<button id="btntgtveicu" type="button" class="btn btn-default btntgl">Tipo de Veículo</button>
+										</div>
+									</div>
+								</div>
+
+								{* SELECT VLISTA *}
+								<div id="divfrmgvlista" class="form-group" style="display: none">
+									<div class="input-group">
+										<div class="input-group-addon"><span class="fa fa-list-ul"></span></div>
+										<select id="selvlistas" class="form-control disabled" disabled>
+											<option class="disabled" disabled selected>Selecione uma palavra-chave</option>
+										</select>
+									</div>
+								</div>
+								{* SELECT TIPOVEICULO *}
+								<div id="divfrmgtveicu" class="form-group" style="display: none">
+									<div class="input-group">
+										<div class="input-group-addon"><span class="fa fa-bullseye"></span></div>
+										<select id="selkeywords" class="form-control disabled" disabled multiple>
+											<option class="disabled" disabled>Selecione um tipo de veículo</option>
+										</select>
+									</div>
+								</div>
 
 								<span id="alertresponsemsg" class="help-block text-center has-error" style="display: none"></span>
 
@@ -122,6 +160,7 @@
 										<i class="fa fa-check-circle"></i> Criar alerta
 									</button>
 								</div>
+								{* BTN CANCEL CREATE ALERT *}
 								<div class="form-group">
 									<button role="button" class="btn btn-coke btn-block">
 										<i class="fa fa-times-circle"></i> Cancelar
@@ -187,24 +226,6 @@
 											{foreach from=$clients item=client}
 												<option data-idclient="{$client.Id}" class="tagclient">{$client.Nome}</option>
 											{/foreach}
-										</select>
-									</div>
-								</div>
-								{* SELECT KEYWORDS *}
-								<div class="form-group">
-									<div class="input-group">
-										<div class="input-group-addon"><span class="fa fa-key"></span></div>
-										<select id="selkeywords" class="form-control disabled" disabled>
-											<option class="disabled" disabled selected>Selecione um cliente</option>
-										</select>
-									</div>
-								</div>
-								{* SELECT VLISTA *}
-								<div class="form-group">
-									<div class="input-group">
-										<div class="input-group-addon"><span class="fa fa-bullseye"></span></div>
-										<select id="selvlistas" class="form-control disabled" disabled>
-											<option class="disabled" disabled selected>Selecione uma palavra-chave</option>
 										</select>
 									</div>
 								</div>
@@ -409,6 +430,26 @@
 				$('#alertnameerr').fadeOut(100);
 				enable_el('#btncreatealert');
 				alertnamesuccess = 1;
+			}
+		});
+
+		$('.btntgl').click(function(event) {
+			// console.log($(this));
+			cid = $(this).attr('id');
+			if (cid == 'btntgvlista') {
+				$('.btntgl').removeClass('active');
+				$('#'+cid).addClass('active');
+				$('#divfrmgtveicu').slideUp(300);
+				$('#divfrmgvlista').slideDown(300, function() {
+					console.log('shown lista veiculo');
+				});
+			} else {
+				$('.btntgl').removeClass('active');
+				$('#'+cid).addClass('active');
+				$('#divfrmgvlista').slideUp(300);
+				$('#divfrmgtveicu').slideDown(300, function() {
+					console.log('shown tipo veiculo');
+				});
 			}
 		});
 
