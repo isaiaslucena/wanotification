@@ -469,7 +469,7 @@
 			creategroupalert.idkeyword = idkeyword
 
 			$('#selvlistas').html('<option class="disabled" disabled selected>Carregando...</option>');
-			if (idvlista === 0) {
+			if (idvlista == null) {
 				$('#selvlistas').html('<option data-idvlista="'+idvlista+'" class="taglistav" selected>Todos os veículos</option>');
 				enable_el('#selvlistas');
 				enable_el('#formbtnsub');

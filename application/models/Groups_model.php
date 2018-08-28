@@ -34,7 +34,7 @@ class Groups_model extends CI_Model {
 		return $this->db->query($sqlquery)->result_array();
 	}
 
-	public function group_alerts($idgroup) {
+	public function group _alerts($idgroup) {
 		$sqlquery = 'SELECT
 								anews.id_alert, anews.name, agroups.id_group, agroups.id_empresa,
 								agroups.priority
