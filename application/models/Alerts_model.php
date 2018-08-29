@@ -52,9 +52,9 @@ class Alerts_model extends CI_Model {
 
 	public function get_tipoveiculo() {
 		$dbmclipp = $this->load->database('mclipp', TRUE);
-		// $sqlquery = 'SELECT Id, Nome FROM TipoVeiculo ORDER BY Nome ASC';
-		$result = $this->dbmclipp->get('TipoVeiculo')->result_array();
-		// $result = $dbmclipp->query($sqlquery)->result_array();
+		$sqlquery = 'SELECT Id, Nome FROM TipoVeiculo ORDER BY Nome ASC';
+		// $result = $this->dbmclipp->get('TipoVeiculo')->result_array();
+		$result = $dbmclipp->query($sqlquery)->result_array();
 		$dbmclipp->close();
 		return $result;
 	}
