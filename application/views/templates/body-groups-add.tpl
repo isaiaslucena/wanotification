@@ -79,6 +79,69 @@
 							</div>
 						</div>
 
+						{* PANEL GROUP CONFS *}
+						<div id="panelgroupconf" class="panel panel-default" style="display: none">
+							<div class="panel-heading">
+								Configurações
+							</div>
+							<div id="panelgroupconfs" class="panel-body">
+								{* SELECT NUMBERS *}
+								<div class="form-group">
+									<div class="input-group">
+										<div class="btn-group" role="group" aria-label="...">
+											<button type="button" class="btn btn-default"><i class="fa fa-phone"></i></button>
+											<div class="btn-group" role="group">
+												<button id="ddownnumber" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													Selecione um número <span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu">
+													{foreach from=$numbers item=number}
+														<li><a href="#" data-idnumber="{$number.id_number}" data-nnumber="{$number.number}" class="tagnumber">
+															{$number.name} - {$number.number}
+														</a></li>
+													{/foreach}
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+								{* SELECT PRIORITY *}
+								<div class="form-group">
+									<div class="input-group">
+										<div class="btn-group" role="group" aria-label="...">
+											<button type="button" class="btn btn-default" data-toggle="tooltip" title="Prioridade do alerta"><i class="fa fa-exclamation-circle"></i></button>
+
+											<div class="btn-group" role="group">
+												<button id="ddownpriority" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													5 <span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu">
+													<li><a href="#" class="tagpriority">1</a></li>
+													<li><a href="#" class="tagpriority">2</a></li>
+													<li><a href="#" class="tagpriority">3</a></li>
+													<li><a href="#" class="tagpriority">4</a></li>
+													<li><a href="#" class="tagpriority">5</a></li>
+												</ul>
+											</div>
+										</div>
+										<h6 class="text-muted">Quanto menor o número, maior a prioridade.</h6>
+									</div>
+								</div>
+								{* SELECT EMPRESA *}
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-addon"><span class="fa fa-address-card"></span></div>
+										<select id="selempresas" class="form-control">
+											<option id="empselected" class="disabled" disabled selected>Selecione um cliente</option>
+											{foreach from=$clients item=client}
+												<option data-idclient="{$client.Id}" class="tagclient">{$client.Nome}</option>
+											{/foreach}
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+
 						{* PANEL ALERTS *}
 						<div id="panelalerts" class="panel panel-default" style="display: none">
 							<div class="panel-heading">
@@ -169,68 +232,6 @@
 							</div>
 						</div>
 
-						{* PANEL GROUP CONFS *}
-						<div id="panelgroupconf" class="panel panel-default" style="display: none">
-							<div class="panel-heading">
-								Configurações
-							</div>
-							<div id="panelgroupconfs" class="panel-body">
-								{* SELECT NUMBERS *}
-								<div class="form-group">
-									<div class="input-group">
-										<div class="btn-group" role="group" aria-label="...">
-											<button type="button" class="btn btn-default"><i class="fa fa-phone"></i></button>
-											<div class="btn-group" role="group">
-												<button id="ddownnumber" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													Selecione um número <span class="caret"></span>
-												</button>
-												<ul class="dropdown-menu">
-													{foreach from=$numbers item=number}
-														<li><a href="#" data-idnumber="{$number.id_number}" data-nnumber="{$number.number}" class="tagnumber">
-															{$number.name} - {$number.number}
-														</a></li>
-													{/foreach}
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-								{* SELECT PRIORITY *}
-								<div class="form-group">
-									<div class="input-group">
-										<div class="btn-group" role="group" aria-label="...">
-											<button type="button" class="btn btn-default" data-toggle="tooltip" title="Prioridade do alerta"><i class="fa fa-exclamation-circle"></i></button>
-
-											<div class="btn-group" role="group">
-												<button id="ddownpriority" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													5 <span class="caret"></span>
-												</button>
-												<ul class="dropdown-menu">
-													<li><a href="#" class="tagpriority">1</a></li>
-													<li><a href="#" class="tagpriority">2</a></li>
-													<li><a href="#" class="tagpriority">3</a></li>
-													<li><a href="#" class="tagpriority">4</a></li>
-													<li><a href="#" class="tagpriority">5</a></li>
-												</ul>
-											</div>
-										</div>
-										<h6 class="text-muted">Quanto menor o número, maior a prioridade.</h6>
-									</div>
-								</div>
-								{* SELECT EMPRESA *}
-								<div class="form-group">
-									<div class="input-group">
-										<div class="input-group-addon"><span class="fa fa-address-card"></span></div>
-										<select id="selempresas" class="form-control">
-											<option id="empselected" class="disabled" disabled selected>Selecione um cliente</option>
-											{foreach from=$clients item=client}
-												<option data-idclient="{$client.Id}" class="tagclient">{$client.Nome}</option>
-											{/foreach}
-										</select>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
 					<span id="responsemsg" class="help-block hidden text-center"></span>
 					<div class="form-group">
