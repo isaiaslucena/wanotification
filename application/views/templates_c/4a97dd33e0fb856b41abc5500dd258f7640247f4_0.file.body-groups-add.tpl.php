@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-08-28 14:31:14
+/* Smarty version 3.1.30, created on 2018-09-10 13:49:53
   from "/app/application/views/templates/body-groups-add.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5b8586e2a6a1e4_97820942',
+  'unifunc' => 'content_5b96a0b191d5e1_65001239',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4a97dd33e0fb856b41abc5500dd258f7640247f4' => 
     array (
       0 => '/app/application/views/templates/body-groups-add.tpl',
-      1 => 1535477471,
+      1 => 1535982288,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:body-banner.tpl' => 1,
   ),
 ),false)) {
-function content_5b8586e2a6a1e4_97820942 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5b96a0b191d5e1_65001239 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_679261545b8586e2a52eb8_28364390', 'body');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_13272541085b96a0b1906825_20054116', 'body');
 $_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
 /* {block 'body'} */
-class Block_679261545b8586e2a52eb8_28364390 extends Smarty_Internal_Block
+class Block_13272541085b96a0b1906825_20054116 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -132,107 +132,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 						</div>
 
 						
-						<div id="panelalerts" class="panel panel-default" style="display: none">
-							<div class="panel-heading">
-								<div class="input-group">
-									<div class="input-group-btn">
-										<button id="btnaddalert" type="button" class="btn btn-default" data-toggle="tooltip" title="Criar novo alerta">
-											<i class="fa fa-plus-circle"></i>
-										</button>
-									</div>
-									<input id="searchalerts" type="text" class="form-control search-input" aria-label="..." placeholder="&#xf002; Pesquisar alerta" autocomplete="off">
-								</div>
-							</div>
-							
-							<ul id="ulalerts" class="list-group" style="height: 300px; overflow-y: auto; overflow-x: hidden">
-								<?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['alerts']->value, 'alert');
-if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['alert']->value) {
-?>
-								<li class="list-group-item">
-									<div class="checkbox">
-										<label>
-											<input data-alertid="<?php echo $_smarty_tpl->tpl_vars['alert']->value['id_alert'];?>
-" class="alertckbx" type="checkbox" aria-label="..."> <?php echo $_smarty_tpl->tpl_vars['alert']->value['name'];?>
-
-										</label>
-									</div>
-								</li>
-								<?php
-}
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
-?>
-
-							</ul>
-							
-							<div id="uladdalert" class="panel-body" style="display: none">
-								
-								<div class="form-group">
-									<div class="input-group">
-										<div class="input-group-addon"><span class="fa fa-bell"></span></div>
-										<input class="form-control" type="text" id="alertname" placeholder="Nome do alerta" maxlength="25" autocomplete="off"/>
-									</div>
-									<span id="alertnameerr" class="help-block text-center has-error" style="display: none"></span>
-								</div>
-								
-								<div class="form-group">
-									<div class="input-group">
-										<div class="input-group-addon"><span class="fa fa-key"></span></div>
-										<select id="selkeywords" class="form-control disabled" disabled>
-											<option class="disabled" disabled selected>Selecione um cliente</option>
-										</select>
-									</div>
-								</div>
-
-								
-								<div class="form-group">
-									<div class="input-group">
-										<div class="btn-group center-block" role="group" aria-label="...">
-											<button id="btntgvlista" type="button" class="btn btn-default btntgl">Lista de veículo</button>
-											<button id="btntgtveicu" type="button" class="btn btn-default btntgl">Tipo de Veículo</button>
-										</div>
-									</div>
-								</div>
-
-								
-								<div id="divfrmgvlista" class="form-group" style="display: none">
-									<div class="input-group">
-										<div class="input-group-addon"><span class="fa fa-list-ul"></span></div>
-										<select id="selvlistas" class="form-control disabled" disabled>
-											<option class="disabled" disabled selected>Selecione uma palavra-chave</option>
-										</select>
-									</div>
-								</div>
-								
-								<div id="divfrmgtveicu" class="form-group" style="display: none">
-									<div class="input-group">
-										<div class="input-group-addon"><span class="fa fa-bullseye"></span></div>
-										<select id="selkeywords" class="form-control disabled" disabled multiple>
-											<option class="disabled" disabled selected>Selecione um tipo de veículo</option>
-										</select>
-									</div>
-								</div>
-
-								<span id="alertresponsemsg" class="help-block text-center has-error" style="display: none"></span>
-
-								
-								<div class="form-group">
-									<button id="btncreatealert" disabled class="btn btn-coke btn-block disabled">
-										<i class="fa fa-check-circle"></i> Criar alerta
-									</button>
-								</div>
-								
-								<div class="form-group">
-									<button role="button" class="btn btn-coke btn-block">
-										<i class="fa fa-times-circle"></i> Cancelar
-									</button>
-								</div>
-							</div>
-						</div>
-
-						
 						<div id="panelgroupconf" class="panel panel-default" style="display: none">
 							<div class="panel-heading">
 								Configurações
@@ -318,6 +217,108 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 								</div>
 							</div>
 						</div>
+
+						
+						<div id="panelalerts" class="panel panel-default" style="display: none">
+							<div class="panel-heading">
+								<div class="input-group">
+									<div class="input-group-btn">
+										<button id="btnaddalert" type="button" class="btn btn-default" data-toggle="tooltip" title="Criar novo alerta">
+											<i class="fa fa-plus-circle"></i>
+										</button>
+									</div>
+									<input id="searchalerts" type="text" class="form-control search-input" aria-label="..." placeholder="&#xf002; Pesquisar alerta" autocomplete="off">
+								</div>
+							</div>
+							
+							<ul id="ulalerts" class="list-group" style="height: 300px; overflow-y: auto; overflow-x: hidden">
+								<?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['alerts']->value, 'alert');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['alert']->value) {
+?>
+								<li class="list-group-item">
+									<div class="checkbox">
+										<label>
+											<input data-alertid="<?php echo $_smarty_tpl->tpl_vars['alert']->value['id_alert'];?>
+" class="alertckbx" type="checkbox" aria-label="..."> <?php echo $_smarty_tpl->tpl_vars['alert']->value['name'];?>
+
+										</label>
+									</div>
+								</li>
+								<?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
+?>
+
+							</ul>
+							
+							<div id="uladdalert" class="panel-body" style="display: none">
+								
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-addon"><span class="fa fa-bell"></span></div>
+										<input class="form-control" type="text" id="alertname" placeholder="Nome do alerta" maxlength="25" autocomplete="off"/>
+									</div>
+									<span id="alertnameerr" class="help-block text-center has-error" style="display: none"></span>
+								</div>
+								
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-addon"><span class="fa fa-key"></span></div>
+										<select id="selkeywords" class="form-control disabled" disabled>
+											<option class="disabled" disabled selected>Selecione um cliente</option>
+										</select>
+									</div>
+								</div>
+
+								
+								<div class="form-group">
+									<div class="input-group">
+										<div class="btn-group center-block" role="group" aria-label="...">
+											<button id="btntgvlista" type="button" class="btn btn-default btntgl">Lista de veículo</button>
+											<button id="btntgtveicu" type="button" class="btn btn-default btntgl">Tipo de Veículo</button>
+										</div>
+									</div>
+								</div>
+
+								
+								<div id="divfrmgvlista" class="form-group" style="display: none">
+									<div class="input-group">
+										<div class="input-group-addon"><span class="fa fa-list-ul"></span></div>
+										<select id="selvlistas" class="form-control disabled" disabled>
+											<option class="disabled" disabled selected>Selecione uma palavra-chave</option>
+										</select>
+									</div>
+								</div>
+								
+								<div id="divfrmgtveicu" class="form-group" style="display: none">
+									<div class="input-group">
+										<div class="input-group-addon"><span class="fa fa-bullseye"></span></div>
+										<select id="selkeywords" class="form-control disabled" disabled multiple>
+											<option class="disabled" disabled>Selecione um tipo de veículo</option>
+										</select>
+									</div>
+								</div>
+
+								<span id="alertresponsemsg" class="help-block text-center has-error" style="display: none"></span>
+
+								
+								<div class="form-group">
+									<button id="btncreatealert" disabled class="btn btn-coke btn-block disabled">
+										<i class="fa fa-check-circle"></i> Criar alerta
+									</button>
+								</div>
+								
+								<div class="form-group">
+									<button role="button" class="btn btn-coke btn-block">
+										<i class="fa fa-times-circle"></i> Cancelar
+									</button>
+								</div>
+							</div>
+						</div>
+
 					</div>
 					<span id="responsemsg" class="help-block hidden text-center"></span>
 					<div class="form-group">
@@ -527,15 +528,15 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 			if (cid == 'btntgvlista') {
 				$('.btntgl').removeClass('active');
 				$('#'+cid).addClass('active');
-				$('#divfrmgtveicu').slideUp('fast');
-				$('#divfrmgvlista').slideDown('slow', function() {
+				$('#divfrmgtveicu').slideUp(300);
+				$('#divfrmgvlista').slideDown(300, function() {
 					console.log('shown lista veiculo');
 				});
 			} else {
 				$('.btntgl').removeClass('active');
 				$('#'+cid).addClass('active');
-				$('#divfrmgvlista').slideUp('fast');
-				$('#divfrmgtveicu').slideDown('slow', function() {
+				$('#divfrmgvlista').slideUp(300);
+				$('#divfrmgtveicu').slideDown(300, function() {
 					console.log('shown tipo veiculo');
 				});
 			}
